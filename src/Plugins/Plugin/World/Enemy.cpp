@@ -1,4 +1,3 @@
-#include "ShSDK/ShSDK.h"
 #include "Enemy.h"
 
 /**

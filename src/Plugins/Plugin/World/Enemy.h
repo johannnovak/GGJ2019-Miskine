@@ -21,6 +21,5 @@ private:
 	int				m_health;
 
 	ShEntity2 *		m_pEntity;
-
 };
 
