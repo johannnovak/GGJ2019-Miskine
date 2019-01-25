@@ -9,14 +9,29 @@ set(SOURCES_Application Application.cpp Application.h)
 source_group("" FILES ${SOURCES_Application})
 
 # Game files
-set(SOURCES_Game Game.cpp Game.h)
+set(SOURCES_Game Game.cpp Game.h Game.inl)
 source_group("Game" FILES ${SOURCES_Game})
+
+# State files
+set(SOURCES_GameState GameStates/GameState.cpp GameStates/GameState.h)
+source_group("State" FILES ${SOURCES_GameState})
+
+# Main menu
+set(SOURCES_GameStateMainMenu GameStates/GameStateMainMenu.cpp GameStates/GameStateMainMenu.h)
+source_group("State\\MainMenu" FILES ${SOURCES_GameStateMainMenu})
+
+# Game
+set(SOURCES_GameStateGame GameStates/GameStateGame.cpp GameStates/GameStateGame.h)
+source_group("State\\Game" FILES ${SOURCES_GameStateGame})
 
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_main}
 ${SOURCES_Application}
 ${SOURCES_Game}
+${SOURCES_GameState}
+${SOURCES_GameStateMainMenu}
+${SOURCES_GameStateGame}
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")

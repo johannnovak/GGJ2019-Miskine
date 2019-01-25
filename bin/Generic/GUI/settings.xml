@@ -1,0 +1,35 @@
+<gui version="1.0">
+    <sss>
+        <style pseudo_state="default" id="settings" offset_x="-494.000000" offset_x_unit="auto" offset_y="-175.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_title" offset_x="-397.000000" offset_x_unit="auto" offset_y="-252.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobuttongroup_001" offset_x="-394.000000" offset_x_unit="auto" offset_y="140.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_difficulty" offset_x="-489.000000" offset_x_unit="auto" offset_y="-89.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_easy" offset_x="-162.000000" offset_x_unit="auto" offset_y="-63.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_easy" offset_x="147.000000" offset_x_unit="auto" offset_y="-82.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_medium" offset_x="124.000000" offset_x_unit="auto" offset_y="-44.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_medium" offset_x="212.000000" offset_x_unit="auto" offset_y="-94.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_hard" offset_x="89.000000" offset_x_unit="auto" offset_y="-139.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_hard" offset_x="194.000000" offset_x_unit="auto" offset_y="-123.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_buttons" offset_x="-453.600006" offset_x_unit="auto" offset_y="30.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="button_cancel" offset_x="181.199997" offset_x_unit="auto" offset_y="52.800003" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="button_ok" offset_x="207.600006" offset_x_unit="auto" offset_y="69.599998" offset_y_unit="auto"/>
+    </sss>
+    <root>
+        <panel id="settings" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+            <text id="text_title" pseudo_state="default" text="{settings}" text_type="rich"/>
+            <radiobuttongroup id="radiobuttongroup_001" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_weights="2.000000:1.000000|4.000000:1.000000|6.000000:1.000000" layout_default_weight="4.000000" is_unselectable="0">
+                <text id="text_difficulty" pseudo_state="default" text="{setting_difficulty_label}" text_type="rich"/>
+                <text id="text_easy" pseudo_state="default" text="{easy}" text_type="rich"/>
+                <radiobutton id="radiobutton_easy" pseudo_state="default" text="" text_type="rich"/>
+                <text id="text_medium" pseudo_state="default" text="{medium}" text_type="rich"/>
+                <radiobutton id="radiobutton_medium" pseudo_state="default" text="" text_type="rich"/>
+                <text id="text_hard" pseudo_state="default" text="hard" text_type="rich"/>
+                <radiobutton id="radiobutton_hard" pseudo_state="default" text="" text_type="rich"/>
+            </radiobuttongroup>
+            <panel id="panel_buttons" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <button id="button_cancel" pseudo_state="default" text="{cancel}" text_type="rich"/>
+                <button id="button_ok" pseudo_state="default" text="{save}" text_type="rich"/>
+            </panel>
+        </panel>
+    </root>
+</gui>

@@ -1,0 +1,22 @@
+<gui version="1.0">
+    <sss>
+        <style pseudo_state="default" id="credits" offset_x="-234.000000" offset_x_unit="auto" offset_y="-126.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_title" offset_x="-376.000000" offset_x_unit="auto" offset_y="-148.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_names" offset_x="-441.000000" offset_x_unit="auto" offset_y="67.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_devs" offset_x="-437.000000" offset_x_unit="auto" offset_y="-85.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_devs" offset_x="-390.000000" offset_x_unit="auto" offset_y="58.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_graphics" offset_x="-452.000000" offset_x_unit="auto" offset_y="-28.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_graphics" offset_x="-359.000000" offset_x_unit="auto" offset_y="-5.000000" offset_y_unit="auto"/>
+    </sss>
+    <root>
+        <panel id="credits" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+            <text id="text_title" pseudo_state="default" text="{credits}" text_type="rich"/>
+            <panel id="panel_names" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <text id="text_devs" pseudo_state="default" text="{developpers}" text_type="rich"/>
+                <panel id="panel_devs" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+                <text id="text_graphics" pseudo_state="default" text="{graphic_designers}" text_type="rich"/>
+                <panel id="panel_graphics" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+            </panel>
+        </panel>
+    </root>
+</gui>
