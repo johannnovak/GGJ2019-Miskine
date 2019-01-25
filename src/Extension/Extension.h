@@ -8,7 +8,7 @@
 #		define EXTENSION_EXPORT __declspec(dllimport)
 #	endif // Extension_EXPORTS
 #else // defined(_WIN32)
-#	define Extension_EXPORTS
+#	define EXTENSION_EXPORT
 #endif
 
 class CShIdentifier;
