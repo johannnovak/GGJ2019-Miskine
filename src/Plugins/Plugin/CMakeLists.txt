@@ -31,6 +31,10 @@ source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 set(SOURCES_Enemy World/Enemy.cpp World/Enemy.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
+# TowerBase files
+set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h)
+source_group("World\\Tower" FILES ${SOURCES_Towers})
+
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_Plugin}
@@ -38,6 +42,7 @@ ${SOURCES_Factory}
 ${SOURCES_World}
 ${SOURCES_Inputs}
 ${SOURCES_Enemy}
+${SOURCES_Towers}
 )
 
 # Compile to use it on Runtime
