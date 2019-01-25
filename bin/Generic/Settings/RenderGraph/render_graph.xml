@@ -1,0 +1,28 @@
+<render_graph graph_name="render_graph" engine_save_ver="0.0.0">
+    <render_target_list>
+    </render_target_list>
+
+    <framebuffer_list>
+    </framebuffer_list>
+
+    <render_pass_list>
+
+        <render_pass type="RendererPrimitive" framebuffer="default_framebuffer">
+            <input id="render_filter"                   value="3D"/>
+        </render_pass>
+
+        <render_pass type="RendererBillboard" framebuffer="default_framebuffer">
+        </render_pass>
+
+        <render_pass type="Renderer2D" framebuffer="default_framebuffer">
+        </render_pass>
+        
+        <render_pass type="RendererPrimitive" framebuffer="default_framebuffer">
+            <input id="render_filter"                   value="2D"/>
+        </render_pass>
+
+        <render_pass type="RendererGUI" framebuffer="default_framebuffer">
+        </render_pass>
+
+    </render_pass_list>
+</render_graph>
