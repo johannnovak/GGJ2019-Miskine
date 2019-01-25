@@ -17,7 +17,6 @@ public:
 private:
 
 	ShEntity2 *		m_pEntity;
-	ShPath *		m_pPath;
 
 };
 
