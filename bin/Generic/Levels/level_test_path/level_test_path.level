@@ -21,7 +21,7 @@
         <prefab_list/>
     </preload>
     <layer_list>
-        <layer name="layer_default" show="true" position_x="0.000000" position_y="0.000000" position_z="0.000000" min_x="-447.599731" min_y="-255.725983" max_x="800.000000" max_y="800.000000"/>
+        <layer name="layer_default" show="true" position_x="0.000000" position_y="0.000000" position_z="0.000000" min_x="-447.599701" min_y="-255.725998" max_x="2000.000000" max_y="2000.000000"/>
         <layer name="layer_gui" show="true" position_x="0.000000" position_y="0.000000" position_z="0.000000" min_x="0.000000" min_y="0.000000" max_x="0.000000" max_y="0.000000"/>
     </layer_list>
     <object_list>
@@ -40,8 +40,8 @@
             <path_tangent_point name="path_auto_001.3_out" position_x="-195.654068" position_y="-78.261566" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000"/>
         </point_list>
         <entity2_list>
-            <entity2 name="sprite_game_blackbackground_001" position_x="0.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="200.000000" scale_y="200.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="blackbackground" blend_function="alpha"/>
-            <entity2 name="sprite_player_walk_01_001" position_x="-447.599731" position_y="-255.725983" position_z="-0.000183" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="player" sprite_name="walk_01" blend_function="alpha"/>
+            <entity2 name="sprite_game_blackbackground_001" position_x="0.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="500.000000" scale_y="500.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="blackbackground" blend_function="alpha"/>
+            <entity2 name="sprite_player_walk_01_001" position_x="-447.599701" position_y="-255.725998" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="player" sprite_name="walk_01" blend_function="alpha"/>
         </entity2_list>
         <ruler_list/>
         <text_zone_list/>
@@ -115,6 +115,6 @@
         <translate_z enabled="true"/>
         <grid enabled="false" position_x="0.000000" position_y="0.000000" position_z="0.000000" size_x="100.000000" size_y="100.000000" subdivision_x="10" subdivision_y="10"/>
         <show_markers enabled="false"/>
-        <camera position_x="-0.000000" position_y="-0.000386" position_z="1228.090088" target_x="0.000000" target_y="0.000000" target_z="0.000000" znear="1.000000" zfar="40000.000000" zoom="1.228090" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="1" arcball_x="-1228.090088" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
+        <camera position_x="-39.298920" position_y="-92.107269" position_z="1644.405396" target_x="-39.298912" target_y="-92.106750" target_z="0.000000" znear="1.000000" zfar="40000.000000" zoom="1.644405" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="1" arcball_x="-1644.405273" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
     </editor_settings>
 </level>

@@ -27,6 +27,7 @@ void Enemy::Initialize(const CShIdentifier & levelIdentifier, const CShIdentifie
 	m_pEntity = ShEntity2::Find(levelIdentifier, spriteIdentifier);
 	SH_ASSERT(shNULL != m_pEntity);
 
+	m_pPath = pPath;
 }
 
 /**
@@ -43,7 +44,7 @@ void Enemy::Release(void)
 static float fTime = 0.0f;
 void Enemy::Update(float dt)
 {
-	fTime += 1.0f;
+	fTime += 0.1f * dt;
 	CShVector3 newPos = ShPath::GetPositionAtTime(m_pPath, fTime);
 	ShEntity2::SetWorldPosition(m_pEntity, newPos);
 }
