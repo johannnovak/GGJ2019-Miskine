@@ -27,22 +27,12 @@ source_group("World" FILES ${SOURCES_World})
 set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 
-# Character files
-set(SOURCES_BaseCharacter World/Character/BaseCharacter.cpp World/Character/BaseCharacter.h)
-source_group("World\\Character" FILES ${SOURCES_BaseCharacter})
-
-# Character files
-set(SOURCES_PlayerCharacter World/Character/PlayerCharacter.cpp World/Character/PlayerCharacter.h)
-source_group("World\\Character" FILES ${SOURCES_PlayerCharacter})
-
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_Plugin}
 ${SOURCES_Factory}
 ${SOURCES_World}
 ${SOURCES_Inputs}
-${SOURCES_BaseCharacter}
-${SOURCES_PlayerCharacter}
 )
 
 # Compile to use it on Runtime
