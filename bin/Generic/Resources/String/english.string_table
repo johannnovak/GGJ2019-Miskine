@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<string_table name="english">
+	<entry name="start_new_game" value="Start a new game"/>
+	<entry name="load_existing_game" value="Load an existing game"/>
+	<entry name="settings" value="Settings"/>
+	<entry name="credits" 	value="Credits"/>
+
+	<entry name="team_introduction_title" 	value="Family members with you :"/>
+	<entry name="play" 	value="Play !"/>
+
+	<entry name="load_existing_game_title" 		value="Choose a game save :"/>
+	<entry name="ok" 	value="OK"/>
+	<entry name="back" 	value="Back"/>
+	
+	<entry name="setting_difficulty_label" value="Difficulty :" />
+	<entry name="easy" value="Easy" />
+	<entry name="medium" value="Medium" />
+	<entry name="hard" value="Hard" />
+
+	<entry name="developpers" value="Developpers :" />
+	<entry name="graphic_designers" value="Graphics Designers :" />
+
+</string_table>
