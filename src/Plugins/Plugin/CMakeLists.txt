@@ -27,12 +27,17 @@ source_group("World" FILES ${SOURCES_World})
 set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 
+# Enemy files
+set(SOURCES_Enemy World/Enemy.cpp World/Enemy.h)
+source_group("World\\Enemy" FILES ${SOURCES_Enemy})
+
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_Plugin}
 ${SOURCES_Factory}
 ${SOURCES_World}
 ${SOURCES_Inputs}
+${SOURCES_Enemy}
 )
 
 # Compile to use it on Runtime
