@@ -1,6 +1,7 @@
-#include "World.h"
-
 #include "ShSDK/ShSDK.h"
+
+#include "World.h"
+#include "Enemy.h";
 
 /**
  * @brief Constructor
@@ -28,6 +29,13 @@ void World::Initialize(void)
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
+
+	CShIdentifier levelIdentifier = CShIdentifier("level_test_path");
+
+	ShPath * pPath = ShPath::Find(levelIdentifier, CShIdentifier("path_auto_001"));
+
+	m_pEnemy = new Enemy();
+	m_pEnemy->Initialize(levelIdentifier, CShIdentifier("sprite_player_walk_01_001"), pPath);
 }
 
 /**
@@ -35,6 +43,9 @@ void World::Initialize(void)
  */
 void World::Release(void)
 {
+	m_pEnemy->Release();
+	SH_SAFE_DELETE(m_pEnemy);
+
 	m_inputManager.Release();
 }
 
@@ -44,5 +55,6 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
+	m_pEnemy->Update(dt);
 
 }

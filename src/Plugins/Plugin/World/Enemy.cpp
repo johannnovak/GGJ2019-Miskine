@@ -43,7 +43,7 @@ void Enemy::Release(void)
 static float fTime = 0.0f;
 void Enemy::Update(float dt)
 {
-	fTime += dt;
+	fTime += 1.0f;
 	CShVector3 newPos = ShPath::GetPositionAtTime(m_pPath, fTime);
 	ShEntity2::SetWorldPosition(m_pEntity, newPos);
 }
