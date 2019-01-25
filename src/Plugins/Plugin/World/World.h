@@ -1,7 +1,6 @@
 #pragma once
 
 #include "InputManager.h"
-#include "Enemy.h"
 
 class World
 {
@@ -18,7 +17,5 @@ public:
 private:
 
 	PluginInputManager	m_inputManager;
-
-	Enemy *				m_pEnemy;
 };
 

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<string_table name="english">
+	<entry name="start_new_game" value="Start a new game"/>
+	<entry name="load_existing_game" value="Load an existing game"/>
+	<entry name="settings" value="Settings"/>
+	<entry name="credits" 	value="Credits"/>
+
+	<entry name="team_introduction_title" 	value="Family members with you :"/>
+	<entry name="play" 	value="Play !"/>
+
+	<entry name="load_existing_game_title" 		value="Choose a game save :"/>
+	<entry name="ok" 	value="OK"/>
+	<entry name="back" 	value="Back"/>
+	
+	<entry name="setting_difficulty_label" value="Difficulty :" />
+	<entry name="easy" value="Easy" />
+	<entry name="medium" value="Medium" />
+	<entry name="hard" value="Hard" />
+
+	<entry name="developpers" value="Developpers :" />
+	<entry name="graphic_designers" value="Graphics Designers :" />
+
+	<entry name="ig_wave_label" value="Wave :" />
+	<entry name="ig_menu" value="Menu" />
+	<entry name="ig_money_label" value="PireCoin :" />
+	<entry name="ig_hp_label" value="HP :" />
+
+	<entry name="ig_pause_menu_title" value="Pause" />
+	<entry name="ig_pause_menu_exit" value="Exit to main menu" />
+	<entry name="ig_pause_menu_resume" value="Resume" />
+</string_table>
