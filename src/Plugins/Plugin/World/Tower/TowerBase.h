@@ -2,7 +2,7 @@
 
 #include "ShSDK/ShSDK.h"
 
-class enemy;
+class Enemy;
 
 class TowerBase
 {
@@ -21,10 +21,10 @@ public:
 		focus_biggest_lifebase,
 	};
 
-	explicit	 TowerBase		(ETowerType towerType, EFocusType focusType, float damage, float attackSpeed);
+	explicit	 TowerBase		(void);
 	virtual		~TowerBase		(void);
 
-	void		Initialize		(void);
+	void		Initialize		(ETowerType towerType, EFocusType focusType, float damages, float attackSpeed);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -37,7 +37,7 @@ protected:
 	float					m_fRadiusMin;
 	float					m_fRadiusMax;
 
-	float					m_fDamage;
+	float					m_fDamages;
 
 	bool					m_bIsAttacking;
 	float					m_fAttackCooldown;
@@ -45,8 +45,10 @@ protected:
 
 	int						m_level;
 
-	enemy *					m_pCurrentTarget;
+	Enemy *					m_pCurrentTarget;
 
+	float					m_fAnimationDt;
+	float					m_fAnimationSpeed;
 	CShArray<ShEntity2 *>	m_aAttackAnimation;
 
 	//Évolutions possibles	

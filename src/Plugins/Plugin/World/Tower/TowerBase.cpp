@@ -2,15 +2,19 @@
 
 #include "ShSDK/ShSDK.h"
 
+#include "../Enemy.h"
+
 /**
  * @brief Constructor
  */
-TowerBase::TowerBase(ETowerType towerType, EFocusType focusType, float damage, float attackSpeed)
-: m_eTowerType(towerType)
-, m_eFocusType(focusType)
-, m_fDamage(damage)
+TowerBase::TowerBase(void)
+: m_eTowerType(tower_melee)
+, m_eFocusType(focus_nearest)
+, m_fDamages(0.0f)
 , m_fAttackCooldown(0.0f)
-, m_fAttackSpeed(attackSpeed)
+, m_fAttackSpeed(0.0f)
+, m_fAnimationDt(0.0f)
+, m_fAnimationSpeed(0.0f)
 {
 
 }
@@ -26,8 +30,13 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(void)
+void TowerBase::Initialize(ETowerType towerType, EFocusType focusType, float damages, float attackSpeed)
 {
+	m_eTowerType = towerType;
+	m_eFocusType = focusType;
+	m_fDamages = damages;
+	m_fAttackSpeed = attackSpeed;
+	m_fAnimationSpeed = 0.5f;
 }
 
 /**
@@ -54,7 +63,13 @@ void TowerBase::Update(float dt)
 {
 	if (m_bIsAttacking)
 	{
-
+		m_fAnimationDt += dt;
+		if (m_fAnimationDt >= m_fAnimationSpeed)
+		{ // Attack ended
+			m_bIsAttacking = false;
+			m_fAnimationDt = 0.0f;
+			m_pCurrentTarget->TakeDamages(m_fDamages);
+		}
 	}
 	else
 	{
