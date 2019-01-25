@@ -7,7 +7,7 @@
 
     <render_pass_list>
 
-        <render_pass type="RendererPrimitive" framebuffer="default_framebuffer" attachment_operation="clear_color_depth">
+        <render_pass type="RendererPrimitive" framebuffer="default_framebuffer">
             <input id="render_filter"                   value="3D"/>
         </render_pass>
 
