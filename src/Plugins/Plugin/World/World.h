@@ -1,7 +1,6 @@
 #pragma once
 
 #include "InputManager.h"
-#include "Character/PlayerCharacter.h"
 
 class World
 {
@@ -17,10 +16,6 @@ public:
 
 private:
 
-	b2World *			m_pbWorld;
-
 	PluginInputManager	m_inputManager;
-
-	PlayerCharacter		m_playerCharacter;
 };
 

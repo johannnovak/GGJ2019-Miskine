@@ -6,7 +6,6 @@
  * @brief Constructor
  */
 World::World(void)
-: m_pbWorld(shNULL)
 {
 	// ...
 }
@@ -25,15 +24,10 @@ World::~World(void)
  */
 void World::Initialize(void)
 {
-	b2Vec2 gravity(0, -9.8);
-	m_pbWorld = new b2World(gravity);
-
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
-
-	m_playerCharacter.Initialize(m_pbWorld, &m_inputManager);
 }
 
 /**
@@ -41,10 +35,7 @@ void World::Initialize(void)
  */
 void World::Release(void)
 {
-	m_playerCharacter.Release();
 	m_inputManager.Release();
-
-	SH_SAFE_DELETE(m_pbWorld);
 }
 
 /**
@@ -53,5 +44,5 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
-	m_playerCharacter.Update(dt);
+
 }
