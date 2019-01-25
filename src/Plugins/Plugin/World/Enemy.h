@@ -6,15 +6,17 @@ class Enemy
 {
 public:
 
-	explicit	 Enemy			(void);
-	virtual		~Enemy			(void);
+	explicit	 Enemy				(void);
+	virtual		~Enemy				(void);
 
-	void		Initialize		(const CShIdentifier & levelIdentifier, const CShIdentifier & spriteIdentifier, const CShVector3 & position, int health);
-	void		Release			(void);
+	void		Initialize			(const CShIdentifier & levelIdentifier, const CShIdentifier & spriteIdentifier, const CShVector3 & position, int health);
+	void		Release				(void);
 
-	void		Update			(float dt);
+	void		Update				(float dt);
 
-	void		TakeDamages		(float damages);
+	void		TakeDamages			(float damages);
+
+	const CShVector3 & GetPosition	(void);
 
 private:
 

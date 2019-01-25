@@ -65,3 +65,8 @@ void Enemy::TakeDamages(float damages)
 		
 	}
 }
+
+const CShVector3 & Enemy::GetPosition(void)
+{
+	return m_vPosition;
+}
