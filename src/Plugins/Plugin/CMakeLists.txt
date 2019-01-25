@@ -27,12 +27,17 @@ source_group("World" FILES ${SOURCES_World})
 set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 
+# TowerBase files
+set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h)
+source_group("World\\Tower" FILES ${SOURCES_Towers})
+
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_Plugin}
 ${SOURCES_Factory}
 ${SOURCES_World}
 ${SOURCES_Inputs}
+${SOURCES_Towers}
 )
 
 # Compile to use it on Runtime
