@@ -1,10 +1,27 @@
 #pragma once
 
+#include "ShSDK/ShSDK.h"
+
+class enemy;
+
 class TowerBase
 {
 public:
 
-	explicit	 TowerBase		(void);
+	enum ETowerType
+	{
+		tower_melee,
+		tower_range
+	};
+
+	enum EFocusType
+	{
+		focus_nearest,
+		focus_most_life,
+		focus_biggest_lifebase,
+	};
+
+	explicit	 TowerBase		(ETowerType towerType, EFocusType focusType, float damage, float attackSpeed);
 	virtual		~TowerBase		(void);
 
 	void		Initialize		(void);
@@ -12,8 +29,26 @@ public:
 
 	void		Update			(float dt);
 
-private:
-
+protected:
 	
+	ETowerType				m_eTowerType;
+	EFocusType				m_eFocusType;
+
+	float					m_fRadiusMin;
+	float					m_fRadiusMax;
+
+	float					m_fDamage;
+
+	bool					m_bIsAttacking;
+	float					m_fAttackCooldown;
+	float					m_fAttackSpeed;
+
+	int						m_level;
+
+	enemy *					m_pCurrentTarget;
+
+	CShArray<ShEntity2 *>	m_aAttackAnimation;
+
+	//Évolutions possibles	
 };
 
