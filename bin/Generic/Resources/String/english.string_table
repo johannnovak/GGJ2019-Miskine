@@ -24,6 +24,38 @@
 	<entry name="ig_menu" value="Menu" />
 	<entry name="ig_money_label" value="PireCoin :" />
 	<entry name="ig_hp_label" value="HP :" />
+	<entry name="ig_towers_label" value="Family members :" />
+	
+	<entry name="fam_member_father" value="Father" />
+	<entry name="fam_member_mother" value="Mother" />
+	<entry name="fam_member_son" value="Son" />
+	<entry name="fam_member_daughter" value="Daughter" />
+	<entry name="fam_member_husband_wife" value="Husband/Wife" />
+	<entry name="fam_member_grand_father" value="Grand Father" />
+	<entry name="fam_member_grand_mother" value="Grand Mother" />
+	<entry name="fam_member_grand_grand_father" value="Grand Grand Father" />
+	<entry name="fam_member_grand_grand_mother" value="Grand Grand Mother" />
+	<entry name="fam_member_uncle" value="Uncle" />
+	<entry name="fam_member_aunt" value="Aunt" />
+	<entry name="fam_member_nephew" value="Nephew" />
+	<entry name="fam_member_cousin" value="Cousin" />
+	<entry name="fam_member_faraway_cousin" value="Faraway Cousin" />
+	<entry name="fam_member_annoying_cousin" value="Annoying Cousin" />
+	<entry name="fam_member_big_brother" value="Big Brother" />
+	<entry name="fam_member_big_sister" value="Big Sister" />
+	<entry name="fam_member_little_brother" value="Little Brother" />
+	<entry name="fam_member_little_sister" value="Little Sister" />
+	<entry name="fam_member_god_father" value="God Father" />
+	<entry name="fam_member_god_mother" value="God Mother" />
+	<entry name="fam_member_step_brother" value="Step Brother" />
+	<entry name="fam_member_step_sister" value="Step Sister" />
+	<entry name="fam_member_baby" value="Baby" />
+	<entry name="fam_member_twins" value="Twins" />
+	<entry name="fam_member_dog_medor" value="Dog Medor" />
+	<entry name="fam_member_dog_pilou" value="Dog Pilou" />
+	<entry name="fam_member_cow_margherite" value="Cow_margherite" />
+	<entry name="fam_member_monique_group" value="Monique Group" />
+	<entry name="fam_member_genetic_parents" value="Genetic Parents" />
 
 	<entry name="ig_pause_menu_title" value="Pause" />
 	<entry name="ig_pause_menu_exit" value="Exit to main menu" />
