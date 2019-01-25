@@ -9,6 +9,7 @@
 	<entry name="play" 	value="Play !"/>
 
 	<entry name="load_existing_game_title" 		value="Choose a game save :"/>
+	<entry name="empty" value="Empty"/>
 	<entry name="ok" 	value="OK"/>
 	<entry name="back" 	value="Back"/>
 	
@@ -16,6 +17,8 @@
 	<entry name="easy" value="Easy" />
 	<entry name="medium" value="Medium" />
 	<entry name="hard" value="Hard" />
+	<entry name="save" 	value="Save"/>
+	<entry name="cancel" 	value="Cancel"/>
 
 	<entry name="developpers" value="Developpers :" />
 	<entry name="graphic_designers" value="Graphics Designers :" />
