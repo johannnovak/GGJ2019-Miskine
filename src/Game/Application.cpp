@@ -1,6 +1,8 @@
 #include "Application.h"
 #include "Game.h"
 
+#include <ShSDK/ShSDK.h>
+
 #include "PluginFactory.h"
 
 extern "C"
@@ -26,8 +28,8 @@ void OnPostInitialize(void)
 {
 	RegisterPlugin();
 
-	Game * pGame = Game::GetInstance();
-	pGame->Initialize();
+	Game & game = Game::GetInstance();
+	game.Initialize();
 }
 
 /**
@@ -36,8 +38,8 @@ void OnPostInitialize(void)
  */
 void OnPreUpdate(float dt)
 {
-	Game * pGame = Game::GetInstance();
-	pGame->Update(dt);
+	Game & game = Game::GetInstance();
+	game.Update(dt);
 }
 
 /**
@@ -54,8 +56,8 @@ void OnPostUpdate(float dt)
  */
 void OnPreRelease(void)
 {
-	Game * pGame = Game::GetInstance();
-	pGame->Release();
+	Game & game = Game::GetInstance();
+	game.Release();
 
 	UnRegisterPlugin();
 }
