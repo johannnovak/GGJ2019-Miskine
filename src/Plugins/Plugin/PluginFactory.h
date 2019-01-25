@@ -1,7 +1,7 @@
 #pragma once
 
 #if defined(_WIN32)
-#	if defined(PluginST_Editor_EXPORTS)
+#	if defined(Plugin_Editor_EXPORTS)
 #		define PLUGIN_FACTORY_EXPORT __declspec(dllexport)
 #	else
 #		define PLUGIN_FACTORY_EXPORT //__declspec(dllimport)
