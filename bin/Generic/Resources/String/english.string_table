@@ -20,4 +20,12 @@
 	<entry name="developpers" value="Developpers :" />
 	<entry name="graphic_designers" value="Graphics Designers :" />
 
+	<entry name="ig_wave_label" value="Wave :" />
+	<entry name="ig_menu" value="Menu" />
+	<entry name="ig_money_label" value="PireCoin :" />
+	<entry name="ig_hp_label" value="HP :" />
+
+	<entry name="ig_pause_menu_title" value="Pause" />
+	<entry name="ig_pause_menu_exit" value="Exit to main menu" />
+	<entry name="ig_pause_menu_resume" value="Resume" />
 </string_table>
