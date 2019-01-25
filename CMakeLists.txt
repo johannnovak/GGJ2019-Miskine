@@ -30,12 +30,6 @@ include(cmake/TargetBuildSAAS.cmake)
 
 ConfigureShineSAAS()
 
-option(BOX2D_INSTALL "Install Box2D libs, includes, and CMake scripts" OFF)
-option(BOX2D_BUILD_EXAMPLES "Build Box2D examples" OFF)
-option(BOX2D_BUILD_SHARED "Build Box2D shared libraries" ON)
-
-add_subdirectory(Box2D/Box2D Box2D)
-
 add_subdirectory(src)
 
 set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT "Game")
