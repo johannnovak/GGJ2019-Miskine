@@ -1,5 +1,6 @@
 #include "ShSDK/ShSDK.h"
 
+#include "PathFinding/Graph.h"
 #include "World.h"
 
 /**
@@ -28,6 +29,14 @@ void World::Initialize(void)
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
+
+	ShDummyAABB2* pDummy = ShDummyAABB2::Find(CShIdentifier("level_test_pathfinding"), CShIdentifier("dummy_aabb2_auto_001"));
+	SH_ASSERT(shNULL != pDummy);
+	
+	ShEntity2* pEntity = ShEntity2::Find(CShIdentifier("level_test_pathfinding"), CShIdentifier("sprite_player_walk_01_001"));
+	CShVector2 vPosition = ShEntity2::GetWorldPosition2(pEntity);
+
+	g_graph.Initialize(pDummy);
 }
 
 /**

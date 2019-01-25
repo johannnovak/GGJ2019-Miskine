@@ -19,7 +19,7 @@ Game * Game::GetInstance(void)
 
 void Game::Initialize()
 {
-	if (!ShLevel::Load(CShIdentifier("level_test_path")))
+	if (!ShLevel::Load(CShIdentifier("level_test_pathfinding")))
 	{
 		SH_ASSERT_ALWAYS();
 	}
