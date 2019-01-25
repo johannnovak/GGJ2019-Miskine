@@ -28,7 +28,7 @@ set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 
 # Enemy files
-set(SOURCES_Enemy World/Enemy.cpp World/Enemy.h)
+set(SOURCES_Enemy World/Enemy.cpp World/Enemy.h World/EnemyManager.cpp World/EnemyManager.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
 # TowerBase files
