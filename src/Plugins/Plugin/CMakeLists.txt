@@ -48,8 +48,12 @@ ${SOURCES_Towers}
 # Compile to use it on Runtime
 add_library(Plugin STATIC ${SOURCES})
 set_property(TARGET Plugin PROPERTY FOLDER "Runtime")
-set_property(TARGET Plugin APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPILE_DEFINITIONS}" -fno-exceptions -fno-rtti)
+set_property(TARGET Plugin APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPILE_DEFINITIONS}")
 set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS}")
+
+if (NOT MSVC)
+set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
+endif()
 
 target_link_libraries(Plugin INTERFACE ${SHSDK_LIBRARIES})
 
