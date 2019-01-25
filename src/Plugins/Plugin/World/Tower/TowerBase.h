@@ -24,7 +24,7 @@ public:
 	explicit	 TowerBase		(void);
 	virtual		~TowerBase		(void);
 
-	void		Initialize		(ETowerType towerType, EFocusType focusType, float damages, float attackSpeed);
+	void		Initialize		(ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -33,6 +33,8 @@ protected:
 	
 	ETowerType				m_eTowerType;
 	EFocusType				m_eFocusType;
+
+	CShVector3				m_vPosition;
 
 	float					m_fRadiusMin;
 	float					m_fRadiusMax;

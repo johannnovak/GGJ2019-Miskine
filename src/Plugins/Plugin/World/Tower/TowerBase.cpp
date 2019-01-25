@@ -2,6 +2,7 @@
 
 #include "ShSDK/ShSDK.h"
 
+#include "../EnemyManager.h"
 #include "../Enemy.h"
 
 /**
@@ -10,11 +11,13 @@
 TowerBase::TowerBase(void)
 : m_eTowerType(tower_melee)
 , m_eFocusType(focus_nearest)
+, m_vPosition(CShVector3::ZERO)
 , m_fDamages(0.0f)
 , m_fAttackCooldown(0.0f)
 , m_fAttackSpeed(0.0f)
 , m_fAnimationDt(0.0f)
 , m_fAnimationSpeed(0.0f)
+, m_aAttackAnimation()
 {
 
 }
@@ -30,10 +33,11 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(ETowerType towerType, EFocusType focusType, float damages, float attackSpeed)
+void TowerBase::Initialize(ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
 {
 	m_eTowerType = towerType;
 	m_eFocusType = focusType;
+	m_vPosition = position;
 	m_fDamages = damages;
 	m_fAttackSpeed = attackSpeed;
 	m_fAnimationSpeed = 0.5f;
