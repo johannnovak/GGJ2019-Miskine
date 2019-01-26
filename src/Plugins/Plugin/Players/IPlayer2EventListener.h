@@ -12,6 +12,11 @@ class IPlayer2EventListener
 {
 public:
 	//
+	// To notify available EventTypes
+	virtual void		OnEventTypeAvailable				(Player2Event * pEvent) = 0;
+	virtual void		OnEventTypeUnavailable				(Player2Event * pEvent) = 0;
+
+	//
 	// To change bottom menu
 	virtual void		OnEventTypeChanged					(Player2Event * pOldEvent, Player2Event * pNewEvent) = 0; 
 	virtual void		OnEventTypeFinished					(Player2Event * pEvent) = 0;

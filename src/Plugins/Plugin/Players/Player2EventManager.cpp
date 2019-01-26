@@ -107,7 +107,7 @@ bool Player2EventManager::ChooseEventType(EPlayer2EventType eEventType)
 		//
 		// Update current event index and remove the chosen one from the available ones
 		m_pCurrentEvent = m_apEvents[eEventType];
-		m_aAvailableEvents[m_pCurrentEvent->GetType()] = false;
+		SetEventTypeUnavailable(m_pCurrentEvent->GetType());
 
 		return true;
 	}
@@ -181,13 +181,37 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
 /**
  * @brief PollNewEvents
  */
+void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
+{
+	m_aAvailableEvents[eType] = true;
+
+	//
+	// Notify listeners
+	m_pPlayer2EventListener->OnEventTypeAvailable(&m_aAvailableEvents[eType]);
+}
+
+/**
+ * @brief PollNewEvents
+ */
+void Player2EventManager::SetEventTypeUnavailable(EPlayer2EventType eType)
+{
+	m_aAvailableEvents[eType] = false;
+
+	//
+	// Notify listeners
+	m_pPlayer2EventListener->OnEventTypeUnavailable(&m_aAvailableEvents[eType]);
+}
+
+/**
+ * @brief PollNewEvents
+ */
 void Player2EventManager::PollNewEvents(float dt)
 {
 	//
 	// Event TypeWord always accessible
 	if (!m_aAvailableEvents[e_player2_event_type_type_words])
 	{
-		m_aAvailableEvents[e_player2_event_type_type_words] = true;
+		SetEventTypeAvailable(e_player2_event_type_type_words);
 	}
 
 	//
