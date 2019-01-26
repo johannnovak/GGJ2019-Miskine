@@ -17,13 +17,13 @@ public:
 
 	void		Update				(float dt);
 
-	void		CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+	void		CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 
 	void		GetTowerList		(CShArray<TowerBase *>& aTowerList);
 
 private:
-	void		CreateMeleeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
-	void		CreateRangeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+	void		CreateMeleeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
+	void		CreateRangeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 
 private:
 	CShIdentifier			m_levelIdentifier;

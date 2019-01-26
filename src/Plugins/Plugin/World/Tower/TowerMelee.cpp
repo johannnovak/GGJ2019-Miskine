@@ -28,7 +28,7 @@ TowerMelee::~TowerMelee(void)
 /**
  * @brief Initialize
  */
-void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_eTowerAttackType = tower_melee;
 
@@ -119,7 +119,7 @@ void TowerMelee::Update(float dt)
 
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
-						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+						const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 						CShArray<Enemy*> aEnemyList;
 						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -146,7 +146,7 @@ void TowerMelee::Update(float dt)
 		{
 			if (m_pCurrentTarget)
 			{
-				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
@@ -175,7 +175,7 @@ void TowerMelee::Update(float dt)
 					{
 					case focus_nearest:
 					{
-						const CShVector3 & enemyPos = pEnemy->GetPosition();
+						const CShVector2 & enemyPos = pEnemy->GetPosition();
 						float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
 
 						if (dist < distSquared)

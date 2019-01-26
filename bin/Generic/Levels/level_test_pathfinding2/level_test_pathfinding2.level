@@ -50,9 +50,6 @@
             <dummy_aabb2 name="dummy_aabb2_auto_010" position_x="-347.015930" position_y="197.762253" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-20.736633" min_y="12.787613" max_x="20.736633" max_y="-12.787613"/>
             <dummy_aabb2 name="dummy_aabb2_auto_011" position_x="-356.347412" position_y="183.246613" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-60.481842" min_y="1.728058" max_x="60.481873" max_y="-1.728058"/>
             <dummy_aabb2 name="dummy_aabb2_auto_012" position_x="-297.398193" position_y="198.118164" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-1.190186" min_y="16.794952" max_x="1.190186" max_y="-16.794937"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_013" position_x="-307.051941" position_y="280.902710" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-8.992554" min_y="8.331360" max_x="8.992554" max_y="-8.331390"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_014" position_x="-265.130737" position_y="268.339508" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-32.664154" min_y="21.687958" max_x="32.664154" max_y="-21.687973"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_015" position_x="-296.208008" position_y="243.345490" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-1.322418" min_y="12.034149" max_x="1.322449" max_y="-12.034164"/>
             <dummy_aabb2 name="dummy_aabb2_auto_016" position_x="-235.111450" position_y="224.699097" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-2.644852" min_y="64.799377" max_x="2.644852" max_y="-64.799362"/>
             <dummy_aabb2 name="dummy_aabb2_auto_017" position_x="-228.574432" position_y="22.864746" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-2.365982" min_y="107.330444" max_x="2.365967" max_y="-107.330444"/>
             <dummy_aabb2 name="dummy_aabb2_auto_018" position_x="-189.921005" position_y="207.933151" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-41.897308" min_y="8.780884" max_x="41.897308" max_y="-8.780884"/>
@@ -127,10 +124,11 @@
             <dummy_aabb2 name="dummy_aabb2_auto_087" position_x="-69.710052" position_y="-344.554626" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-8.657661" min_y="23.418274" max_x="8.657654" max_y="-23.418304"/>
             <dummy_aabb2 name="dummy_aabb2_auto_088" position_x="-357.258362" position_y="187.395752" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-62.022949" min_y="6.386841" max_x="62.022980" max_y="-6.386841"/>
             <dummy_aabb2 name="dummy_aabb2_auto_089" position_x="-299.209381" position_y="198.040405" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="3.973999" min_y="-17.031494" max_x="-3.973999" max_y="17.031494"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_090" position_x="-296.654663" position_y="258.076385" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-5.393280" min_y="26.540741" max_x="5.393311" max_y="-26.540741"/>
             <dummy_aabb2 name="dummy_aabb2_auto_091" position_x="-247.560440" position_y="-216.704514" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-174.562973" min_y="150.250671" max_x="174.562958" max_y="-150.250656"/>
             <dummy_aabb2 name="dummy_aabb2_auto_092" position_x="0.669193" position_y="-128.936859" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-74.152802" min_y="44.491707" max_x="74.152802" max_y="-44.491714"/>
             <dummy_aabb2 name="dummy_aabb2_auto_093" position_x="-23.156971" position_y="-184.369110" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="-0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-48.381657" min_y="31.363007" max_x="48.381657" max_y="-31.363022"/>
+            <dummy_aabb2 name="dummy_aabb2_auto_013" position_x="-273.830078" position_y="282.355225" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-42.320435" min_y="10.037537" max_x="42.320435" max_y="-10.037537"/>
+            <dummy_aabb2 name="dummy_aabb2_auto_014" position_x="-191.686401" position_y="204.878571" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" min_x="-27.956940" min_y="20.179474" max_x="27.956955" max_y="-20.179459"/>
         </dummy_aabb2_list>
         <dummy_aabb3_list/>
         <dummy_circle_list>
@@ -164,9 +162,6 @@
             <dummy_aabb2 name="dummy_aabb2_auto_010"/>
             <dummy_aabb2 name="dummy_aabb2_auto_011"/>
             <dummy_aabb2 name="dummy_aabb2_auto_012"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_013"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_014"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_015"/>
             <dummy_aabb2 name="dummy_aabb2_auto_016"/>
             <dummy_aabb2 name="dummy_aabb2_auto_017"/>
             <dummy_aabb2 name="dummy_aabb2_auto_018"/>
@@ -176,7 +171,6 @@
             <dummy_aabb2 name="dummy_aabb2_auto_022"/>
             <dummy_aabb2 name="dummy_aabb2_auto_023"/>
             <dummy_aabb2 name="dummy_aabb2_auto_024"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_025"/>
             <dummy_aabb2 name="dummy_aabb2_auto_026"/>
             <dummy_aabb2 name="dummy_aabb2_auto_027"/>
             <dummy_aabb2 name="dummy_aabb2_auto_028"/>
@@ -249,11 +243,13 @@
             <dummy_aabb2 name="dummy_aabb2_auto_087"/>
             <dummy_aabb2 name="dummy_aabb2_auto_088"/>
             <dummy_aabb2 name="dummy_aabb2_auto_089"/>
-            <dummy_aabb2 name="dummy_aabb2_auto_090"/>
             <dummy_aabb2 name="dummy_aabb2_auto_091"/>
             <dummy_aabb2 name="dummy_aabb2_auto_092"/>
             <dummy_aabb2 name="dummy_aabb2_auto_093"/>
+            <dummy_aabb2 name="dummy_aabb2_auto_025"/>
         </dummy_aabb2>
+        <dummy_aabb2 name="dummy_aabb2_auto_013"/>
+        <dummy_aabb2 name="dummy_aabb2_auto_014"/>
         <entity2 name="sprite_game_blackbackground"/>
         <entity2 name="sprite_game_map_001"/>
     </scene_graph>
@@ -271,6 +267,6 @@
         <translate_z enabled="true"/>
         <grid enabled="false" position_x="0.000000" position_y="0.000000" position_z="0.000000" size_x="100.000000" size_y="100.000000" subdivision_x="10" subdivision_y="10"/>
         <show_markers enabled="false"/>
-        <camera position_x="-186.779388" position_y="-166.134933" position_z="486.248291" target_x="-186.779404" target_y="-166.134781" target_z="-0.000056" znear="1.000000" zfar="40000.000000" zoom="0.486248" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-486.248383" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
+        <camera position_x="-294.670685" position_y="-33.384548" position_z="531.805176" target_x="-294.670685" target_y="-33.384380" target_z="-0.000015" znear="1.000000" zfar="40000.000000" zoom="0.531805" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-531.805176" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
     </editor_settings>
 </level>

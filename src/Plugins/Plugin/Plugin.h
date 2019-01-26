@@ -28,8 +28,7 @@ public:
 	void							OnTouchMove					(int iTouch, float positionX, float positionY);
 
 	const Player2EventManager &		GetPlayer2EventManager		(void);
-
-	static float					GetDistanceSquared			(const CShVector3 & start, const CShVector3 & dest);
+	static float					GetDistanceSquared			(const CShVector2 & start, const CShVector2 & dest);
 
 private:
 

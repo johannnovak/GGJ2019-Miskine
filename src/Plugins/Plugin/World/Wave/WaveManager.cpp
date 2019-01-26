@@ -30,13 +30,21 @@ WaveManager::~WaveManager(void)
  */
 void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager)
 {
+	CShArray<CShVector2> aStartPosition;
+	aStartPosition.Add(CShVector2(-325.0f, 268.0f));
+	aStartPosition.Add(CShVector2(175.0f, 288.0f));
+	aStartPosition.Add(CShVector2(-32.0f, -90.0f));
+	aStartPosition.Add(CShVector2(-292.0f, -14.0f));
+
+	CShVector2 vEndPosition(196.0f, -305.0f);
+
 	for (int i = 0; i < WAVE_MAX; i++)
 	{
 		Wave wave;
-		wave.Initialize(levelIdentifier, pEnemyManager, 1, 1.0f);
+		wave.Initialize(levelIdentifier, pEnemyManager, aStartPosition, vEndPosition, 1, 1.0f);
 		m_aWave.Add(wave);
 	}
-
+	
 	m_iCurrentWave = 0;
 }
 
@@ -104,6 +112,6 @@ void WaveManager::AddWave(void)
 {
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
-	wave.Start(CShVector3(0.0f,0.0f,1.1f), CShVector2(200.0f, -200.0f));
+	wave.Start();
 	m_iCurrentWave++;
 }
