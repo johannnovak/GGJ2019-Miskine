@@ -13,6 +13,7 @@
         <animated_texture_list/>
         <sprite_texture_list>
             <sprite_texture name="game.blackbackground.tga"/>
+            <sprite_texture name="game.map.tga"/>
         </sprite_texture_list>
         <material_library_list/>
         <submesh_list/>
@@ -27,6 +28,7 @@
         <point_list/>
         <entity2_list>
             <entity2 name="sprite_game_blackbackground" position_x="11.001129" position_y="25.669130" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1000.000000" scale_y="1000.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="blackbackground" blend_function="alpha"/>
+            <entity2 name="sprite_game_map_001" position_x="-71.009483" position_y="-29.898613" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="0.190000" scale_y="0.190000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="map" blend_function="alpha"/>
         </entity2_list>
         <ruler_list/>
         <text_zone_list/>
@@ -61,6 +63,7 @@
             <dummy_circle name="dummy_circle_auto_001"/>
         </dummy_aabb2>
         <entity2 name="sprite_game_blackbackground"/>
+        <entity2 name="sprite_game_map_001"/>
     </scene_graph>
     <plugins>
         <plugin name="pluginsteeltraining"/>
@@ -76,6 +79,6 @@
         <translate_z enabled="true"/>
         <grid enabled="false" position_x="0.000000" position_y="0.000000" position_z="0.000000" size_x="100.000000" size_y="100.000000" subdivision_x="10" subdivision_y="10"/>
         <show_markers enabled="false"/>
-        <camera position_x="61.095181" position_y="-137.667419" position_z="2217.266602" target_x="61.095181" target_y="-137.666718" target_z="-0.000048" znear="1.000000" zfar="40000.000000" zoom="2.217267" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-2217.266602" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
+        <camera position_x="61.095181" position_y="-137.667297" position_z="1868.682617" target_x="61.095181" target_y="-137.666718" target_z="-0.000048" znear="1.000000" zfar="40000.000000" zoom="1.868683" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-1868.682617" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
     </editor_settings>
 </level>
