@@ -232,6 +232,10 @@
 				<parameter name="control" value="0"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_0"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
 		</keyboard>
 	</event>
 	
@@ -239,6 +243,10 @@
 		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="1"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_1"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
@@ -250,6 +258,10 @@
 				<parameter name="control" value="2"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_2"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
 		</keyboard>
 	</event>
 	
@@ -257,6 +269,10 @@
 		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="3"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_3"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
@@ -268,6 +284,10 @@
 				<parameter name="control" value="4"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_4"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
 		</keyboard>
 	</event>
 	
@@ -275,6 +295,10 @@
 		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="5"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_5"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
@@ -286,6 +310,10 @@
 				<parameter name="control" value="6"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_6"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
 		</keyboard>
 	</event>
 	
@@ -293,6 +321,10 @@
 		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="7"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_7"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
@@ -304,6 +336,10 @@
 				<parameter name="control" value="8"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+			<input name="pressed">
+				<parameter name="control" value="num_8"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
 		</keyboard>
 	</event>
 	
@@ -313,49 +349,8 @@
 				<parameter name="control" value="9"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
-		</keyboard>
-	</event>
-	
-	<event name="/">
-		<keyboard>
 			<input name="pressed">
-				<parameter name="control" value="/"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	</event>
-	
-	<event name="*">
-		<keyboard>
-			<input name="pressed">
-				<parameter name="control" value="*"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	</event>
-	
-	<event name="-">
-		<keyboard>
-			<input name="pressed">
-				<parameter name="control" value="-"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	</event>
-	
-	<event name="+">
-		<keyboard>
-			<input name="pressed">
-				<parameter name="control" value="+"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	</event>
-	
-	<event name=".">
-		<keyboard>
-			<input name="pressed">
-				<parameter name="control" value="."/>
+				<parameter name="control" value="num_9"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
