@@ -25,6 +25,8 @@ Plugin::Plugin(void)
 /*virtual*/ void Plugin::OnPlayStart(const CShIdentifier & levelIdentifier)
 {
 	m_world.Initialize(levelIdentifier);
+
+	m_player2EventManager.Initialize();
 }
 
 /**
@@ -33,6 +35,8 @@ Plugin::Plugin(void)
 /*virtual*/ void Plugin::OnPlayStop(const CShIdentifier & levelIdentifier)
 {
 	m_world.Release();
+
+	m_player2EventManager.Release();
 }
 
 /**
@@ -65,6 +69,7 @@ Plugin::Plugin(void)
 /*virtual*/ void Plugin::OnPostUpdate(float dt)
 {
 	m_world.Update(dt);
+	m_player2EventManager.Update(dt);
 }
 
 /**

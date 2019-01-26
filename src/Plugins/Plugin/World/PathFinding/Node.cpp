@@ -82,8 +82,11 @@ void Node::SetColor(const CShRGBAf & color)
 //--------------------------------------------------------------------------------------------------
 void Node::Enable(void)
 {
-	m_bAccessible = true;
-	ShEntity2::SetShow(m_pEntity, true);
+	if (!m_bAccessible)
+	{
+		m_bAccessible = true;
+		ShEntity2::SetShow(m_pEntity, true);
+	}
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -91,6 +94,9 @@ void Node::Enable(void)
 //--------------------------------------------------------------------------------------------------
 void Node::Disable(void)
 {
-	m_bAccessible = false;
-	ShEntity2::SetShow(m_pEntity, false);
+	if (m_bAccessible)
+	{
+		m_bAccessible = false;
+		ShEntity2::SetShow(m_pEntity, false);
+	}
 }
