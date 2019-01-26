@@ -46,7 +46,7 @@ void GameStateGame::release(void)
 */
 void GameStateGame::entered(void)
 {
-	if (!ShLevel::Load(CShIdentifier("level_test_pathfinding")))
+	if (!ShLevel::Load(CShIdentifier("level_test_pathfinding2")))
 	{
 		SH_ASSERT_ALWAYS();
 	}

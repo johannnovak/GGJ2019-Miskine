@@ -220,25 +220,29 @@ bool Graph::FindPath(Node * pWPStart, Node * pWPEnd, CShArray<Node*> & aPathPoin
 		for (int iNeighbour = 0; iNeighbour < iNeighborCount; ++iNeighbour)
 		{
 			Node * pWayPoint = aWP[iNeighbour];
-			if (m_closedSet.Find(pWayPoint) > -1)
-			{
-				continue;
-			}
 
-			float tmpG = pCurrent->m_g + pCurrent->m_vPosition.Distance(pWayPoint->m_vPosition);
-
-			if (m_openSet.Find(pWayPoint) == -1)
+			if (pWayPoint && pWayPoint->m_bAccessible)
 			{
-				m_openSet.Add(pWayPoint);
-			}
-			else if (tmpG >= pWayPoint->m_g)
-			{
-				continue;
-			}
+				if (m_closedSet.Find(pWayPoint) > -1)
+				{
+					continue;
+				}
 
-			pWayPoint->m_pWPCameFrom = pCurrent;
-			pWayPoint->m_g = tmpG;
-			pWayPoint->m_f = pWayPoint->m_g + ComputeHeuristicValue(pWayPoint, pWPEnd);
+				float tmpG = pCurrent->m_g + pCurrent->m_vPosition.Distance(pWayPoint->m_vPosition);
+
+				if (m_openSet.Find(pWayPoint) == -1)
+				{
+					m_openSet.Add(pWayPoint);
+				}
+				else if (tmpG >= pWayPoint->m_g)
+				{
+					continue;
+				}
+
+				pWayPoint->m_pWPCameFrom = pCurrent;
+				pWayPoint->m_g = tmpG;
+				pWayPoint->m_f = pWayPoint->m_g + ComputeHeuristicValue(pWayPoint, pWPEnd);
+			}
 		}
 	}
 
@@ -278,6 +282,48 @@ Node * Graph::FindNearestWayPoint(const CShVector2 & vPosition)
 Node * Graph::GetWayPoint(int index)
 {
 	return(m_aWayPoint[index]);
+}
+
+//--------------------------------------------------------------------------------------------------
+/// @todo comment
+//--------------------------------------------------------------------------------------------------
+bool Graph::AddBlocker(const CShVector2 & pos, float radius)
+{
+	Blocker blocker;
+	blocker.position = pos;
+	blocker.radius = radius;
+	m_aBlockers.Add(blocker);
+	return(true);
+}
+
+//--------------------------------------------------------------------------------------------------
+/// @todo comment
+//--------------------------------------------------------------------------------------------------
+bool Graph::UpdateGraph(void)
+{
+	int NodeCount = m_aWayPoint.GetCount();
+	int BlockerCount = m_aBlockers.GetCount();
+
+	for (int i = 0; i < NodeCount; ++i)
+	{
+		if (m_aWayPoint[i] != shNULL)
+		{
+			for (int j = 0; j < BlockerCount; ++j)
+			{
+				if (m_aWayPoint[i]->GetPosition().Distance(m_aBlockers[j].position) < m_aBlockers[j].radius)
+				{
+					m_aWayPoint[i]->Disable();
+					break;
+				}
+				else
+				{
+					m_aWayPoint[i]->Enable();
+				}
+			}
+		}
+	}
+
+	return(true);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -356,6 +402,8 @@ void Graph::ResetAll(void)
 #if DEBUG_PATHFINDING
 			ShEntity2::SetColor(pWP->m_pEntity, CShRGBAf(1.0f, 1.0f, 1.0f, 1.0f));
 #endif //DEBUG_PATHFINDING
+
+			pWP->Enable();
 		}
 	}
 }
