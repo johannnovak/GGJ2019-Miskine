@@ -52,6 +52,17 @@ void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, E
 	
 	m_fAOERange = rangeAOE;
 	m_fAnimationSpeed = 0.5f;
+
+	if (m_eTowerType == ETowerType::tower_melee)
+	{
+		m_fRadiusMin = 0.0f;
+		m_fRadiusMax = 100.0f;
+	}
+	else
+	{
+		m_fRadiusMin = 50.0f;
+		m_fRadiusMax = 300.0f;
+	}
 }
 
 /**
@@ -59,16 +70,6 @@ void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, E
  */
 void TowerBase::Release(void)
 {
-	if (m_eTowerType == ETowerType::tower_melee)
-	{
-		m_fRadiusMin = 0.0f;
-		m_fRadiusMax = 10.0f;
-	}
-	else
-	{
-		m_fRadiusMin = 0.0f;
-		m_fRadiusMax = 20.0f;
-	}
 }
 
 /**
