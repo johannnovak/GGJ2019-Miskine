@@ -3,6 +3,11 @@
 #include "GameStates/GameStateGame.h"
 #include "GameStates/GameStateMainMenu.h"
 
+#define ORIGINAL_VIEWPORT_X 1280.0f
+#define ORIGINAL_VIEWPORT_Y 720.0f
+
+class CShVector2;
+
 class Game
 {
 public:
@@ -26,6 +31,12 @@ public:
 	void Update(float dt);
 
 	//
+	// Events
+	void		touchBegin			(const CShVector2 & pos);
+	void		touchEnd			(const CShVector2 & pos);
+	void		touchMove			(const CShVector2 & pos);
+
+	//
 	// States
 	void		push				(EState state);
 	void		pop					(void);
@@ -44,6 +55,8 @@ private:
 
 	GameStateMainMenu		m_stateMainMenu;
 	GameStateGame			m_stateGame;
+
+	float m_fRatio;
 };
 
 #include "Game.inl"

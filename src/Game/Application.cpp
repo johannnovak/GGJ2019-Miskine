@@ -1,5 +1,6 @@
 #include "Application.h"
 #include "Game.h"
+#include "Inputs.h"
 
 #include <ShSDK/ShSDK.h>
 
@@ -105,60 +106,6 @@ void OnLogin(ShUser * pUser)
 void OnLogout(ShUser * pUser)
 {
 	//Game::instance().logout(pUser);
-}
-
-/**
-* @brief OnTouchDown
-* @param iTouch
-* @param positionX
-* @param positionY
-*/
-void OnTouchDown(int iTouch, float positionX, float positionY)
-{
-	if (0 == iTouch)
-	{
-		CShVector2 pos(positionX, positionY);
-		//Game & game = Game::instance();
-		//game.touchBegin(pos);
-
-		GetPlugin()->OnTouchDown(iTouch, positionX, positionY);
-	}
-}
-
-/**
-* @brief OnTouchUp
-* @param iTouch
-* @param positionX
-* @param positionY
-*/
-void OnTouchUp(int iTouch, float positionX, float positionY)
-{
-	if (0 == iTouch)
-	{
-		CShVector2 pos(positionX, positionY);
-		//Game & game = Game::instance();
-		//game.touchEnd(pos);
-
-		GetPlugin()->OnTouchUp(iTouch, positionX, positionY);
-	}
-}
-
-/**
-* @brief OnTouchMove
-* @param iTouch
-* @param positionX
-* @param positionY
-*/
-void OnTouchMove(int iTouch, float positionX, float positionY)
-{
-	if (0 == iTouch)
-	{
-		CShVector2 pos(positionX, positionY);
-		//Game & game = Game::instance();
-		//game.touchMove(pos);
-
-		GetPlugin()->OnTouchMove(iTouch, positionX, positionY);
-	}
 }
 
 }
