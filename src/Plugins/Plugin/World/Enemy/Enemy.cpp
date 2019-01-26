@@ -89,6 +89,14 @@ void Enemy::SetState(EState state)
 }
 
 /**
+ * @brief GetState
+ */
+Enemy::EState Enemy::GetState(void)
+{
+	return m_eState;
+}
+
+/**
  * @brief Update
  */
 void Enemy::Update(float dt)

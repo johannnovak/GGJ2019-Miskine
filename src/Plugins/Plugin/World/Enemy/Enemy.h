@@ -4,13 +4,13 @@
 
 class Enemy
 {
+
+public:
 	enum EState
 	{
 		e_state_on,
 		e_state_off
 	};
-
-public:
 
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
@@ -20,6 +20,9 @@ public:
 
 	void				Start				(const CShVector3 & vPosition);
 	void				Stop				(void);
+
+	void				SetState			(EState state);
+	EState				GetState			(void);
 
 	void				Update				(float dt);
 
@@ -32,8 +35,7 @@ public:
 	bool				IsDead				(void);
 
 private:
-	void				SetState			(EState state);
-
+	
 private:
 	EState					m_eState;
 	float					m_fStateTime;

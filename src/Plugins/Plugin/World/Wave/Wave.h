@@ -28,10 +28,11 @@ private:
 public:
 
 private:
-	EState			m_eState;
-	EnemyManager *	m_pEnemyManager;
-	int				m_iRemainingEnemy;
-	float			m_fApparitionTime;
-	float			m_fTime;
+	EState				m_eState;
+	EnemyManager *		m_pEnemyManager;
+	CShArray<Enemy*>	m_apRemainingActiveEnemy;
+	int					m_iRemainingEnemy;
+	float				m_fApparitionTime;
+	float				m_fTime;
 };
 
