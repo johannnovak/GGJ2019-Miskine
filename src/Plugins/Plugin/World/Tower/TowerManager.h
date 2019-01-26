@@ -10,17 +10,17 @@ class TowerManager
 {
 public:
 
-	explicit	 TowerManager	(void);
-	virtual		~TowerManager	(void);
+	explicit	 TowerManager		(void);
+	virtual		~TowerManager		(void);
 
-	void		Initialize		(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
-	void		Release			(void);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
+	void		Release				(void);
 
-	void		Update			(float dt);
+	void		Update				(float dt);
 
-	void		CreateTower		(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+	void		CreateMeleeTower	(TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
 
-	void		GetTowerList	(CShArray<TowerBase *>& aTowerList);
+	void		GetTowerList		(CShArray<TowerBase *>& aTowerList);
 
 private:
 	

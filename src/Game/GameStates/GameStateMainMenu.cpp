@@ -7,7 +7,31 @@ bool ButtonNewGameClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 	SH_UNUSED(pControl);
 	SH_UNUSED(vPosition);
 	Game::GetInstance().pop();
-	Game::GetInstance().push(Game::INGAME);
+	Game::GetInstance().push(Game::CHARACTER_INTRO);
+	return true;
+}
+
+bool ButtonSettingsClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	Game::GetInstance().push(Game::SETTINGS);
+	return true;
+}
+
+bool ButtonCreditsClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	Game::GetInstance().push(Game::CREDITS);
+	return true;
+}
+
+bool ButtonQuitClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	ShApplication::RequestQuit();
 	return true;
 }
 
@@ -40,6 +64,12 @@ void GameStateMainMenu::init(void)
 	ShGUIControlPanel::Hide(m_pMainPanel);
 	ShGUIControlButton * pNewGameButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_new_game").Append(strSuffix.Get()), m_pMainPanel));
 	ShGUIControlButton::AddSignalFctPtrClick(pNewGameButton, ButtonNewGameClicked);
+	ShGUIControlButton * pSettingsButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_settings").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlButton::AddSignalFctPtrClick(pSettingsButton, ButtonSettingsClicked);
+	ShGUIControlButton * pCreditsButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_credits").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlButton::AddSignalFctPtrClick(pCreditsButton, ButtonCreditsClicked);
+	ShGUIControlButton * pQuitButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_quit").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlButton::AddSignalFctPtrClick(pQuitButton, ButtonQuitClicked);
 }
 
 /**

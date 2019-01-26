@@ -5,17 +5,38 @@
         <style pseudo_state="default" id="panel_names" offset_x="-441.000000" offset_x_unit="auto" offset_y="67.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_devs" offset_x="-437.000000" offset_x_unit="auto" offset_y="-85.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_devs" offset_x="-390.000000" offset_x_unit="auto" offset_y="58.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_001" offset_x="-286.000000" offset_x_unit="auto" offset_y="-4.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_002" offset_x="497.000000" offset_x_unit="auto" offset_y="-12.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_003" offset_x="433.000000" offset_x_unit="auto" offset_y="-13.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_004" offset_x="1006.000000" offset_x_unit="auto" offset_y="1.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_005" offset_x="809.000000" offset_x_unit="auto" offset_y="-5.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_graphics" offset_x="-452.000000" offset_x_unit="auto" offset_y="-28.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_graphics" offset_x="-359.000000" offset_x_unit="auto" offset_y="-5.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_006" offset_x="410.000000" offset_x_unit="auto" offset_y="42.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_007" offset_x="303.000000" offset_x_unit="auto" offset_y="77.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_button" offset_x="21.000000" offset_x_unit="auto" offset_y="-21.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="button_ok" offset_x="663.000000" offset_x_unit="auto" offset_y="97.000000" offset_y_unit="auto"/>
     </sss>
     <root>
         <panel id="credits" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
             <text id="text_title" pseudo_state="default" text="{credits}" text_type="rich"/>
             <panel id="panel_names" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                 <text id="text_devs" pseudo_state="default" text="{developpers}" text_type="rich"/>
-                <panel id="panel_devs" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+                <panel id="panel_devs" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                    <text id="text_001" pseudo_state="default" text="Cut" text_type="rich"/>
+                    <text id="text_002" pseudo_state="default" text="Remgr" text_type="rich"/>
+                    <text id="text_003" pseudo_state="default" text="S1L3nCe" text_type="rich"/>
+                    <text id="text_004" pseudo_state="default" text="Th0re" text_type="rich"/>
+                    <text id="text_005" pseudo_state="default" text="Not on discord guy" text_type="rich"/>
+                </panel>
                 <text id="text_graphics" pseudo_state="default" text="{graphic_designers}" text_type="rich"/>
-                <panel id="panel_graphics" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+                <panel id="panel_graphics" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                    <text id="text_006" pseudo_state="default" text="Biancasta" text_type="rich"/>
+                    <text id="text_007" pseudo_state="default" text="Mokoyama" text_type="rich"/>
+                </panel>
+            </panel>
+            <panel id="panel_button" pseudo_state="default" layout_type="stretch_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <button id="button_ok" pseudo_state="default" text="{ok}" text_type="rich"/>
             </panel>
         </panel>
     </root>

@@ -27,7 +27,7 @@
                 <text id="text_easy" pseudo_state="default" text="{easy}" text_type="rich"/>
                 <radiobutton id="radiobutton_easy" pseudo_state="default" id_next_focus="radiobutton_medium" id_prev_focus="editbox_001" text="" text_type="rich"/>
                 <text id="text_medium" pseudo_state="default" text="{medium}" text_type="rich"/>
-                <radiobutton id="radiobutton_medium" pseudo_state="default" id_next_focus="radiobutton_hard" id_prev_focus="radiobutton_easy" text="" text_type="rich"/>
+                <radiobutton id="radiobutton_medium" pseudo_state="selected" id_next_focus="radiobutton_hard" id_prev_focus="radiobutton_easy" text="" text_type="rich"/>
                 <text id="text_hard" pseudo_state="default" text="hard" text_type="rich"/>
                 <radiobutton id="radiobutton_hard" pseudo_state="default" id_next_focus="button_cancel" id_prev_focus="radiobutton_medium" text="" text_type="rich"/>
             </radiobuttongroup>
