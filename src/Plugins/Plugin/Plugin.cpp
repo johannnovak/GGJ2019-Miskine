@@ -24,7 +24,7 @@ Plugin::Plugin(void)
 */
 /*virtual*/ void Plugin::OnPlayStart(const CShIdentifier & levelIdentifier)
 {
-	m_world.Initialize();
+	m_world.Initialize(levelIdentifier);
 }
 
 /**

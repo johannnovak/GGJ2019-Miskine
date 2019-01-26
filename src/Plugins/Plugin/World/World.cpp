@@ -23,17 +23,17 @@ World::~World(void)
  * @brief Initialize
  * @param pUser
  */
-void World::Initialize(void)
+void World::Initialize(const CShIdentifier & levelIdentifier)
 {
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
 	
-	m_enemyManager.Initialize();
+	m_enemyManager.Initialize(levelIdentifier);
 	m_towerManager.Initialize(&m_enemyManager);
 
-	ShDummyAABB2* pDummy = ShDummyAABB2::Find(CShIdentifier("level_test_pathfinding"), CShIdentifier("dummy_aabb2_auto_001"));
+	ShDummyAABB2* pDummy = ShDummyAABB2::Find(CShIdentifier(levelIdentifier), CShIdentifier("dummy_aabb2_auto_001"));
 	SH_ASSERT(shNULL != pDummy);
 
 	g_graph.Initialize(pDummy);

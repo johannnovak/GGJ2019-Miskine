@@ -11,7 +11,7 @@ public:
 	explicit	 World			(void);
 	virtual		~World			(void);
 
-	void		Initialize		(void);
+	void		Initialize		(const CShIdentifier & levelIdentifier);
 	void		Release			(void);
 
 	void		Update			(float dt);
