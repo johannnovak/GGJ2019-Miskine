@@ -352,7 +352,10 @@ void Player2EventManager::Update(float dt)
 	// Check typo jauge
 	CheckTypoGaugeCompletion();
 	
-	ShGUIControlEditBox::SetText(m_pEditBoxHidden, CShString(""));
+	if (shNULL != m_pEditBoxHidden)
+	{
+		ShGUIControlEditBox::SetText(m_pEditBoxHidden, CShString(""));
+	}
 }
 
 /**
