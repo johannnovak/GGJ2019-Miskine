@@ -94,10 +94,10 @@ void TowerBase::Update(float dt)
 			{				
 				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
 
-				float distSquared = GetDistanceBetween(targetPos);
-				if (distSquared <= m_fRadiusMax * m_fRadiusMax
-					|| distSquared >= m_fRadiusMin * m_fRadiusMin)
-				{ // Lost focus
+				float distSquared = GetDistanceSquared(targetPos);
+				if (distSquared > m_fRadiusMax * m_fRadiusMax
+					|| distSquared < m_fRadiusMin * m_fRadiusMin)
+				{// Lost focus
 					m_pCurrentTarget = shNULL;
 
 					// Find potential enemy based on focus type
@@ -106,6 +106,7 @@ void TowerBase::Update(float dt)
 
 					int currentId = -1;
 					int health = -1;
+					float distSquared = m_fRadiusMax;
 					int nEnemyCount = aEnemyList.GetCount();
 					for (int i = 0; i < nEnemyCount; ++i)
 					{
@@ -116,9 +117,17 @@ void TowerBase::Update(float dt)
 							case focus_nearest:
 							{
 								const CShVector3 & enemyPos = pEnemy->GetPosition();
-								float dist = GetDistanceBetween(enemyPos);
+								float dist = GetDistanceSquared(enemyPos);
 								
-								//TODO
+								if (dist <= m_fRadiusMax * m_fRadiusMax
+									|| dist >= m_fRadiusMin * m_fRadiusMin)
+								{
+									if (dist < distSquared)
+									{
+										currentId = i;
+										distSquared = dist;
+									}
+								}
 							}
 							break;
 							
@@ -157,7 +166,7 @@ void TowerBase::Update(float dt)
 	}
 }
 
-float TowerBase::GetDistanceBetween(const CShVector3 & dest)
+float TowerBase::GetDistanceSquared(const CShVector3 & dest)
 {
 	//TODO Test me
 

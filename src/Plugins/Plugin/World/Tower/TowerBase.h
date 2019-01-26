@@ -31,7 +31,7 @@ public:
 	void		Update				(float dt);
 
 private:
-	float		GetDistanceBetween	(const CShVector3 & dest);
+	float		GetDistanceSquared	(const CShVector3 & dest);
 
 protected:
 	
