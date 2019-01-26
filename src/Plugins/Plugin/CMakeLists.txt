@@ -31,8 +31,8 @@ source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 set(SOURCES_Enemy World/Enemy/Enemy.cpp World/Enemy/Enemy.h World/Enemy/EnemyManager.cpp World/Enemy/EnemyManager.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
-# TowerBase files
-set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h)
+# Tower files
+set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h World/Tower/TowerManager.cpp World/Tower/TowerManager.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
 
 # Graph files
