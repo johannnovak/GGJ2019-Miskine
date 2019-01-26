@@ -147,7 +147,7 @@ void Enemy::Update(float dt)
 	{	
 		if (m_iDestinationNode < m_aNodes.GetCount())
 		{
-			m_fCompletion += dt;
+			m_fCompletion += dt * (50.0f / (1.0f + m_v.GetLength()));
 
 			if (m_fCompletion < 1.0f)
 			{
