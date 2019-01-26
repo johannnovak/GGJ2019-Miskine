@@ -30,6 +30,10 @@ public:
 
 	virtual void	Update				(float dt);
 
+	void			LevelUp				(void);
+
+	int				GetCurrentLevel		(void);
+
 protected:
 
 	CShIdentifier			m_levelIdentifier;
