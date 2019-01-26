@@ -21,7 +21,6 @@ World::~World(void)
 
 /**
  * @brief Initialize
- * @param pUser
  */
 void World::Initialize(const CShIdentifier & levelIdentifier)
 {
@@ -29,9 +28,6 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
-	
-	//m_waveManager.Initialize(levelIdentifier);
-	//m_waveManager.Start();
 
 	m_enemyManager.Initialize(levelIdentifier);
 	m_waveManager.Initialize(levelIdentifier, &m_enemyManager);
