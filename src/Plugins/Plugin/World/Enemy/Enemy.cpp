@@ -70,9 +70,8 @@ void Enemy::Start(const CShVector3 & position, const CShVector2 & vDestination)
 	g_graph.FindPath(g_graph.FindNearestWayPoint(CShVector2(position.m_x, position.m_y)), g_graph.FindNearestWayPoint(vDestination), aNodes);
 
 	SetPath(aNodes);
-	SetTargetNode(aNodes[m_iDestinationNode]);
 
-	SetState(e_state_on);
+	SetState(e_state_appear);
 }
 
 /**
@@ -80,7 +79,7 @@ void Enemy::Start(const CShVector3 & position, const CShVector2 & vDestination)
  */
 void Enemy::Stop(void)
 {
-	SetState(e_state_off);
+	SetState(e_state_disappear);
 }
 
 /**
@@ -97,6 +96,7 @@ void Enemy::SetPath(const CShArray<Node*> & aNodes)
 	}
 
 	m_iDestinationNode = 0;
+	SetTargetNode(m_aNodes[m_iDestinationNode]);
 }
 
 /**
@@ -120,8 +120,9 @@ void Enemy::SetState(EState state)
 
 	switch (state)
 	{
-		case e_state_on: ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true); break;
-
+		case e_state_appear: ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true); break;
+		case e_state_disappear : break;
+		case e_state_on: break;
 		case e_state_off: ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], false); break;
 
 		default: SH_ASSERT_ALWAYS();
@@ -142,6 +143,31 @@ Enemy::EState Enemy::GetState(void)
 void Enemy::Update(float dt)
 {
 	m_fStateTime += dt;
+
+	if (e_state_appear == m_eState)
+	{
+		if (m_fStateTime < 1.0f)
+		{
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], m_fStateTime);
+		}
+		else
+		{
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 1.0f);
+			SetState(e_state_on);
+		}
+	}
+	else if (e_state_disappear == m_eState)
+	{
+		if (m_fStateTime < 1.0f)
+		{
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 1.0f - m_fStateTime);
+		}
+		else
+		{
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 0.0f);
+			SetState(e_state_off);
+		}
+	}
 
 	if (e_state_on == m_eState)
 	{	
@@ -166,6 +192,10 @@ void Enemy::Update(float dt)
 					m_iDestinationNode++;
 					SetTargetNode(m_aNodes[m_iDestinationNode]);
 					m_fCompletion -= 1.0f;
+				}
+				else
+				{
+					SetState(e_state_disappear);
 				}
 			}
 		}

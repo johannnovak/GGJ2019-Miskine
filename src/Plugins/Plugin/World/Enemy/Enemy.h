@@ -11,6 +11,8 @@ public:
 	enum EState
 	{
 		e_state_on,
+		e_state_appear,
+		e_state_disappear,
 		e_state_off
 	};
 
