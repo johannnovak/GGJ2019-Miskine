@@ -2,15 +2,15 @@
 
 enum EPlayer2EventType
 {
-	e_player2_event_type_type_words				= 0,	// type words
-	e_player2_event_type_boost_tower			= 1,	// random keys
-	e_player2_event_type_grant_special_attack	= 2,	// dual key combinations streak
-	e_player2_event_type_control_enemy			= 3,	// mental calculation
-	e_player2_event_type_immediate_qte			= 4,	// key appearing randomly on the screen
-	e_player2_event_type_super_mega_combo		= 5,	// mix with word-typing/qte/special-attack
+	e_player2_event_type_type_words						= 0,	// deplete enemies life
+	e_player2_event_type_random_keys					= 1,	// random keys appearing everywhere on screen one after another -> boost tower
+	e_player2_event_type_dual_key_combination_streak	= 2,	// DDR-like key combination streak -> grant special attack on tower
+	e_player2_event_type_mental_calculation				= 3,	// control over enemy, zelda-like
+	e_player2_event_type_immediate_qte					= 4,	// boost game
+	e_player2_event_type_super_mega_combo				= 5,	// mix with word-typing/qte/special-attack -> unknown
 
-	e_player2_event_type_count					= e_player2_event_type_type_words + 1,
-	//e_player2_event_type_count				= e_player2_event_type_super_mega_combo + 1,
+	e_player2_event_type_count							= e_player2_event_type_type_words + 1,
+	//e_player2_event_type_count						= e_player2_event_type_super_mega_combo + 1,
 };
 
 enum EPlayer2EventDifficulty

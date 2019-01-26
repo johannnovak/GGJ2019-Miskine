@@ -179,7 +179,7 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
 }
 
 /**
- * @brief PollNewEvents
+ * @brief SetEventTypeAvailable
  */
 void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
 {
@@ -187,11 +187,11 @@ void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
 
 	//
 	// Notify listeners
-	m_pPlayer2EventListener->OnEventTypeAvailable(&m_aAvailableEvents[eType]);
+	m_pPlayer2EventListener->OnEventTypeAvailable(m_apEvents[eType]);
 }
 
 /**
- * @brief PollNewEvents
+ * @brief SetEventTypeUnavailable
  */
 void Player2EventManager::SetEventTypeUnavailable(EPlayer2EventType eType)
 {
@@ -199,7 +199,7 @@ void Player2EventManager::SetEventTypeUnavailable(EPlayer2EventType eType)
 
 	//
 	// Notify listeners
-	m_pPlayer2EventListener->OnEventTypeUnavailable(&m_aAvailableEvents[eType]);
+	m_pPlayer2EventListener->OnEventTypeUnavailable(m_apEvents[eType]);
 }
 
 /**
@@ -227,7 +227,7 @@ void Player2EventManager::OnCurrentEventFinished(void)
 
 	//
 	// Apply reward reforwarding from event
-	// TODO
+	// TODO=+
 }
 
 /**
@@ -280,7 +280,7 @@ void Player2EventManager::HandleUserChoice(void)
 		{
 			//
 			// Notify Listeners for canceled Event
-			m_pPlayer2EventListener->OnEventTypeCanceled(m_pPreviousEvent->GetType());
+			m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent);
 		}
 	}
 	else
@@ -315,8 +315,9 @@ void Player2EventManager::HandleUserChoice(void)
 		if (bChanged)
 		{
 			//
-			// Notify listeners the EventType has changed
-			m_pPlayer2EventListener->OnEventTypeChanged(m_pPreviousEvent, m_pCurrentEvent);
+			// Notify listeners the EventType has ended and has begun
+			m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent);
+			m_pPlayer2EventListener->OnEventTypeBegin(m_pCurrentEvent);
 		}
 	}
 

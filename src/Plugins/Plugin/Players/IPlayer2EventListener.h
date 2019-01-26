@@ -18,9 +18,9 @@ public:
 
 	//
 	// To change bottom menu
-	virtual void		OnEventTypeChanged					(Player2Event * pOldEvent, Player2Event * pNewEvent) = 0; 
+	virtual void		OnEventTypeBegin					(Player2Event * pEvent) = 0; 
+	virtual void		OnEventTypeEnd						(Player2Event * pEvent) = 0; 
 	virtual void		OnEventTypeFinished					(Player2Event * pEvent) = 0;
-	virtual void		OnEventTypeCanceled					(EPlayer2EventType eEventType) = 0;
 	
 	//
 	// To update Gauge
