@@ -1,13 +1,6 @@
-//--------------------------------------------------------------------------------------------------
-// Package     : -
-// File        : CShGameWayPoint.h
-// Author      : Rémy Grimmer
-// Description : -
-// PlatForm    : All
-//--------------------------------------------------------------------------------------------------
+#pragma once
 
-#ifndef __CSHGAMEWAYPOINT_H
-#define __CSHGAMEWAYPOINT_H
+#define DEBUG_PATHFINDING 0
 
 enum EDirection
 {
@@ -25,8 +18,6 @@ enum EDirection
 class WayPoint
 {
 public:
-
-	
 
 	//
 	// Construction / Destruction
@@ -53,6 +44,7 @@ public:
 protected:
 	
 private:
+
 	CShVector2 m_vPosition;
 	float m_f;
 	float m_g;
@@ -67,5 +59,3 @@ private:
 
 	friend class Graph;
 };
-
-#endif // __CSHGAMEWAYPOINT_H

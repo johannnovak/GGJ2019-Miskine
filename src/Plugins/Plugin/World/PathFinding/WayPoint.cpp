@@ -14,7 +14,7 @@
 	m_vPosition = vPosition;
 
 #if DEBUG_PATHFINDING
-	m_pEntity = ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), vWPPosition, CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f));
+	m_pEntity = ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), CShVector3(m_vPosition, 1000.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f));
 #endif //DEBUG_PATHFINDING
 
 	for (int i = 0; i < e_direction_max; ++i)
