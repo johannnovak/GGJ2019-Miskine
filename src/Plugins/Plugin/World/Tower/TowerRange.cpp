@@ -76,7 +76,7 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 		m_aAttackAnimation[i] = aEntityList;
 	}
 
-	ShEntity2::SetShow(m_aAttackAnimation[m_currentAnimationType][m_currentSprite], true);
+	ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 
 	// Create m_pProjectile
 	// @ TODO

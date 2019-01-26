@@ -24,6 +24,7 @@ void Player2EventManager::Initialize(void)
 	m_fTypoGaugeMax			= TYPO_GAUGE_DEFAULT_MAX_VALUE;
 	m_pPlayer2EventListener	= shNULL;
 	m_iCurrentEventStreak	= 0;
+	m_pEditBoxHidden		= shNULL;
 
 	//
 	// Get User
@@ -104,11 +105,11 @@ bool Player2EventManager::ChooseEventType(EPlayer2EventType eEventType)
 		//
 		// Reset just completed as we start a new event and make available the old one
 		ResetBoolArray(m_aJustCompletedEvents);
-		m_pPreviousEvent->Reset(1);
 		
 		//
 		// Update current event index and remove the chosen one from the available ones
 		m_pCurrentEvent = m_apEvents[eEventType];
+		m_pCurrentEvent->Reset(m_iCurrentEventStreak);
 		SetEventTypeUnavailable(m_pCurrentEvent->GetType());
 
 		return true;
@@ -133,7 +134,8 @@ bool Player2EventManager::LeaveEventType(void)
 
 		//
 		// Reset just completed
-		m_pPreviousEvent->Reset(1);
+		m_iCurrentEventStreak = 0;
+		m_pPreviousEvent->Reset(m_iCurrentEventStreak);
 		
 		//
 		// Update current event index
@@ -181,6 +183,42 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
 }
 
 /**
+ * @brief RegisterEditBoxHidden
+ */
+bool Player2EventManager::RegisterEditBoxHidden(ShGUIControlEditBox * pEditBox)
+{
+	if (shNULL != pEditBox)
+	{
+		return false;
+	}
+
+	m_pEditBoxHidden = pEditBox;
+
+	return true;
+}
+
+/**
+ * @brief UnregisterEditBoxHidden
+ */
+bool Player2EventManager::UnregisterEditBoxHidden(ShGUIControlEditBox * pEditBox)
+{
+	if (shNULL == pEditBox)
+	{
+		return false;
+	}
+	else if (m_pEditBoxHidden != pEditBox)
+	{
+		return false;
+	}
+	else
+	{
+		m_pEditBoxHidden = shNULL;
+
+		return true;
+	}
+}
+
+/**
  * @brief SetEventTypeAvailable
  */
 void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
@@ -217,7 +255,7 @@ void Player2EventManager::PollNewEvents(float dt)
 {
 	//
 	// Event TypeWord always accessible
-	if (!m_aAvailableEvents[e_player2_event_type_type_words])
+	if (!m_aAvailableEvents[e_player2_event_type_type_words] && m_pCurrentEvent != m_apEvents[e_player2_event_type_type_words])
 	{
 		SetEventTypeAvailable(e_player2_event_type_type_words);
 	}
@@ -259,7 +297,7 @@ void Player2EventManager::Update(float dt)
 	// Check state of current event
 	if (shNULL != m_pCurrentEvent)
 	{
-		m_pCurrentEvent->Update(dt);
+		m_pCurrentEvent->Update(dt, m_pEditBoxHidden);
 		if (m_pCurrentEvent->IsFinished())
 		{
 			//
@@ -271,7 +309,38 @@ void Player2EventManager::Update(float dt)
 
 			//
 			// Reset EventType
-			m_pCurrentEvent->Reset(1);
+			if (m_pCurrentEvent->GetErrorNb() == 0)
+			{
+				++m_iCurrentEventStreak;
+			}
+			else
+			{
+				m_iCurrentEventStreak = 0;
+			}
+
+			switch (m_pCurrentEvent->GetType())
+			{
+				//
+				// Still available
+				case e_player2_event_type_type_words:
+				case e_player2_event_type_random_keys:
+				{
+					m_pCurrentEvent->Reset(m_iCurrentEventStreak);
+				}
+				break;
+
+				//
+				// Then unavailable
+				case e_player2_event_type_mental_calculation:
+				case e_player2_event_type_dual_key_combination_streak:
+				case e_player2_event_type_immediate_qte:
+				case e_player2_event_type_super_mega_combo:
+				{
+					m_pCurrentEvent->Reset(0);
+					SetEventTypeUnavailable(m_pCurrentEvent->GetType());
+				}
+				break;
+			}
 		}
 	}
 
@@ -282,6 +351,11 @@ void Player2EventManager::Update(float dt)
 	//
 	// Check typo jauge
 	CheckTypoGaugeCompletion();
+	
+	if (shNULL != m_pEditBoxHidden)
+	{
+		ShGUIControlEditBox::SetText(m_pEditBoxHidden, CShString(""));
+	}
 }
 
 /**

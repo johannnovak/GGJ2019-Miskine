@@ -29,16 +29,18 @@ public:
 	virtual void					Initialize		(void) = 0;
 	virtual void					Release			(void) = 0;
 
-	virtual void					Update			(float dt) = 0;
+	virtual void					Update			(float dt, ShGUIControlEditBox * pEditBoxHidden) = 0;
 	void							Reset			(int iStreak);
 
 	virtual EPlayer2EventType		GetType			(void) = 0;
 	virtual EPlayer2EventDifficulty	GetDifficulty	(void);
+	virtual int						GetErrorNb		(void);
+
 	bool							IsFinished		(void);
 
 protected:
-	explicit						Player2Event	(EPlayer2EventType eType);
-	explicit						Player2Event	(EPlayer2EventType eType, EPlayer2EventDifficulty eDifficulty);
+	explicit						Player2Event	(void);
+	explicit						Player2Event	(EPlayer2EventDifficulty eDifficulty);
 	virtual							~Player2Event	(void);
 
 	virtual void					ResetInternal	(void) = 0;

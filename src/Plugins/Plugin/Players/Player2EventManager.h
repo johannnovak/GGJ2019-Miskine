@@ -38,6 +38,9 @@ public:
 
 	bool								RegisterListener			(IPlayer2EventListener * pListener);
 	bool								UnregisterListener			(IPlayer2EventListener * pListener);
+
+	bool								RegisterEditBoxHidden		(ShGUIControlEditBox * pEditBox);
+	bool								UnregisterEditBoxHidden		(ShGUIControlEditBox * pEditBox);
 protected:
 private:
 	void								SetEventTypeAvailable		(EPlayer2EventType eType);
@@ -79,5 +82,6 @@ private:
 	//
 	// Listener
 	IPlayer2EventListener *				m_pPlayer2EventListener;
+	ShGUIControlEditBox *				m_pEditBoxHidden;
 };
 

@@ -85,7 +85,7 @@ protected:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	int						m_currentSprite;
-	EAnimationType			m_currentAnimationType;
+	EAnimationType			m_eCurrentAnimationType;
 	CShArray<ShEntity2 *>	m_aAttackAnimation[animation_max];
 };
 
