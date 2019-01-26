@@ -1,7 +1,10 @@
 #pragma once
 
-#include "GameStates/GameStateGame.h"
 #include "GameStates/GameStateMainMenu.h"
+#include "GameStates/GameStateCharacterIntro.h"
+#include "GameStates/GameStateSettings.h"
+#include "GameStates/GameStateCredits.h"
+#include "GameStates/GameStateGame.h"
 
 #define ORIGINAL_VIEWPORT_X 1280.0f
 #define ORIGINAL_VIEWPORT_Y 720.0f
@@ -15,6 +18,9 @@ public:
 	enum EState
 	{
 		MAIN_MENU,
+		CHARACTER_INTRO,
+		SETTINGS,
+		CREDITS,
 		INGAME,
 
 		MAX_GAME_STATES
@@ -54,6 +60,9 @@ private:
 	int						m_iCurrentState;
 
 	GameStateMainMenu		m_stateMainMenu;
+	GameStateCharacterIntro	m_stateCharacterIntro;
+	GameStateSettings		m_stateSettings;
+	GameStateCredits		m_stateCredits;
 	GameStateGame			m_stateGame;
 
 	float m_fRatio;
