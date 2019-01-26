@@ -32,6 +32,5 @@ private:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	CShArray<ShEntity2 *>	m_aMoveAnimation;
-
 };
 

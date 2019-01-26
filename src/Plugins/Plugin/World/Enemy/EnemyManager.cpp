@@ -21,7 +21,7 @@ EnemyManager::~EnemyManager(void)
 /**
  * @brief Initialize
  */
-void EnemyManager::Initialize()
+void EnemyManager::Initialize(void)
 {
 }
 
@@ -33,8 +33,7 @@ void EnemyManager::Release(void)
 	int nEnemyCount = m_aEnemyList.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		m_aEnemyList[i]->Release();
-		SH_SAFE_FREE(m_aEnemyList[i]);
+		m_aEnemyList[i].Release();
 	}
 	m_aEnemyList.Empty();
 }
@@ -47,25 +46,31 @@ void EnemyManager::Update(float dt)
 	int nEnemyCount = m_aEnemyList.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		m_aEnemyList[i]->Update(dt);
+		m_aEnemyList[i].Update(dt);
 	}
 }
 
+/**
+ * @brief CreateEnemies
+ */
 void EnemyManager::CreateEnemies(int number)
 {
 	for (int i = 0; i < number; ++i)
 	{
-		Enemy * pEnemy = new Enemy();
-		//todo Enemy->Initialize();
-		m_aEnemyList.Add(pEnemy);
+		Enemy enemy;
+		//todo enemy.Initialize();
+		m_aEnemyList.Add(enemy);
 	}
 }
 
+/**
+ * @brief GetEnemyList
+ */
 void EnemyManager::GetEnemyList(CShArray<Enemy*>& aEnemyList)
 {
 	int nEnemyCount = m_aEnemyList.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		aEnemyList.Add(m_aEnemyList[i]);
+		aEnemyList.Add(&m_aEnemyList[i]);
 	}
 }
