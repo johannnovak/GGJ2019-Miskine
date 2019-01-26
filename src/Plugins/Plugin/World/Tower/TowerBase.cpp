@@ -2,8 +2,8 @@
 
 #include "ShSDK/ShSDK.h"
 
-#include "../EnemyManager.h"
-#include "../Enemy.h"
+#include "../Enemy/EnemyManager.h"
+#include "../Enemy/Enemy.h"
 
 /**
  * @brief Constructor
