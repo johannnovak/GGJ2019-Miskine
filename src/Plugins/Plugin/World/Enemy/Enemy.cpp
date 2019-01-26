@@ -145,7 +145,7 @@ void Enemy::Update(float dt)
 
 	if (e_state_on == m_eState)
 	{	
-		if (m_iDestinationNode < m_aNodes.GetCount() - 1)
+		if (m_iDestinationNode < m_aNodes.GetCount())
 		{
 			m_fCompletion += dt;
 
@@ -161,9 +161,12 @@ void Enemy::Update(float dt)
 				m_vPosition.m_y = m_vStartPosition.m_y + m_v.m_y;
 				ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], m_vPosition);
 
-				m_iDestinationNode++;
-				SetTargetNode(m_aNodes[m_iDestinationNode]);
-				m_fCompletion -= 1.0f;
+				if (m_iDestinationNode < m_aNodes.GetCount() - 1)
+				{
+					m_iDestinationNode++;
+					SetTargetNode(m_aNodes[m_iDestinationNode]);
+					m_fCompletion -= 1.0f;
+				}
 			}
 		}
 
