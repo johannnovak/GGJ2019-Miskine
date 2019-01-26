@@ -7,6 +7,8 @@ const CShIdentifier plugin_identifier("PluginGGJ2019");
  */
 Plugin::Plugin(void)
 : CShPlugin(plugin_identifier)
+, m_world()
+, m_player2EventManager()
 {
 	// ...
 }
