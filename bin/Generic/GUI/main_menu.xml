@@ -1,7 +1,7 @@
 <gui version="1.0">
     <sss>
         <style pseudo_state="default" id="main_menu" offset_x="-217.000000" offset_x_unit="auto" offset_y="-230.000000" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="label_title" offset_x="-362.880066" offset_x_unit="auto" offset_y="-199.065628" offset_y_unit="auto" font_size="42.000000" font_size_unit="dip"/>
+        <style pseudo_state="default" id="label_title" offset_x="-362.880066" offset_x_unit="auto" offset_y="-199.065628" offset_y_unit="auto" font_size="46.000000" font_size_unit="dip"/>
         <style pseudo_state="default" id="button_new_game" offset_x="7.000000" offset_x_unit="auto" offset_y="125.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="button_load_game" offset_x="-191.000000" offset_x_unit="auto" offset_y="345.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="button_settings" offset_x="17.000000" offset_x_unit="auto" offset_y="450.000000" offset_y_unit="auto"/>
@@ -15,7 +15,7 @@
             <button id="button_load_game" pseudo_state="default" text="{load_existing_game}" text_type="rich"/>
             <button id="button_settings" pseudo_state="default" text="{settings}" text_type="rich"/>
             <button id="button_001" pseudo_state="default" text="{credits}" text_type="rich"/>
-            <button id="button_002" pseudo_state="default" text="{quit}" text_type="raw"/>
+            <button id="button_002" pseudo_state="default" text="{quit}" text_type="rich"/>
         </panel>
     </root>
 </gui>
