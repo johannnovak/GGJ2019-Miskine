@@ -85,7 +85,9 @@ void Node::Enable(void)
 	if (!m_bAccessible)
 	{
 		m_bAccessible = true;
+#if DEBUG_PATHFINDING
 		ShEntity2::SetShow(m_pEntity, true);
+#endif //DEBUG_PATHFINDING
 	}
 }
 
@@ -97,6 +99,8 @@ void Node::Disable(void)
 	if (m_bAccessible)
 	{
 		m_bAccessible = false;
+#if DEBUG_PATHFINDING
 		ShEntity2::SetShow(m_pEntity, false);
+#endif //DEBUG_PATHFINDING
 	}
 }

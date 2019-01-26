@@ -1,6 +1,6 @@
 #pragma once
 
-#define DEBUG_PATHFINDING 1
+#define DEBUG_PATHFINDING 0
 
 enum EDirection
 {

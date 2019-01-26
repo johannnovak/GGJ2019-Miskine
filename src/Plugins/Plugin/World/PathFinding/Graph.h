@@ -2,7 +2,7 @@
 
 #include "Node.h"
 
-#define DEBUG_PATHFINDING 1
+#define DEBUG_PATHFINDING 0
 
 class Graph
 {

@@ -104,6 +104,6 @@ void WaveManager::AddWave(void)
 {
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
-	wave.Start(CShVector3(0.0f,0.0f,1.0f), CShVector2(200.0f, -200.0f));
+	wave.Start(CShVector3(0.0f,0.0f,1.1f), CShVector2(200.0f, -200.0f));
 	m_iCurrentWave++;
 }
