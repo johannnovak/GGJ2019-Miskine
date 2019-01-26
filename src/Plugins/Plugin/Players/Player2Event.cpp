@@ -13,6 +13,17 @@ bool Player2Event::IsFinished(void)
 /**
  * @brief Player2Event::GetDifficulty
  */
+void Player2Event::Reset(int iStreak)
+{
+	ResetInternal();
+
+	m_bFinished	= false;
+	m_iErrorNb	= 0;
+}
+
+/**
+ * @brief Player2Event::GetDifficulty
+ */
 EPlayer2EventDifficulty Player2Event::GetDifficulty(void)
 {
 	return m_eDifficulty;
@@ -22,8 +33,9 @@ EPlayer2EventDifficulty Player2Event::GetDifficulty(void)
  * @brief Player2Event::Constructor
  */
 /*explicit*/ Player2Event::Player2Event(EPlayer2EventType eType)
-: m_eDifficulty(e_player2_event_difficulty_low)
+: m_eDifficulty(e_player2_event_difficulty_medium)
 , m_bFinished(false)
+, m_iErrorNb(0)
 {
 	// ...
 }

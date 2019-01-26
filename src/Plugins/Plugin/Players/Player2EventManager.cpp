@@ -23,6 +23,7 @@ void Player2EventManager::Initialize(void)
 	m_fTypoGaugeValue		= 0.0f;
 	m_fTypoGaugeMax			= TYPO_GAUGE_DEFAULT_MAX_VALUE;
 	m_pPlayer2EventListener	= shNULL;
+	m_iCurrentEventStreak	= 0;
 
 	//
 	// Get User
@@ -267,6 +268,10 @@ void Player2EventManager::Update(float dt)
 			{
 				m_pPlayer2EventListener->OnEventTypeFinished(m_pCurrentEvent);
 			}
+
+			//
+			// Reset EventType
+			m_pCurrentEvent->Reset(1);
 		}
 	}
 

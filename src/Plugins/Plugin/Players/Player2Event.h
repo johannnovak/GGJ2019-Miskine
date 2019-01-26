@@ -30,7 +30,7 @@ public:
 	virtual void					Release			(void) = 0;
 
 	virtual void					Update			(float dt) = 0;
-	virtual void					Reset			(void) = 0;
+	void							Reset			(int iStreak);
 
 	virtual EPlayer2EventType		GetType			(void) = 0;
 	virtual EPlayer2EventDifficulty	GetDifficulty	(void);
@@ -41,11 +41,13 @@ protected:
 	explicit						Player2Event	(EPlayer2EventType eType, EPlayer2EventDifficulty eDifficulty);
 	virtual							~Player2Event	(void);
 
+	virtual void					ResetInternal	(void) = 0;
 private:
 public:
 protected:
 	EPlayer2EventDifficulty			m_eDifficulty;
 	bool							m_bFinished;
+	int								m_iErrorNb;
 };
 
 
