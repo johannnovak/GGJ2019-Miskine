@@ -72,7 +72,7 @@ Plugin::Plugin(void)
 */
 void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 {
-	// ...
+	m_world.CreateTower(CShVector2(positionX, positionY));
 }
 
 /**

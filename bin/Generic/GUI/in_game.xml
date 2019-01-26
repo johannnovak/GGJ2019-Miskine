@@ -1,0 +1,67 @@
+<gui version="1.0">
+    <sss>
+        <style pseudo_state="default" id="in_game" offset_x="-301.000000" offset_x_unit="auto" offset_y="-153.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_header" offset_x="118.195221" offset_x_unit="auto" offset_y="-180.403229" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_wave" offset_x="-36.000000" offset_x_unit="auto" offset_y="-68.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_wave_label" offset_x="134.784012" offset_x_unit="auto" offset_y="257.472015" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_wave_current" offset_x="101.952011" offset_x_unit="auto" offset_y="288.576019" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_wave_slash" offset_x="134.784012" offset_x_unit="auto" offset_y="245.376022" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_wave_total" offset_x="302.400024" offset_x_unit="auto" offset_y="240.192032" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobuttongroup_time" offset_x="-11.000000" offset_x_unit="auto" offset_y="-245.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_pause" offset_x="-92.000000" offset_x_unit="auto" offset_y="-11.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_play" offset_x="90.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="radiobutton_fast_forward" offset_x="181.000000" offset_x_unit="auto" offset_y="15.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="button_menu" offset_x="178.000000" offset_x_unit="auto" offset_y="110.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_content" offset_x="82.944016" offset_x_unit="auto" offset_y="201.139236" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_left" offset_x="-358.000000" offset_x_unit="auto" offset_y="1.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_center" offset_x="-379.000000" offset_x_unit="auto" offset_y="-25.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_right" offset_x="-416.000000" offset_x_unit="auto" offset_y="7.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_infos" offset_x="-2.000000" offset_x_unit="auto" offset_y="-80.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_username" offset_x="144.000000" offset_x_unit="auto" offset_y="127.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_money" offset_x="-30.000000" offset_x_unit="auto" offset_y="223.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_money_label" offset_x="-55.000000" offset_x_unit="auto" offset_y="147.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_money_value" offset_x="51.000000" offset_x_unit="auto" offset_y="11.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_hp" offset_x="-52.000000" offset_x_unit="auto" offset_y="-24.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_hp_label" offset_x="134.000000" offset_x_unit="auto" offset_y="21.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_hp_value" offset_x="148.000000" offset_x_unit="auto" offset_y="10.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_hp_slash" offset_x="109.000000" offset_x_unit="auto" offset_y="14.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_hp_total" offset_x="148.000000" offset_x_unit="auto" offset_y="9.000000" offset_y_unit="auto"/>
+    </sss>
+    <root>
+        <panel id="in_game" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:8.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+            <panel id="panel_header" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <panel id="panel_wave" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                    <text id="text_wave_label" pseudo_state="default" text="{ig_wave_label}" text_type="rich"/>
+                    <text id="text_wave_current" pseudo_state="default" text="XX" text_type="rich"/>
+                    <text id="text_wave_slash" pseudo_state="default" text="/" text_type="rich"/>
+                    <text id="text_wave_total" pseudo_state="default" text="XX" text_type="rich"/>
+                </panel>
+                <radiobuttongroup id="radiobuttongroup_time" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" is_unselectable="0">
+                    <radiobutton id="radiobutton_pause" pseudo_state="default" text="" text_type="rich"/>
+                    <radiobutton id="radiobutton_play" pseudo_state="default" text="" text_type="rich"/>
+                    <radiobutton id="radiobutton_fast_forward" pseudo_state="default" text="" text_type="rich"/>
+                </radiobuttongroup>
+                <button id="button_menu" pseudo_state="default" text="{ig_menu}" text_type="rich"/>
+            </panel>
+            <panel id="panel_content" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_weights="1.000000:5.000000|0.000000:0.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <panel id="panel_left" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+                <panel id="panel_center" pseudo_state="default" layout_type="default_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right"/>
+                <panel id="panel_right" pseudo_state="default" layout_type="stretch_layout" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                    <panel id="panel_infos" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                        <text id="text_username" pseudo_state="default" text="User Name" text_type="rich"/>
+                        <panel id="panel_money" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                            <text id="text_money_label" pseudo_state="default" text="{ig_money_label}" text_type="rich"/>
+                            <text id="text_money_value" pseudo_state="default" text="XXXXXX" text_type="rich"/>
+                        </panel>
+                        <panel id="panel_hp" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                            <text id="text_hp_label" pseudo_state="default" text="{ig_hp_label}" text_type="rich"/>
+                            <text id="text_hp_value" pseudo_state="default" text="XX" text_type="rich"/>
+                            <text id="text_hp_slash" pseudo_state="default" text="/" text_type="rich"/>
+                            <text id="text_hp_total" pseudo_state="default" text="XX" text_type="rich"/>
+                        </panel>
+                    </panel>
+                </panel>
+            </panel>
+        </panel>
+    </root>
+</gui>

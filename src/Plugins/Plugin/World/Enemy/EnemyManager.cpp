@@ -53,7 +53,6 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			m_aiCurrentEnemy[i] = 0;
 		}
 	}
-
 }
 
 /**
