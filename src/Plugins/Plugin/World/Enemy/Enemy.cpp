@@ -68,6 +68,7 @@ void Enemy::Start(const CShVector3 & position, const CShVector2 & vDestination)
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
 
 	ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], position);
+	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[m_currentSprite]) + 0.01f);
 
 	CShArray<Node*> aNodes;
 	g_graph.FindPath(g_graph.FindNearestWayPoint(CShVector2(position.m_x, position.m_y)), g_graph.FindNearestWayPoint(vDestination), aNodes);
@@ -126,7 +127,7 @@ void Enemy::SetState(EState state)
 		case e_state_appear: 
 		{
 			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true);
-			ShEntity2::SetScale(m_pEntityLifeBar, 1.0f, 1.0f, 1.0f);
+			ShEntity2::SetScale(m_pEntityLifeBar, 0.4f, 0.4f, 1.0f);
 		}
 		break;
 
@@ -231,7 +232,7 @@ void Enemy::TakeDamages(int damages)
 	SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
 	m_currentHealth = shMax(0, m_currentHealth - damages);
 
-	ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(m_currentHealth / (float)m_baseHealth, 1.0f, 1.0f));
+	ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(0.4f * (m_currentHealth / (float)m_baseHealth), 0.4f, 1.0f));
 
 	if (0 >= m_currentHealth)
 	{ // Dead
