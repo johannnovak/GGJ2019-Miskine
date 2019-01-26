@@ -7,7 +7,15 @@ Game Game::m_Instance;
 /**
  * @brief Game::Game
  */
-Game::Game(void) : m_iCurrentState(-1)
+Game::Game(void)
+: m_aStates()
+, m_iCurrentState(-1)
+, m_stateMainMenu()
+, m_stateCharacterIntro()
+, m_stateSettings()
+, m_stateCredits()
+, m_stateGame()
+, m_fRatio()
 {
 	for (int i = 0; i < MAX_GAME_STATES; ++i)
 	{

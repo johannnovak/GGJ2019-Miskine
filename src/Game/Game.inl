@@ -27,6 +27,12 @@ inline GameState * Game::get(EState state)
 		}
 		break;
 
+		case CREDITS:
+		{
+			return(&m_stateCredits);
+		}
+		break;
+
 		case INGAME:
 		{
 			return(&m_stateGame);

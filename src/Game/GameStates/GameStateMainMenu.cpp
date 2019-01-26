@@ -19,6 +19,14 @@ bool ButtonSettingsClicked(ShGUIControl * pControl, const CShVector2 & vPosition
 	return true;
 }
 
+bool ButtonCreditsClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	Game::GetInstance().push(Game::CREDITS);
+	return true;
+}
+
 
 /**
  * @brief Constructor
@@ -50,6 +58,8 @@ void GameStateMainMenu::init(void)
 	ShGUIControlButton::AddSignalFctPtrClick(pNewGameButton, ButtonNewGameClicked);
 	ShGUIControlButton * pSettingsButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_settings").Append(strSuffix.Get()), m_pMainPanel));
 	ShGUIControlButton::AddSignalFctPtrClick(pSettingsButton, ButtonSettingsClicked);
+	ShGUIControlButton * pCreditsButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_credits").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlButton::AddSignalFctPtrClick(pCreditsButton, ButtonCreditsClicked);
 }
 
 /**
