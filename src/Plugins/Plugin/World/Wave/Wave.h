@@ -16,7 +16,7 @@ public:
 	explicit	 Wave				(void);
 	virtual		~Wave				(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier, int iEnemyCount, float fTime);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, int iEnemyCount, float fTime);
 	void		Release				(void);
 
 	void		Start				(void);
@@ -28,10 +28,10 @@ private:
 public:
 
 private:
-	EState		 m_eState;
-	EnemyManager m_enemyManager;
-	int			 m_iRemainingEnemy;
-	float		 m_fApparitionTime;
-	float		 m_fTime;
+	EState			m_eState;
+	EnemyManager *	m_pEnemyManager;
+	int				m_iRemainingEnemy;
+	float			m_fApparitionTime;
+	float			m_fTime;
 };
 

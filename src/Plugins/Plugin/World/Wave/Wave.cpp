@@ -4,7 +4,7 @@
  * @brief Constructor
  */
 Wave::Wave(void)
-: m_enemyManager()
+: m_pEnemyManager(shNULL)
 , m_iRemainingEnemy()
 , m_eState(e_state_off)
 , m_fApparitionTime(0.0f)
@@ -24,12 +24,12 @@ Wave::~Wave(void)
 /**
  * @brief Initialize
  */
-void Wave::Initialize(const CShIdentifier & levelIdentifier, int iEnemyCount, float fApparitionTime)
+void Wave::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, int iEnemyCount, float fApparitionTime)
 {
 	m_iRemainingEnemy = iEnemyCount;
 	m_fApparitionTime = fApparitionTime;
 
-	m_enemyManager.Initialize(levelIdentifier);
+	m_pEnemyManager = pEnemyManager;
 }
 
 /**
@@ -69,12 +69,10 @@ void Wave::Update(float dt)
 		{
 			if (m_fTime > m_fApparitionTime)
 			{
-				m_enemyManager.SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 0.0f, 1.0f));
+				m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 0.0f, 1.0f));
 				m_iRemainingEnemy--;
 				m_fTime = m_fTime - m_fApparitionTime;
 			}
 		}
-
-		m_enemyManager.Update(dt);
 	}
 }

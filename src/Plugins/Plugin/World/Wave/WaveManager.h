@@ -19,7 +19,7 @@ public:
 	explicit	 WaveManager		(void);
 	virtual		~WaveManager		(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
 	void		Release				(void);
 
 	void		Start				(void);

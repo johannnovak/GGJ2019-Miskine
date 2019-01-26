@@ -28,12 +28,12 @@ WaveManager::~WaveManager(void)
 /**
  * @brief Initialize
  */
-void WaveManager::Initialize(const CShIdentifier & levelIdentifier)
+void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager)
 {
 	for (int i = 0; i < WAVE_MAX; i++)
 	{
 		Wave wave;
-		wave.Initialize(levelIdentifier, 10, 0.5f);
+		wave.Initialize(levelIdentifier, pEnemyManager, 1, 0.5f);
 		m_aWave.Add(wave);
 	}
 
