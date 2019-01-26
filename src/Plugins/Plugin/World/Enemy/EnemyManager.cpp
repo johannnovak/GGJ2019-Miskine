@@ -86,18 +86,15 @@ void EnemyManager::Update(float dt)
 /**
  * @brief CreateEnemies
  */
-void EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector3 vPosition, int iCount)
+void EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector3 vPosition)
 {
-	for (int i = 0; i < iCount; ++i)
-	{
-		Enemy * pEnemi = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
+	Enemy * pEnemi = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
 
-		m_aiCurrentEnemy[eEnemy]++;
-		m_aiCurrentEnemy[eEnemy] %= POOL_SIZE;
+	m_aiCurrentEnemy[eEnemy]++;
+	m_aiCurrentEnemy[eEnemy] %= POOL_SIZE;
 		
-		m_apActiveEnemy.Add(pEnemi);
-		pEnemi->Start(vPosition);
-	}
+	m_apActiveEnemy.Add(pEnemi);
+	pEnemi->Start(vPosition);
 }
 
 /**
@@ -124,6 +121,9 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
 		const CShVector3 & enemyPos = m_apActiveEnemy[i]->GetPosition();
+
+		if (m_apActiveEnemy[i]->IsDead())
+			continue;
 
 		if (enemyPos == pos)
 			continue;

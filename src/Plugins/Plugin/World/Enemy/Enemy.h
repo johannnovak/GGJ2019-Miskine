@@ -12,27 +12,27 @@ class Enemy
 
 public:
 
-	explicit	 Enemy				(void);
-	virtual		~Enemy				(void);
+	explicit			 Enemy				(void);
+	virtual				~Enemy				(void);
 
-	void		Initialize			(ShEntity2* pEntity, int iBaseHealth);
-	void		Release				(void);
+	void				Initialize			(ShEntity2* pEntity, int iBaseHealth);
+	void				Release				(void);
 
-	void		Start				(const CShVector3 & vPosition);
-	void		Stop				(void);
+	void				Start				(const CShVector3 & vPosition);
+	void				Stop				(void);
 
-	void		Update				(float dt);
+	void				Update				(float dt);
 
-	void		TakeDamages			(float damages);
+	void				TakeDamages			(int damages);
 
-	const CShVector3 & GetPosition	(void) const;
-	const int & GetBaseHealth		(void) const;
-	const int & GetCurrentHealth	(void) const;
+	const CShVector3 &	GetPosition			(void) const;
+	const int &			GetBaseHealth		(void) const;
+	const int &			GetCurrentHealth	(void) const;
+
+	bool				IsDead				(void);
 
 private:
-	void		SetState			(EState state);
-
-public:
+	void				SetState			(EState state);
 
 private:
 	EState					m_eState;

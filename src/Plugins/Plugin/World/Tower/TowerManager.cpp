@@ -59,7 +59,7 @@ void TowerManager::Update(float dt)
 /**
  * @brief CreateTower
  */
-void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
+void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed)
 {
 	TowerBase tower;
 	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);

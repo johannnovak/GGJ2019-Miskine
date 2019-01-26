@@ -31,6 +31,10 @@ source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 set(SOURCES_Enemy World/Enemy/Enemy.cpp World/Enemy/Enemy.h World/Enemy/EnemyManager.cpp World/Enemy/EnemyManager.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
+# Wave files
+set(SOURCES_Wave World/Wave/Wave.cpp World/Wave/Wave.h World/Wave/WaveManager.cpp World/Wave/WaveManager.h)
+source_group("World\\Wave" FILES ${SOURCES_Wave})
+
 # Tower files
 set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h World/Tower/TowerManager.cpp World/Tower/TowerManager.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
@@ -53,6 +57,7 @@ ${SOURCES_Enemy}
 ${SOURCES_Towers}
 ${SOURCES_Graph}
 ${SOURCES_Node}
+${SOURCES_Wave}
 )
 
 # Compile to use it on Runtime
