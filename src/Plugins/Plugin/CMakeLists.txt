@@ -55,6 +55,31 @@ source_group("World\\PathFinding" FILES ${SOURCES_Graph})
 set(SOURCES_Node World/PathFinding/Node.cpp World/PathFinding/Node.h)
 source_group("World\\PathFinding" FILES ${SOURCES_Node})
 
+set(SOURCES_Player2Event	Players/Player2Event.cpp Players/Player2Event.h
+							Players/Player2EventManager.cpp Players/Player2EventManager.h)
+source_group("Players\\Player2\\Event" FILES ${SOURCES_Player2Event})
+
+set(SOURCES_Player2EventTypeWords	Players/Player2EventTypeWords.cpp Players/Player2EventTypeWords.h)
+source_group("Players\\Player2\\Event\\TypeWords" FILES ${SOURCES_Player2EventTypeWords})
+
+#set(SOURCES_Player2EventBoostTower	Players/Player2EventBoostTower.cpp Players/Player2EventBoostTower.h)
+#source_group("Players\\Player2\\Event\\BoostTower" FILES ${SOURCES_Player2EventBoostTower})
+#
+#set(SOURCES_Player2EventGrantSpecialAttack	Players/Player2EventGrantSpecialAttack.cpp Players/Player2EventGrantSpecialAttack.h)
+#source_group("Players\\Player2\\Event\\GrantSpecialAttack" FILES ${SOURCES_Player2EventGrantSpecialAttack})
+#
+#set(SOURCES_Player2EventControlEnemy	Players/Player2EventControlEnemy.cpp Players/Player2EventControlEnemy.h)
+#source_group("Players\\Player2\\Event\\ControlEnemy" FILES ${SOURCES_Player2EventControlEnemy})
+#
+#set(SOURCES_Player2EventImmediateQTE	Players/Player2EventImmediateQTE.cpp Players/Player2EventImmediateQTE.h)
+#source_group("Players\\Player2\\Event\\ImmediateQTE" FILES ${SOURCES_Player2EventImmediateQTE})
+#
+#set(SOURCES_Player2EventSuperMegaCombo	Players/Player2EventSuperMegaCombo.cpp Players/Player2EventSuperMegaCombo.h)
+#source_group("Players\\Player2\\Event\\SuperMegaCombo" FILES ${SOURCES_Player2EventSuperMegaCombo})
+
+set(SOURCES_Player2EventListener	Players/IPlayer2EventListener.h)
+source_group("Players\\Player2\\Event" FILES ${SOURCES_Player2EventListener})
+
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_Plugin}
@@ -66,6 +91,13 @@ ${SOURCES_Towers}
 ${SOURCES_Graph}
 ${SOURCES_Node}
 ${SOURCES_Wave}
+${SOURCES_Player2Event}
+${SOURCES_Player2EventTypeWords}
+#${SOURCES_Player2EventBoostTower}
+#${SOURCES_Player2EventGrantSpecialAttack}
+#${SOURCES_Player2EventControlEnemy}
+#${SOURCES_Player2EventImmediateQTE}
+${SOURCES_Player2EventListener}
 )
 
 # Compile to use it on Runtime
@@ -75,7 +107,7 @@ set_property(TARGET Plugin APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPILE_
 set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS}")
 
 if (NOT MSVC)
-set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
+	set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
 endif()
 
 target_link_libraries(Plugin INTERFACE ${SHSDK_LIBRARIES})

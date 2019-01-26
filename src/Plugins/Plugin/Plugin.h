@@ -5,6 +5,8 @@
 
 #include "World/World.h"
 
+#include "Players/Player2EventManager.h"
+
 class Plugin : public CShPlugin
 {
 public:
@@ -29,5 +31,7 @@ public:
 
 private:
 
-	World		m_world;
+	World				m_world;
+
+	Player2EventManager m_player2EventManager;
 };
