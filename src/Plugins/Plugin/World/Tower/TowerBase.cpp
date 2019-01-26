@@ -221,3 +221,22 @@ void TowerBase::Update(float dt)
 		}
 	}
 }
+
+/**
+ * @brief LevelUp
+ */
+void TowerBase::LevelUp(void)
+{
+	m_level++;
+	// Add damages ?
+	// Ranges ?
+	// AS ?
+}
+
+/**
+ * @brief GetCurrentLevel
+ */
+int TowerBase::GetCurrentLevel(void)
+{
+	return m_level;
+}
