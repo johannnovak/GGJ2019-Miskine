@@ -7,7 +7,7 @@
  * @brief Constructor
  */
 /*explicit*/ Player2EventTypeWords::Player2EventTypeWords(void)
-: Player2Event(e_player2_event_type_type_words)
+: Player2Event()
 , m_wstrWordToType(L"")
 , m_iCurrentIndex(0)
 {
@@ -18,7 +18,7 @@
  * @brief Constructor
  */
 /*explicit*/ Player2EventTypeWords::Player2EventTypeWords(const CShWString & wstrWordToType)
-: Player2Event(e_player2_event_type_type_words)
+: Player2Event()
 , m_wstrWordToType(wstrWordToType)
 , m_iCurrentIndex(0)
 {

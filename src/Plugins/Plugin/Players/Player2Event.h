@@ -39,8 +39,8 @@ public:
 	bool							IsFinished		(void);
 
 protected:
-	explicit						Player2Event	(EPlayer2EventType eType);
-	explicit						Player2Event	(EPlayer2EventType eType, EPlayer2EventDifficulty eDifficulty);
+	explicit						Player2Event	(void);
+	explicit						Player2Event	(EPlayer2EventDifficulty eDifficulty);
 	virtual							~Player2Event	(void);
 
 	virtual void					ResetInternal	(void) = 0;
