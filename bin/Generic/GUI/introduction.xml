@@ -18,7 +18,7 @@
         <style pseudo_state="default" id="button_start" offset_x="-464.000000" offset_x_unit="auto" offset_y="-15.000000" offset_y_unit="auto"/>
     </sss>
     <root>
-        <panel id="introduction" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+        <panel id="introduction" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:2.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
             <text id="text_title" pseudo_state="default" text="{team_introduction_title}" text_type="rich"/>
             <panel id="panel_characters" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                 <panel id="panel_character_1" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
@@ -33,12 +33,12 @@
                     <text id="text_character_3" pseudo_state="default" text="{fam_member_son}" text_type="rich"/>
                     <image id="image_character_3" pseudo_state="default" color_filter="#FFFFFFFF"/>
                 </panel>
-                <panel id="panel_character_4" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <panel id="panel_character_4" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                     <text id="text_character_4" pseudo_state="default" text="{fam_member_daughter}" text_type="rich"/>
                     <image id="image_character_4" pseudo_state="default" color_filter="#FFFFFFFF"/>
                 </panel>
             </panel>
-            <button id="button_start" pseudo_state="default" text="{play}" text_type="rich"/>
+            <button id="button_start" pseudo_state="default" id_next_focus="button_start" id_prev_focus="button_start" is_first_focus="1" text="{play}" text_type="rich"/>
         </panel>
     </root>
 </gui>

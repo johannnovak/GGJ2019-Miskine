@@ -1,22 +1,22 @@
 <gui version="1.0">
     <sss>
         <style pseudo_state="default" id="game_load" offset_x="-394.000000" offset_x_unit="auto" offset_y="-129.000000" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="text_001" offset_x="-469.000000" offset_x_unit="auto" offset_y="-216.000000" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="panel_001" offset_x="-320.000000" offset_x_unit="auto" pivot_vertical="bottom" offset_y="234.000000" offset_y_unit="auto" overflow="auto"/>
-        <style pseudo_state="default" id="button_001" offset_x="-111.000000" offset_x_unit="auto" offset_y="-24.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_title" offset_x="-469.000000" offset_x_unit="auto" offset_y="-216.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_saves_list" offset_x="-320.000000" offset_x_unit="auto" pivot_vertical="bottom" offset_y="234.000000" offset_y_unit="auto" overflow="auto"/>
+        <style pseudo_state="default" id="button_save_1" offset_x="-111.000000" offset_x_unit="auto" offset_y="-24.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_buttons" offset_x="-536.000000" offset_x_unit="auto" offset_y="-6.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="button_back" offset_x="-91.000000" offset_x_unit="auto" offset_y="-42.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="button_ok" offset_x="-480.000000" offset_x_unit="auto" offset_y="-74.000000" offset_y_unit="auto"/>
     </sss>
     <root>
         <panel id="game_load" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-            <text id="text_001" pseudo_state="default" text="{load_existing_game_title}" text_type="rich"/>
-            <panel id="panel_001" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-                <button id="button_001" pseudo_state="default" text="{empty}" text_type="rich"/>
+            <text id="text_title" pseudo_state="default" text="{load_existing_game_title}" text_type="rich"/>
+            <panel id="panel_saves_list" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+                <button id="button_save_1" pseudo_state="default" id_next_focus="button_back" id_prev_focus="button_ok" is_first_focus="1" text="{empty}" text_type="rich"/>
             </panel>
             <panel id="panel_buttons" pseudo_state="default" layout_type="layout_horizontal_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-                <button id="button_back" pseudo_state="default" text="{back}" text_type="rich"/>
-                <button id="button_ok" pseudo_state="default" text="{ok}" text_type="rich"/>
+                <button id="button_back" pseudo_state="default" id_next_focus="button_ok" id_prev_focus="button_save_1" text="{back}" text_type="rich"/>
+                <button id="button_ok" pseudo_state="default" id_next_focus="button_save_1" id_prev_focus="button_back" text="{ok}" text_type="rich"/>
             </panel>
         </panel>
     </root>
