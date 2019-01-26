@@ -24,6 +24,10 @@ source_group("State\\MainMenu" FILES ${SOURCES_GameStateMainMenu})
 set(SOURCES_GameStateCharacterIntro GameStates/GameStateCharacterIntro.cpp GameStates/GameStateCharacterIntro.h)
 source_group("State\\MainMenu" FILES ${SOURCES_GameCharacterIntro})
 
+# Characters introduction
+set(SOURCES_GameStateSettings GameStates/GameStateSettings.cpp GameStates/GameStateSettings.h)
+source_group("State\\MainMenu" FILES ${SOURCES_GameSettings})
+
 # Game
 set(SOURCES_GameStateGame GameStates/GameStateGame.cpp GameStates/GameStateGame.h)
 source_group("State\\Game" FILES ${SOURCES_GameStateGame})
@@ -36,6 +40,7 @@ ${SOURCES_Game}
 ${SOURCES_GameState}
 ${SOURCES_GameStateMainMenu}
 ${SOURCES_GameStateCharacterIntro}
+${SOURCES_GameStateSettings}
 ${SOURCES_GameStateGame}
 )
 

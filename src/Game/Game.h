@@ -3,6 +3,7 @@
 #include "GameStates/GameStateGame.h"
 #include "GameStates/GameStateMainMenu.h"
 #include "GameStates/GameStateCharacterIntro.h"
+#include "GameStates/GameStateSettings.h"
 
 #define ORIGINAL_VIEWPORT_X 1280.0f
 #define ORIGINAL_VIEWPORT_Y 720.0f
@@ -17,6 +18,7 @@ public:
 	{
 		MAIN_MENU,
 		CHARACTER_INTRO,
+		SETTINGS,
 		INGAME,
 
 		MAX_GAME_STATES
@@ -57,6 +59,7 @@ private:
 
 	GameStateMainMenu		m_stateMainMenu;
 	GameStateCharacterIntro	m_stateCharacterIntro;
+	GameStateSettings		m_stateSettings;
 	GameStateGame			m_stateGame;
 
 	float m_fRatio;
