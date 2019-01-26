@@ -61,10 +61,35 @@ void TowerManager::Update(float dt)
 /**
  * @brief CreateTower
  */
-void TowerManager::CreateMeleeTower(TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed)
+void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
+{
+	switch (towerType)
+	{
+	case TowerBase::tower_pere: CreateMeleeTower(towerType, focusType, position, damages, attackSpeed); break;
+	case TowerBase::tower_mere: CreateMeleeTower(towerType, focusType, position, damages, attackSpeed); break;
+	case TowerBase::tower_fille: CreateRangeTower(towerType, focusType, position, damages, attackSpeed); break;
+	case TowerBase::tower_fils: CreateRangeTower(towerType, focusType, position, damages, attackSpeed); break;
+
+	}
+}
+
+/**
+ * @brief CreateMeleeTower
+ */
+void TowerManager::CreateMeleeTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
 	TowerMelee tower;
-	tower.Initialize(m_levelIdentifier, m_pEnemyManager, focusType, position, damages, attackSpeed);
+	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(tower);
+}
+
+/**
+ * @brief CreateRangeTower
+ */
+void TowerManager::CreateRangeTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
+{
+	TowerRange tower;
+	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
 	m_aTowerList.Add(tower);
 }
 

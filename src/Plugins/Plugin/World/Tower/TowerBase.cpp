@@ -11,9 +11,10 @@
  * @brief Constructor
  */
 TowerBase::TowerBase(void)
-: m_eTowerType(tower_melee)
+: m_eTowerType(tower_pere)
+, m_eTowerAttackType(tower_melee)
 , m_eFocusType(focus_nearest)
-, m_vPosition(CShVector3::ZERO)
+, m_vPosition(CShVector2::ZERO)
 , m_fRadiusMin(0.0f)
 , m_fRadiusMax(100.0f)
 , m_pDebugRadiusMin(shNULL)
@@ -45,10 +46,11 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_levelIdentifier = levelIdentifier;
 
+	m_eTowerType = towerType;
 	m_eFocusType = focusType;
 	m_vPosition = position;
 	m_damages = damages;
@@ -60,10 +62,10 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 	m_fAOERange = rangeAOE;
 	m_fAnimationSpeed = 0.5f;
 
-	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
+	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), CShVector3(m_vPosition,0.0f), m_fRadiusMin, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMin);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMin, true);
-	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
+	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), CShVector3(m_vPosition, 0.0f), m_fRadiusMax, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMax);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMax, true);
 }
@@ -76,12 +78,15 @@ void TowerBase::Release(void)
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
 
-	int nAttackAnimCount = m_aAttackAnimation.GetCount();
-	for (int i = 0; i < nAttackAnimCount; ++i)
+	for (int i = 0; i < direction_max; ++i)
 	{
-		ShEntity2::Destroy(m_aAttackAnimation[i]);
+		int nAttackAnimCount = m_aAttackAnimation[i].GetCount();
+		for (int j = 0; j < nAttackAnimCount; ++j)
+		{
+			ShEntity2::Destroy(m_aAttackAnimation[i][j]);
+		}
+		m_aAttackAnimation[i].Empty();
 	}
-	m_aAttackAnimation.Empty();
 }
 
 /**
@@ -107,7 +112,7 @@ void TowerBase::Update(float dt)
 				{
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
-						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+						const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 						CShArray<Enemy*> aEnemyList;
 						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -141,7 +146,7 @@ void TowerBase::Update(float dt)
 		{
 			if (m_pCurrentTarget)
 			{
-				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
@@ -170,7 +175,7 @@ void TowerBase::Update(float dt)
 					{
 					case focus_nearest:
 					{
-						const CShVector3 & enemyPos = pEnemy->GetPosition();
+						const CShVector2 & enemyPos = pEnemy->GetPosition();
 						float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
 
 						if (dist < distSquared)
@@ -228,9 +233,9 @@ void TowerBase::Update(float dt)
 void TowerBase::LevelUp(void)
 {
 	m_level++;
-	// Add damages ?
+	m_damages += 10;
+	m_fAttackSpeed -= 1.0f;
 	// Ranges ?
-	// AS ?
 }
 
 /**
