@@ -27,6 +27,14 @@ bool ButtonCreditsClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 	return true;
 }
 
+bool ButtonQuitClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	ShApplication::RequestQuit();
+	return true;
+}
+
 
 /**
  * @brief Constructor
@@ -60,6 +68,8 @@ void GameStateMainMenu::init(void)
 	ShGUIControlButton::AddSignalFctPtrClick(pSettingsButton, ButtonSettingsClicked);
 	ShGUIControlButton * pCreditsButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_credits").Append(strSuffix.Get()), m_pMainPanel));
 	ShGUIControlButton::AddSignalFctPtrClick(pCreditsButton, ButtonCreditsClicked);
+	ShGUIControlButton * pQuitButton = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_quit").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlButton::AddSignalFctPtrClick(pQuitButton, ButtonQuitClicked);
 }
 
 /**
