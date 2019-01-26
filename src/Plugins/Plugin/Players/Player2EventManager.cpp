@@ -104,7 +104,7 @@ bool Player2EventManager::ChooseEventType(EPlayer2EventType eEventType)
 		//
 		// Reset just completed as we start a new event and make available the old one
 		ResetBoolArray(m_aJustCompletedEvents);
-		m_pPreviousEvent->Reset();
+		m_pPreviousEvent->Reset(1);
 		
 		//
 		// Update current event index and remove the chosen one from the available ones
@@ -133,7 +133,7 @@ bool Player2EventManager::LeaveEventType(void)
 
 		//
 		// Reset just completed
-		m_pPreviousEvent->Reset();
+		m_pPreviousEvent->Reset(1);
 		
 		//
 		// Update current event index
