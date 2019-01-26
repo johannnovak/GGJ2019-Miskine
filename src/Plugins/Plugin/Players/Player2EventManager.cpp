@@ -24,6 +24,7 @@ void Player2EventManager::Initialize(void)
 	m_fTypoGaugeMax			= TYPO_GAUGE_DEFAULT_MAX_VALUE;
 	m_pPlayer2EventListener	= shNULL;
 	m_iCurrentEventStreak	= 0;
+	m_pEditBoxHidden		= shNULL;
 
 	//
 	// Get User
@@ -176,6 +177,42 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
 	else
 	{
 		m_pPlayer2EventListener = shNULL;
+
+		return true;
+	}
+}
+
+/**
+ * @brief RegisterEditBoxHidden
+ */
+bool Player2EventManager::RegisterEditBoxHidden(ShGUIControlEditBox * pEditBox)
+{
+	if (shNULL != pEditBox)
+	{
+		return false;
+	}
+
+	m_pEditBoxHidden = pEditBox;
+
+	return true;
+}
+
+/**
+ * @brief UnregisterEditBoxHidden
+ */
+bool Player2EventManager::UnregisterEditBoxHidden(ShGUIControlEditBox * pEditBox)
+{
+	if (shNULL == pEditBox)
+	{
+		return false;
+	}
+	else if (m_pEditBoxHidden != pEditBox)
+	{
+		return false;
+	}
+	else
+	{
+		m_pEditBoxHidden = shNULL;
 
 		return true;
 	}

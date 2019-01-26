@@ -51,6 +51,12 @@ void GameStateGame::entered(void)
 		SH_ASSERT_ALWAYS();
 	}
 	ShGUIControlPanel::Show(m_pMainPanel);
+
+	//
+	// Register variables for Player2EventManager
+	// TODO
+	//(static_cast<Plugin*>(GetPlugin()))->GetPlayer2EventManager().RegisterEditBoxHidden(m_pEditBoxHidden);
+	//(static_cast<Plugin*>(GetPlugin()))->GetPlayer2EventManager().RegisterListener(this);
 }
 
 /**
