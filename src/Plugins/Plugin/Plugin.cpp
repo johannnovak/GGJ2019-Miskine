@@ -3,8 +3,8 @@
 const CShIdentifier plugin_identifier("PluginGGJ2019");
 
 /**
-* @brief Constructor
-*/
+ * @brief Constructor
+ */
 Plugin::Plugin(void)
 : CShPlugin(plugin_identifier)
 {
@@ -12,88 +12,88 @@ Plugin::Plugin(void)
 }
 
 /**
-* @brief Destructor
-*/
+ * @brief Destructor
+ */
 /*virtual*/ Plugin::~Plugin(void)
 {
 	// ...
 }
 
 /**
-* @brief OnPlayStart
-*/
+ * @brief OnPlayStart
+ */
 /*virtual*/ void Plugin::OnPlayStart(const CShIdentifier & levelIdentifier)
 {
 	m_world.Initialize(levelIdentifier);
 }
 
 /**
-* @brief OnPlayStop
-*/
+ * @brief OnPlayStop
+ */
 /*virtual*/ void Plugin::OnPlayStop(const CShIdentifier & levelIdentifier)
 {
 	m_world.Release();
 }
 
 /**
-* @brief OnPlayPause
-*/
+ * @brief OnPlayPause
+ */
 /*virtual*/ void Plugin::OnPlayPause(const CShIdentifier & levelIdentifier)
 {
 	// ...
 }
 
 /**
-* @brief OnPlayResume
-*/
+ * @brief OnPlayResume
+ */
 /*virtual*/ void Plugin::OnPlayResume(const CShIdentifier & levelIdentifier)
 {
 	// ...
 }
 
 /**
-* @brief OnPreUpdate
-*/
+ * @brief OnPreUpdate
+ */
 /*virtual*/ void Plugin::OnPreUpdate(float dt)
 {
 	// ...
 }
 
 /**
-* @brief OnPostUpdate
-*/
+ * @brief OnPostUpdate
+ */
 /*virtual*/ void Plugin::OnPostUpdate(float dt)
 {
 	m_world.Update(dt);
 }
 
 /**
-* @brief OnTouchDown
-*/
+ * @brief OnTouchDown
+ */
 void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 {
 	m_world.CreateTower(CShVector2(positionX, positionY));
 }
 
 /**
-* @brief OnTouchUp
-*/
+ * @brief OnTouchUp
+ */
 void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
 {
 	// ...
 }
 
 /**
-* @brief OnTouchMove
-*/
+ * @brief OnTouchMove
+ */
 void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
 	// ...
 }
 
 /**
-* @brief GetDistanceSquared
-*/
+ * @brief GetDistanceSquared
+ */
 float Plugin::GetDistanceSquared(const CShVector3 & start, const CShVector3 & dest)
 {
 	//TODO Test me
