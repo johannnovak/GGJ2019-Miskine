@@ -24,9 +24,6 @@ source_group("Extension" FILES ${SOURCES_Extension})
 # Put everything together before adding platform-specific files
 set(SOURCES ${SOURCES_main} ${SOURCES_Extension})
 
-# Set _Debug extension needed for editor
-set(CMAKE_DEBUG_POSTFIX "_Debug")
-
 add_library(Extension SHARED ${SOURCES})
 
 set_property(TARGET Extension PROPERTY FOLDER "Editor")
@@ -35,6 +32,10 @@ set_property(TARGET Extension APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPI
 set_property(TARGET Extension APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS}")
 set_property(TARGET Extension APPEND PROPERTY COMPILE_DEFINITIONS "SH_$<UPPER_CASE:$<CONFIG>>=1")
 set_property(TARGET Extension APPEND PROPERTY COMPILE_DEFINITIONS "SH_EDITOR=1" "_INTERNAL_DLL") # FIXME
+
+if (NOT MSVC)
+set_property(TARGET Extension APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
+endif()
 
 set_property(TARGET Extension APPEND PROPERTY COMPILE_DEFINITIONS "PLUGIN_PATH=\"$<TARGET_FILE:Plugin_Editor>\"")
 
@@ -51,6 +52,8 @@ else(WIN32)
 	set_property(TARGET Extension PROPERTY LIBRARY_OUTPUT_DIRECTORY_RELEASE "${SHINE_EDITOR_EXT_DIR}")
 endif(WIN32)
 
-set_property(TARGET Extension PROPERTY PREFIX )
+set_property(TARGET Extension PROPERTY PREFIX "")
+set_property(TARGET Extension PROPERTY DEBUG_POSTFIX "_Debug")
+set_property(TARGET Extension PROPERTY RELEASE_POSTFIX "_Release")
 
 file(COPY "Extension.configext" DESTINATION "${SHINE_EDITOR_EXT_DIR}")
