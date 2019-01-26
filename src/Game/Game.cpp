@@ -39,7 +39,7 @@ void Game::Initialize(void)
 
 	//
 	// push Main Menu
-	push(INGAME);
+	push(MAIN_MENU);
 }
 
 /**
