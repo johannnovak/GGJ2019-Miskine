@@ -33,7 +33,7 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	m_enemyManager.Initialize(levelIdentifier);
 	m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
 
-	m_enemyManager.SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 100.0f, 1.0f), 1);
+	m_enemyManager.SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 100.0f, 1.0f));
 
 	ShDummyAABB2* pDummy = ShDummyAABB2::Find(levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
 
