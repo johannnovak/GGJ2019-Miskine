@@ -19,7 +19,7 @@ public:
 	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, int iEnemyCount, float fTime);
 	void		Release				(void);
 
-	void		Start				(void);
+	void		Start				(const CShVector3 & vStartPosition, const CShVector2 & vDestination);
 	void		Stop				(void);
 
 	void		Update				(float dt);
@@ -31,6 +31,10 @@ private:
 	EState				m_eState;
 	EnemyManager *		m_pEnemyManager;
 	CShArray<Enemy*>	m_apRemainingActiveEnemy;
+
+	CShVector3			m_vStartPosition;
+	CShVector2			m_vDestination;
+
 	int					m_iRemainingEnemy;
 	float				m_fApparitionTime;
 	float				m_fTime;

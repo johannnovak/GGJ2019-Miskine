@@ -8,6 +8,8 @@
 Wave::Wave(void)
 : m_pEnemyManager(shNULL)
 , m_apRemainingActiveEnemy()
+, m_vStartPosition()
+, m_vDestination()
 , m_iRemainingEnemy()
 , m_eState(e_state_off)
 , m_fApparitionTime(0.0f)
@@ -46,10 +48,13 @@ void Wave::Release(void)
 /**
  * @brief Start
  */
-void Wave::Start(void)
+void Wave::Start(const CShVector3 & vStartPosition, const CShVector2 & vDestination)
 {
+	m_vStartPosition = vStartPosition;
+	m_vDestination = vDestination;
+
 	m_eState = e_state_on;
-	m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 0.0f, 1.0f)));
+	m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, vStartPosition, vDestination));
 	m_iRemainingEnemy--;
 }
 
@@ -74,7 +79,7 @@ void Wave::Update(float dt)
 		{
 			if (m_fTime > m_fApparitionTime)
 			{
-				m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 0.0f, 1.0f)));
+				m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, m_vStartPosition, m_vDestination));
 				m_iRemainingEnemy--;
 				m_fTime = m_fTime - m_fApparitionTime;
 			}

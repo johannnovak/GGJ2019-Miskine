@@ -2,6 +2,8 @@
 
 #include "ShSDK/ShSDK.h"
 
+class Node;
+
 class Enemy
 {
 
@@ -18,8 +20,11 @@ public:
 	void				Initialize			(const CShArray<ShEntity2*> aEntity, int iBaseHealth);
 	void				Release				(void);
 
-	void				Start				(const CShVector3 & vPosition);
+	void				Start				(const CShVector3 & vPosition, const CShVector2 & vDestination);
 	void				Stop				(void);
+
+	void				SetPath				(const CShArray<Node*> & aNodes);
+	void				SetTargetNode		(Node * pNode);
 
 	void				SetState			(EState state);
 	EState				GetState			(void);
@@ -39,13 +44,20 @@ private:
 private:
 	EState					m_eState;
 	float					m_fStateTime;
+	float					m_fSpeed;
 
 	ShEntity2 *				m_pEntityLifeBar;
 
 	CShVector3				m_vPosition;
+	CShVector2				m_vStartPosition;
+	CShVector2				m_v;
+	float					m_fCompletion;
 
 	int						m_baseHealth;
 	int						m_currentHealth;
+
+	CShArray<Node*>			m_aNodes;
+	int						m_iDestinationNode;
 
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
