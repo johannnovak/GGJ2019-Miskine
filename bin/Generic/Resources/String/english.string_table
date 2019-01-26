@@ -15,6 +15,7 @@
 	<entry name="back" 	value="Back"/>
 	
 	<entry name="setting_difficulty_label" value="Difficulty:" />
+	<entry name="user_name" value="User Name" />
 	<entry name="easy" value="Easy" />
 	<entry name="medium" value="Medium" />
 	<entry name="hard" value="Hard" />
