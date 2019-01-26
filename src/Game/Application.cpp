@@ -4,6 +4,7 @@
 #include <ShSDK/ShSDK.h>
 
 #include "PluginFactory.h"
+#include "Plugin.h"
 
 extern "C"
 {
@@ -119,6 +120,8 @@ void OnTouchDown(int iTouch, float positionX, float positionY)
 		CShVector2 pos(positionX, positionY);
 		//Game & game = Game::instance();
 		//game.touchBegin(pos);
+
+		GetPlugin()->OnTouchDown(iTouch, positionX, positionY);
 	}
 }
 
@@ -135,6 +138,8 @@ void OnTouchUp(int iTouch, float positionX, float positionY)
 		CShVector2 pos(positionX, positionY);
 		//Game & game = Game::instance();
 		//game.touchEnd(pos);
+
+		GetPlugin()->OnTouchUp(iTouch, positionX, positionY);
 	}
 }
 
@@ -151,6 +156,8 @@ void OnTouchMove(int iTouch, float positionX, float positionY)
 		CShVector2 pos(positionX, positionY);
 		//Game & game = Game::instance();
 		//game.touchMove(pos);
+
+		GetPlugin()->OnTouchMove(iTouch, positionX, positionY);
 	}
 }
 
