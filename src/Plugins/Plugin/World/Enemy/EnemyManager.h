@@ -1,28 +1,40 @@
 #pragma once
 
 #include "ShSDK/ShSDK.h"
+#include "Enemy.h"
 
 class Enemy;
 
+#define POOL_SIZE 50
+
 class EnemyManager
 {
+	enum EEnemy
+	{
+		e_enemy_01,
+		e_enemy_max
+	};
+
 public:
 
-	explicit	 EnemyManager	(void);
-	virtual		~EnemyManager	(void);
+	explicit	 EnemyManager		(void);
+	virtual		~EnemyManager		(void);
 
-	void		Initialize		(void);
-	void		Release			(void);
+	void		Initialize			(const CShIdentifier & levelIdentifier);
+	void		Release				(void);
 
-	void		Update			(float dt);
+	void		Update				(float dt);
 
-	void		CreateEnemies	(int number);
+	void		SpawnEnemy			(EEnemy eEnemy, const CShVector3 vPosition, int iCount);
 
 	void		GetEnemyList		(CShArray<Enemy *>& aEnemyList);
 	void		GetEnemyListInRange	(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax);
 
 private:
 
-	CShArray<Enemy>		m_aEnemyList;
+	Enemy	m_aEnemy[e_enemy_max][POOL_SIZE];
+	int		m_aiCurrentEnemy[e_enemy_max];
+
+	CShArray<Enemy*>		m_apActiveEnemy;
 };
 

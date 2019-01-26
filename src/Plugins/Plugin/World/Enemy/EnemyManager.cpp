@@ -23,8 +23,37 @@ EnemyManager::~EnemyManager(void)
 /**
  * @brief Initialize
  */
-void EnemyManager::Initialize(void)
+void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 {
+	for (int i = 0; i < e_enemy_max; i++)
+	{
+		for (int j = 0; j < POOL_SIZE; j++)
+		{
+			int iHealth;
+			char szSpriteIdentifier[1024];
+			
+			switch ((EEnemy)i)
+			{
+				case e_enemy_01 : 
+				{
+					sprintf(szSpriteIdentifier, ""); //TODO
+					iHealth = 100;
+				}
+				break;
+
+				default:
+				{
+					iHealth = 100;
+					
+				}
+				break;
+			}
+			ShEntity2* pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier(szSpriteIdentifier), CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+			m_aEnemy[i][j].Initialize(pEntity, iHealth);
+			m_aiCurrentEnemy[i] = 0;
+		}
+	}
+
 }
 
 /**
@@ -32,12 +61,15 @@ void EnemyManager::Initialize(void)
  */
 void EnemyManager::Release(void)
 {
-	int nEnemyCount = m_aEnemyList.GetCount();
-	for (int i = 0; i < nEnemyCount; ++i)
+	for (int i = 0; i < e_enemy_max; i++)
 	{
-		m_aEnemyList[i].Release();
+		for (int j = 0; j < POOL_SIZE; j++)
+		{
+			m_aEnemy[i][j].Release();
+		}
 	}
-	m_aEnemyList.Empty();
+
+	m_apActiveEnemy.Empty();
 }
 
 /**
@@ -45,23 +77,27 @@ void EnemyManager::Release(void)
  */
 void EnemyManager::Update(float dt)
 {
-	int nEnemyCount = m_aEnemyList.GetCount();
+	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		m_aEnemyList[i].Update(dt);
+		m_apActiveEnemy[i]->Update(dt);
 	}
 }
 
 /**
  * @brief CreateEnemies
  */
-void EnemyManager::CreateEnemies(int number)
+void EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector3 vPosition, int iCount)
 {
-	for (int i = 0; i < number; ++i)
+	for (int i = 0; i < iCount; ++i)
 	{
-		Enemy enemy;
-		//todo enemy.Initialize();
-		m_aEnemyList.Add(enemy);
+		Enemy * pEnemi = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
+
+		m_aiCurrentEnemy[eEnemy]++;
+		m_aiCurrentEnemy[eEnemy] %= POOL_SIZE;
+		
+		m_apActiveEnemy.Add(pEnemi);
+		pEnemi->Start(vPosition);
 	}
 }
 
@@ -70,10 +106,10 @@ void EnemyManager::CreateEnemies(int number)
  */
 void EnemyManager::GetEnemyList(CShArray<Enemy*>& aEnemyList)
 {
-	int nEnemyCount = m_aEnemyList.GetCount();
+	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		aEnemyList.Add(&m_aEnemyList[i]);
+		aEnemyList.Add(m_apActiveEnemy[i]);
 	}
 }
 
@@ -85,10 +121,10 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 	float rangeMinSquared = rangeMin * rangeMin;
 	float rangeMaxSquared = rangeMax * rangeMax;
 
-	int nEnemyCount = m_aEnemyList.GetCount();
+	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		const CShVector3 & enemyPos = m_aEnemyList[i].GetPosition();
+		const CShVector3 & enemyPos = m_apActiveEnemy[i]->GetPosition();
 
 		if (enemyPos == pos)
 			continue;
@@ -98,7 +134,7 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 		if (distSquared <= rangeMaxSquared
 			&& distSquared >= rangeMinSquared)
 		{
-			aEnemyList.Add(&m_aEnemyList[i]);
+			aEnemyList.Add(m_apActiveEnemy[i]);
 		}
 	}
 }

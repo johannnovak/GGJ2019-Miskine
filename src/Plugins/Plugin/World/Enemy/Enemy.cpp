@@ -4,7 +4,10 @@
  * @brief Constructor
  */
 Enemy::Enemy(void)
-: m_pEntity(shNULL)
+: m_eState(e_state_off)
+, m_fStateTime(0.0f)
+, m_pEntity(shNULL)
+, m_pEntityLifeBar(shNULL)
 , m_vPosition(CShVector3::ZERO)
 , m_baseHealth(0)
 , m_currentHealth(0)
@@ -26,14 +29,11 @@ Enemy::~Enemy(void)
 /**
  * @brief Initialize
  */
-void Enemy::Initialize(const CShIdentifier & levelIdentifier, const CShIdentifier & spriteIdentifier, const CShVector3 & position, int health)
+void Enemy::Initialize(ShEntity2* pEntity, int iBaseHealth)
 {
-	m_pEntity = ShEntity2::Find(levelIdentifier, spriteIdentifier);
-	SH_ASSERT(shNULL != m_pEntity);
-
-	m_vPosition = position;
-	m_baseHealth = health;
-	m_currentHealth = health;
+	m_eState = e_state_off;
+	m_pEntity = pEntity;
+	m_baseHealth = iBaseHealth;
 }
 
 /**
@@ -45,17 +45,53 @@ void Enemy::Release(void)
 }
 
 /**
+ * @brief Start
+ */
+void Enemy::Start(const CShVector3 & position)
+{
+	m_currentHealth = m_baseHealth;
+	m_vPosition = position;
+
+	ShEntity2::SetShow(m_pEntity, true);
+	ShEntity2::SetPosition(m_pEntity, position);
+
+	SetState(e_state_on);
+}
+
+/**
+ * @brief Start
+ */
+void Enemy::Stop(void)
+{
+	SetState(e_state_off);
+}
+
+/**
+ * @brief Start
+ */
+void Enemy::SetState(EState state)
+{
+	m_eState = state;
+	m_fStateTime = 0.0f;
+}
+
+/**
  * @brief Update
  */
 void Enemy::Update(float dt)
 {
-	// Move
+	m_fStateTime += dt;
 
-	// Update anim
-	m_fAnimationDt += dt;
-	if (m_fAnimationDt >= m_fAnimationSpeed)
+	if (e_state_on == m_eState)
 	{
+		// Move
 
+		// Update anim
+		m_fAnimationDt += dt;
+		if (m_fAnimationDt >= m_fAnimationSpeed)
+		{
+
+		}
 	}
 }
 
