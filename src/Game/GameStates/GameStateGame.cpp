@@ -9,6 +9,19 @@
 * @brief GameStateGame::Constructor
 */
 GameStateGame::GameStateGame(void)
+: m_pMainPanel(shNULL)
+, m_pWaveCurrent(shNULL)
+, m_pWaveTotal(shNULL)
+, m_pUserName(shNULL)
+, m_pMoneyValue(shNULL)
+, m_pHPValue(shNULL)
+, m_pMHPTotal(shNULL)
+, m_pPause(shNULL)
+, m_pPlay(shNULL)
+, m_pFastForward(shNULL)
+, m_pMenu(shNULL)
+, m_amepModeImages()
+, m_pEditBoxHidden(shNULL)
 {
 	// ...
 }
@@ -31,6 +44,45 @@ void GameStateGame::init(void)
 	m_pMainPanel = static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("in_game").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pMainPanel);
 	ShGUIControlPanel::Hide(m_pMainPanel);
+	ShGUIControlImage * pImage = shNULL;
+
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f1").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_type_words, pImage);
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f2").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_random_keys, pImage);
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f3").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_dual_key_combination_streak, pImage);
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f4").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_mental_calculation, pImage);
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f5").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_immediate_qte, pImage);
+	pImage = static_cast<ShGUIControlImage*>(ShGUIControl::GetElementById(CShIdentifier("image_f6").Append(strSuffix.Get()), m_pMainPanel));
+	m_amepModeImages.Add( EPlayer2EventType::e_player2_event_type_super_mega_combo, pImage);
+
+	m_pWaveCurrent = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_wave_current").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pWaveCurrent);
+	m_pWaveTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_wave_current").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pWaveTotal);
+	m_pUserName = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_username").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pUserName);
+	m_pMoneyValue = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_money_value").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pMoneyValue);
+	m_pHPValue = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_hp_value").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pHPValue);
+	m_pMHPTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_hp_total").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pMHPTotal);
+	m_pPause = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_pause").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pPause);
+	m_pPlay = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_play").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pPlay);
+	m_pFastForward = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_fast_forward").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pFastForward);
+	m_pMenu = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pMenu);
+
+
+	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), ShGUI::GetRootControl()));
+	SH_ASSERT(shNULL != m_pEditBoxHidden);
 }
 
 /**
@@ -38,6 +90,7 @@ void GameStateGame::init(void)
 */
 void GameStateGame::release(void)
 {
+	ShGUIControl::RemoveFromParent(m_pEditBoxHidden);
 	ShGUIControl::RemoveFromParent(m_pMainPanel);
 }
 
@@ -54,9 +107,8 @@ void GameStateGame::entered(void)
 
 	//
 	// Register variables for Player2EventManager
-	// TODO
-	//(static_cast<Plugin*>(GetPlugin()))->GetPlayer2EventManager().RegisterEditBoxHidden(m_pEditBoxHidden);
-	//(static_cast<Plugin*>(GetPlugin()))->GetPlayer2EventManager().RegisterListener(this);
+	static_cast<Plugin*>(GetPlugin())->GetPlayer2EventManager().RegisterEditBoxHidden(m_pEditBoxHidden);
+	static_cast<Plugin*>(GetPlugin())->GetPlayer2EventManager().RegisterListener(this);
 }
 
 /**
@@ -116,4 +168,252 @@ void GameStateGame::touchMove(const CShVector2 & pos_, float ratio)
 {
 	TouchMovePlugin(0, pos_.m_x, pos_.m_y);
 	SH_UNUSED(ratio);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeAvailable
+ * @param pEvent
+ */
+void GameStateGame::OnEventTypeAvailable(Player2Event *pEvent)
+{
+	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
+	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_WHITE);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeUnavailable
+ * @param pEvent
+ */
+void GameStateGame::OnEventTypeUnavailable(Player2Event *pEvent)
+{
+	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
+	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_RED);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeBegin
+ * @param pEvent
+ */
+void GameStateGame::OnEventTypeBegin(Player2Event *pEvent)
+{
+	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
+	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_WHITE);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeEnd
+ * @param pEvent
+ */
+void GameStateGame::OnEventTypeEnd(Player2Event *pEvent)
+{
+	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
+	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_RED);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeFinished
+ * @param pEvent
+ */
+void GameStateGame::OnEventTypeFinished(Player2Event *pEvent)
+{
+	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
+	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_RED);
+}
+
+/**
+ * @brief GameStateGame::OnTypoGaugeUpdated
+ * @param fNormedValue
+ */
+void GameStateGame::OnTypoGaugeUpdated(float fNormedValue)
+{
+	SH_UNUSED(fNormedValue);
+}
+
+/**
+ * @brief GameStateGame::OnTypoGaugeFilled
+ */
+void GameStateGame::OnTypoGaugeFilled(void)
+{
+
+}
+
+/**
+ * @brief GameStateGame::OnTypoGaugeEmptied
+ */
+void GameStateGame::OnTypoGaugeEmptied(void)
+{
+
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeTypeWordCharacterOK
+ * @param iCharacterIndexOK
+ */
+void GameStateGame::OnEventTypeTypeWordCharacterOK(int iCharacterIndexOK)
+{
+	SH_UNUSED(iCharacterIndexOK);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeTypeWordCharacterNOK
+ * @param iCharacterIndexNOK
+ */
+void GameStateGame::OnEventTypeTypeWordCharacterNOK(int iCharacterIndexNOK)
+{
+	SH_UNUSED(iCharacterIndexNOK);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardUserPireCoin
+ * @param iPeerCoinAmount
+ */
+void GameStateGame::OnEventTypeRewardUserPireCoin(int iPeerCoinAmount)
+{
+	ShGUIControlText::SetText(m_pMoneyValue, CShString::FromInt(ShGUIControlText::GetText(m_pMoneyValue).AsInt() + iPeerCoinAmount));
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardUserHP
+ * @param iHPBonus
+ */
+void GameStateGame::OnEventTypeRewardUserHP(int iHPBonus)
+{
+	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(ShGUIControlText::GetText(m_pHPValue).AsInt() + iHPBonus));
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardGameSlowMotion
+ * @param fSlowMotionFactor
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeRewardGameSlowMotion(float fSlowMotionFactor, float fDurationTime)
+{
+	SH_UNUSED(fSlowMotionFactor);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardTowerAttack
+ * @param iBonusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeRewardTowerAttack(int iBonusValue, float fDurationTime)
+{
+	SH_UNUSED(iBonusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardTowerAttackSpeed
+ * @param iBonusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeRewardTowerAttackSpeed(int iBonusValue, float fDurationTime)
+{
+	SH_UNUSED(iBonusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardTowerRadius
+ * @param iBonusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeRewardTowerRadius(int iBonusValue, float fDurationTime)
+{
+	SH_UNUSED(iBonusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeRewardTowerAttackAOE
+ * @param iBonusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeRewardTowerAttackAOE(int iBonusValue, float fDurationTime)
+{
+	SH_UNUSED(iBonusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusUserHP
+ * @param iHPMalus
+ */
+void GameStateGame::OnEventTypeMalusUserHP(int iHPMalus)
+{
+	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(ShGUIControlText::GetText(m_pHPValue).AsInt() - iHPMalus));
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusGameFastForward
+ * @param iFastForwardFactor
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeMalusGameFastForward(float iFastForwardFactor, float fDurationTime)
+{
+	SH_UNUSED(iFastForwardFactor);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusGameNewEnemy
+ * @param iEnemyCount
+ */
+void GameStateGame::OnEventTypeMalusGameNewEnemy(int iEnemyCount)
+{
+	SH_UNUSED(iEnemyCount);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusGameNewWave
+ * @param iWaveCount
+ */
+void GameStateGame::OnEventTypeMalusGameNewWave(int iWaveCount)
+{
+	SH_UNUSED(iWaveCount);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttack
+ * @param iMalusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeMalusTowerAttack(int iMalusValue, float fDurationTime)
+{
+	SH_UNUSED(iMalusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttackSpeed
+ * @param iMalusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeMalusTowerAttackSpeed(int iMalusValue, float fDurationTime)
+{
+	SH_UNUSED(iMalusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerRadius
+ * @param iMalusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeMalusTowerRadius(int iMalusValue, float fDurationTime)
+{
+	SH_UNUSED(iMalusValue);
+	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
+ * @param iMalusValue
+ * @param fDurationTime
+ */
+void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurationTime)
+{
+	SH_UNUSED(iMalusValue);
+	SH_UNUSED(fDurationTime);
 }
