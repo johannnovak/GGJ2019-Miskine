@@ -16,16 +16,17 @@ public:
 	void							Initialize							(ShDummyAABB2 * pDummyAABB2);
 	void							Release								(void);
 
-	bool							FindPath							(WayPoint* pWPStart, WayPoint* pWPEnd, CShArray<WayPoint*> & aPathPoint);
-	WayPoint*						FindNearestWayPoint					(const CShVector2 & vPosition);
-	WayPoint*						GetWayPoint							(int index);
+	bool							FindPath							(Node* pWPStart, Node* pWPEnd, CShArray<Node*> & aPathPoint);
+	Node *							FindNearestWayPoint					(const CShVector2 & vPosition);
+	Node *							GetWayPoint							(int index);
 
 protected:
 
 private:
-	float							ComputeHeuristicValue				(WayPoint* pWPStart, WayPoint* pWPEnd);
-	void							ReconstructPath						(WayPoint* pWP, CShArray<WayPoint*> & aPathPoint);
-	WayPoint*						GetCurrent							(void);
+
+	float							ComputeHeuristicValue				(Node* pWPStart, Node* pWPEnd);
+	void							ReconstructPath						(Node* pWP, CShArray<Node*> & aPathPoint);
+	Node *							GetCurrent							(void);
 	void							ResetAll							(void);
 
 public:
@@ -34,9 +35,9 @@ protected:
 	
 private:
 
-	CShArray<WayPoint*> m_openSet;
-	CShArray<WayPoint*> m_closedSet;
-	CShArray<WayPoint*>	m_aWayPoint;
+	CShArray<Node*>	m_aWayPoint;
+	CShArray<Node*> m_openSet;
+	CShArray<Node*> m_closedSet;
 
 };
 

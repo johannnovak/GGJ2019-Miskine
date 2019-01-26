@@ -35,10 +35,10 @@ void World::Initialize(void)
 
 	g_graph.Initialize(pDummy);
 
-	WayPoint * pWPStart = g_graph.FindNearestWayPoint(CShVector2(-200.0f, 200.0f));
-	WayPoint * pWPEnd = g_graph.FindNearestWayPoint(CShVector2(200.0f, -200.0f));
+	Node * pWPStart = g_graph.FindNearestWayPoint(CShVector2(-200.0f, 200.0f));
+	Node * pWPEnd = g_graph.FindNearestWayPoint(CShVector2(200.0f, -200.0f));
 
-	CShArray<WayPoint*> aPoints;
+	CShArray<Node*> aPoints;
 	g_graph.FindPath(pWPStart, pWPEnd, aPoints);
 }
 
