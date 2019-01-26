@@ -1,147 +1,480 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <configuration>
-	<event name="left">
+	<event name="a">
 		<keyboard>
 			<input name="pressed">
-				<parameter name="control" value="left"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-			<input name="pressed">
-				<parameter name="control" value="q"/>
+				<parameter name="control" value="a"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
-		
-		<pad>
-			<input name="pressed">
-				<parameter name="control" value="left"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>
 	</event>
 	
-	<event name="right">
+	<event name="b">
 		<keyboard>
 			<input name="pressed">
-				<parameter name="control" value="right"/>
+				<parameter name="control" value="b"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+		</keyboard>
+	</event>
+	
+	<event name="c">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="c"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="d">
+		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="d"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
-	
-		<pad>
-			<input name="pressed">
-				<parameter name="control" value="right"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>
 	</event>
 	
-	<event name="up">
+	<event name="e">
 		<keyboard>
 			<input name="pressed">
-				<parameter name="control" value="up"/>
+				<parameter name="control" value="e"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="g">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="g"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="h">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="h"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="i">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="i"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="j">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="j"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="k">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="k"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="l">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="l"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="m">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="m"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="n">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="n"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="o">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="o"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="p">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="p"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="q">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="q"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="r">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="r"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="t">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="t"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="u">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="u"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="v">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="v"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="w">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="w"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="x">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="x"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="y">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="y"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="z">
+		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="z"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
-		
-		<pad>
-			<input name="pressed">
-				<parameter name="control" value="up"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>	
 	</event>
 	
-	<event name="down">
+	<event name="0">
 		<keyboard>
 			<input name="pressed">
-				<parameter name="control" value="down"/>
+				<parameter name="control" value="0"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
+		</keyboard>
+	</event>
+	
+	<event name="1">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="1"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="2">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="2"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="3">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="3"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="4">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="4"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="5">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="5"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="6">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="6"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="7">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="7"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="8">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="8"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="9">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="9"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="/">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="/"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="*">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="*"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="-">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="-"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="+">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="+"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name=".">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="."/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f1">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f1"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f2">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f2"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f3">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f3"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f4">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f4"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f5">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f5"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f6">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f6"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f7">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f7"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f8">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f8"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f9">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f9"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f10">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f10"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f11">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f11"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="f12">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="f12"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+	
+	<event name="s">
+		<keyboard>
 			<input name="pressed">
 				<parameter name="control" value="s"/>
 				<parameter name="threshold" value="0.5"/>
 			</input>
 		</keyboard>
-		
-		<pad>
-			<input name="pressed">
-				<parameter name="control" value="down"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>	
 	</event>
-	
-	<event name="validate">
-		<keyboard>
-			<input name="just_pressed">
-				<parameter name="control" value="return"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	
-		<pad>
-			<input name="just_pressed">
-				<parameter name="control" value="a"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>		
-	</event>
-	
-	<event name="back">
-		<keyboard>
-			<input name="just_pressed">
-				<parameter name="control" value="escape"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	
-		<pad>
-			<input name="just_pressed">
-				<parameter name="control" value="b"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>		
-	</event>
-	
-	<event name="pause">
-		<keyboard>
-			<input name="just_pressed">
-				<parameter name="control" value="escape"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	
-		<pad>
-			<input name="just_pressed">
-				<parameter name="control" value="start"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>		
-	</event>
-	
-	<event name="reset">
-		<keyboard>
-			<input name="just_pressed">
-				<parameter name="control" value="r"/>
-				<parameter name="threshold" value="0.5"/>
-			</input>
-		</keyboard>
-	
-		<pad>
-			<input name="just_pressed">
-				<parameter name="control" value="y"/>
-				<parameter name="threshold" value="0.5"/>			
-			</input>
-		</pad>		
-	</event>	
 </configuration>
