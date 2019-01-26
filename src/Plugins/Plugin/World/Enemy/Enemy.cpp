@@ -41,7 +41,7 @@ void Enemy::Initialize(ShEntity2* pEntity, int iBaseHealth)
  */
 void Enemy::Release(void)
 {
-
+	m_aMoveAnimation.Empty();
 }
 
 /**
@@ -52,14 +52,13 @@ void Enemy::Start(const CShVector3 & position)
 	m_currentHealth = m_baseHealth;
 	m_vPosition = position;
 
-	ShEntity2::SetShow(m_pEntity, true);
 	ShEntity2::SetPosition(m_pEntity, position);
 
 	SetState(e_state_on);
 }
 
 /**
- * @brief Start
+ * @brief Stop
  */
 void Enemy::Stop(void)
 {
@@ -67,12 +66,21 @@ void Enemy::Stop(void)
 }
 
 /**
- * @brief Start
+ * @brief SetState
  */
 void Enemy::SetState(EState state)
 {
 	m_eState = state;
 	m_fStateTime = 0.0f;
+
+	switch (state)
+	{
+		case e_state_on: ShEntity2::SetShow(m_pEntity, true); break;
+
+		case e_state_off: ShEntity2::SetShow(m_pEntity, false); break;
+
+		default: SH_ASSERT_ALWAYS();
+	}
 }
 
 /**
@@ -97,12 +105,13 @@ void Enemy::Update(float dt)
 	}
 }
 
-void Enemy::TakeDamages(float damages)
+void Enemy::TakeDamages(int damages)
 {
+	SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
 	m_currentHealth -= damages;
 	if (0 > m_currentHealth)
 	{ // Dead
-		
+		Stop();
 	}
 }
 
@@ -119,4 +128,9 @@ const int & Enemy::GetBaseHealth(void) const
 const int & Enemy::GetCurrentHealth(void) const
 {
 	return m_currentHealth;
+}
+
+bool Enemy::IsDead(void)
+{
+	return m_eState == e_state_off;
 }

@@ -67,6 +67,7 @@ void World::Update(float dt)
 	m_inputManager.Update();
 
 	m_enemyManager.Update(dt);
+	m_towerManager.Update(dt);
 }
 
 /**
@@ -74,5 +75,5 @@ void World::Update(float dt)
  */
 void World::CreateTower(const CShVector2 & position)
 {
-	m_towerManager.CreateTower(TowerBase::tower_melee, TowerBase::focus_nearest, CShVector3(position, 5.0f), 10.0f, 3.0f);
+	m_towerManager.CreateTower(TowerBase::tower_melee, TowerBase::focus_nearest, CShVector3(position, 5.0f), 20, 3.0f);
 }
