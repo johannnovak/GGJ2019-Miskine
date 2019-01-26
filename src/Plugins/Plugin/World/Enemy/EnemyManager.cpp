@@ -96,10 +96,22 @@ void EnemyManager::Release(void)
  */
 void EnemyManager::Update(float dt)
 {
+	CShArray<Enemy *> apEnemyToRemove;
+
 	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
 		m_apActiveEnemy[i]->Update(dt);
+
+		if (m_apActiveEnemy[i]->GetState() == Enemy::e_state_off)
+		{
+			apEnemyToRemove.Add(m_apActiveEnemy[i]);
+		}
+	}
+
+	for (int i = 0; i < apEnemyToRemove.GetCount(); i++)
+	{
+		m_apActiveEnemy.RemoveAll(apEnemyToRemove[i]);
 	}
 }
 

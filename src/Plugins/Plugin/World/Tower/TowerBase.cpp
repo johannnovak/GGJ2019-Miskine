@@ -95,16 +95,18 @@ void TowerBase::Release(void)
  */
 void TowerBase::Update(float dt)
 {
-	if (m_bIsAttacking)
+	m_fAnimationDt += dt;
+	if (m_fAnimationDt >= m_fAnimationSpeed)
 	{
-		m_fAnimationDt += dt;
-		if (m_fAnimationDt >= m_fAnimationSpeed)
-		{
-			m_fAnimationDt = 0.0f;
-			// TODO Animate
+		m_fAnimationDt = 0.0f;
+		ShEntity2::SetShow(m_aAttackAnimation[m_currentAnimationType][m_currentSprite++], false);
 
-			// TODO if animation ended
-			{ // Attack ended
+		if (m_currentSprite >= m_aAttackAnimation[m_currentAnimationType].GetCount())
+		{ // Animation ended
+			m_currentSprite = 0;
+
+			if (m_bIsAttacking)
+			{
 				if (m_pCurrentTarget->IsDead())
 				{
 					m_pCurrentTarget = shNULL;
@@ -138,6 +140,8 @@ void TowerBase::Update(float dt)
 				m_fAttackCooldown = 0.0f;
 			}
 		}
+
+		ShEntity2::SetShow(m_aAttackAnimation[m_currentAnimationType][m_currentSprite], true);
 	}
 	else
 	{
@@ -153,8 +157,10 @@ void TowerBase::Update(float dt)
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
 					|| distSquared < m_fRadiusMin * m_fRadiusMin)
 				{// Lost focus
-					SH_TRACE("FOCUS LOST\n");
-					m_pCurrentTarget = shNULL;
+					if (!m_bIsAttacking)
+					{
+						m_pCurrentTarget = shNULL;
+					}
 				}
 			}
 
@@ -214,15 +220,14 @@ void TowerBase::Update(float dt)
 				if (-1 != currentId)
 				{
 					m_pCurrentTarget = aEnemyList[currentId];
-					SH_TRACE("FOCUS TARGET\n");
 				}
 			}
 
 			if (m_pCurrentTarget)
 			{
-				// Shoot target
+				// Attack target
 				m_bIsAttacking = true;
-				SH_TRACE("ATTACK TARGET\n");
+
 			}
 		}
 	}
