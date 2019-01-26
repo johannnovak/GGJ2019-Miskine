@@ -58,7 +58,7 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 				ShSprite * pSprite = ShSprite::Find(CShIdentifier("player"), CShIdentifier(szFinalSpriteIdentifier));
 				if (shNULL == pSprite)
 					break;
-				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
+				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 				aEntityList.Add(pEntity);
 			}
 			

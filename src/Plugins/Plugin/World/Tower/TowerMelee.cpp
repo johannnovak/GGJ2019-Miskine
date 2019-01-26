@@ -73,7 +73,7 @@ void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 			ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
 			if (shNULL == pSprite)
 				break;
-			ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), pSprite, position, CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
+			ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(position, 10.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 			aEntityList.Add(pEntity);
 		}
 		m_aAttackAnimation[i] = aEntityList;
