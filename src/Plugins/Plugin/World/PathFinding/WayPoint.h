@@ -15,6 +15,10 @@ enum EDirection
 	e_direction_down,
 	e_direction_left,
 	e_direction_right,
+	e_direction_up_left,
+	e_direction_up_right,
+	e_direction_down_left,
+	e_direction_down_right,
 	e_direction_max
 };
 
@@ -35,6 +39,11 @@ public:
 
 	WayPoint*				GetNeighbour						(EDirection direction);
 	void					GetNeighbor							(CShArray<WayPoint*> & aWP);
+
+#if DEBUG_PATHFINDING
+	void					SetColor							(const CShRGBAf & color);
+#endif //DEBUG_PATHFINDING
+
 protected:
 
 private:
@@ -51,6 +60,10 @@ private:
 
 	WayPoint*					m_aNeighbor[e_direction_max];
 	WayPoint*					m_pWPCameFrom;
+
+#if DEBUG_PATHFINDING
+	ShEntity2*					m_pEntity;
+#endif //DEBUG_PATHFINDING
 
 	friend class Graph;
 };
