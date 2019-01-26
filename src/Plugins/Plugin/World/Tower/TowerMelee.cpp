@@ -28,7 +28,7 @@ TowerMelee::~TowerMelee(void)
 /**
  * @brief Initialize
  */
-void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_eTowerType = tower_melee;
 
@@ -37,7 +37,7 @@ void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 
 	TowerBase::Initialize(levelIdentifier, pEnemyManager, focusType, position, damages, attackSpeed, rangeAOE);
 
-	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
+	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), CShVector3(m_vPosition, 10.0f), CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
 	SH_ASSERT(shNULL != pEntity);
 	m_aAttackAnimation.Add(pEntity);
 }
@@ -79,7 +79,7 @@ void TowerMelee::Update(float dt)
 
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
-						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+						const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 						CShArray<Enemy*> aEnemyList;
 						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -106,7 +106,7 @@ void TowerMelee::Update(float dt)
 		{
 			if (m_pCurrentTarget)
 			{
-				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
@@ -135,7 +135,7 @@ void TowerMelee::Update(float dt)
 					{
 					case focus_nearest:
 					{
-						const CShVector3 & enemyPos = pEnemy->GetPosition();
+						const CShVector2 & enemyPos = pEnemy->GetPosition();
 						float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
 
 						if (dist < distSquared)

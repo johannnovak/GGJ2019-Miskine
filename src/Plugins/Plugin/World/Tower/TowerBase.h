@@ -25,7 +25,7 @@ public:
 	explicit		TowerBase			(void);
 	virtual			~TowerBase			(void);
 
-	virtual void	Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	virtual void	Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
 	virtual void	Release				(void);
 
 	virtual void	Update				(float dt);
@@ -41,7 +41,7 @@ protected:
 	ETowerType				m_eTowerType;
 	EFocusType				m_eFocusType;
 
-	CShVector3				m_vPosition;
+	CShVector2				m_vPosition;
 
 	float					m_fRadiusMin;
 	float					m_fRadiusMax;

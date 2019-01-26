@@ -106,7 +106,7 @@ void EnemyManager::Update(float dt)
 /**
  * @brief CreateEnemies
  */
-Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector3 & vPosition, const CShVector2 & vDestination)
+Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination)
 {
 	Enemy * pEnemy = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
 
@@ -134,7 +134,7 @@ void EnemyManager::GetEnemyList(CShArray<Enemy*>& aEnemyList)
 /**
  * @brief GetEnemyListInRange
  */
-void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax)
+void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVector2 & pos, float rangeMin, float rangeMax)
 {
 	float rangeMinSquared = rangeMin * rangeMin;
 	float rangeMaxSquared = rangeMax * rangeMax;
@@ -142,7 +142,7 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		const CShVector3 & enemyPos = m_apActiveEnemy[i]->GetPosition();
+		const CShVector2 & enemyPos = m_apActiveEnemy[i]->GetPosition();
 
 		if (m_apActiveEnemy[i]->IsDead())
 			continue;

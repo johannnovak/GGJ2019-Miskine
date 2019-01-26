@@ -25,7 +25,7 @@ TowerRange::~TowerRange(void)
 /**
  * @brief Initialize
  */
-void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_eTowerType = tower_range;
 
@@ -34,7 +34,7 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 
 	TowerBase::Initialize(levelIdentifier, pEnemyManager, focusType, position, damages, attackSpeed, rangeAOE);	
 
-	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
+	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), CShVector3(m_vPosition, 10.0f), CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
 	SH_ASSERT(shNULL != pEntity);
 	m_aAttackAnimation.Add(pEntity);
 
