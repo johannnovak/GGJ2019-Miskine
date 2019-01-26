@@ -16,7 +16,7 @@ public:
 	explicit	 Wave				(void);
 	virtual		~Wave				(void);
 
-	void		Initialize			(int iEnemyCount, float fTime);
+	void		Initialize			(const CShIdentifier & levelIdentifier, int iEnemyCount, float fTime);
 	void		Release				(void);
 
 	void		Start				(void);

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "InputManager.h"
-#include "Enemy/EnemyManager.h"
+#include "Wave/WaveManager.h"
 #include "Tower/TowerManager.h"
 
 class World
@@ -22,7 +22,7 @@ private:
 
 	PluginInputManager	m_inputManager;
 
-	EnemyManager		m_enemyManager;
+	WaveManager			m_waveManager;
 	TowerManager		m_towerManager;
 };
 

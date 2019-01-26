@@ -30,10 +30,9 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 
 	m_inputManager.Initialize(pUser);
 	
-	m_enemyManager.Initialize(levelIdentifier);
-	m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
-
-	m_enemyManager.SpawnEnemy(EnemyManager::e_enemy_01, CShVector3(0.0f, 100.0f, 1.0f));
+	m_waveManager.Initialize(levelIdentifier);
+	m_waveManager.Start();
+	//m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
 
 	ShDummyAABB2* pDummy = ShDummyAABB2::Find(levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
 
@@ -55,8 +54,8 @@ void World::Release(void)
 {
 	m_inputManager.Release();
 
-	m_enemyManager.Release();
-	m_towerManager.Release();
+	m_waveManager.Release();
+	//m_towerManager.Release();
 }
 
 /**
@@ -66,8 +65,8 @@ void World::Update(float dt)
 {
 	m_inputManager.Update();
 
-	m_enemyManager.Update(dt);
-	m_towerManager.Update(dt);
+	m_waveManager.Update(dt);
+	//m_towerManager.Update(dt);
 }
 
 /**

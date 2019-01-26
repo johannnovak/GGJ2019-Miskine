@@ -28,12 +28,12 @@ WaveManager::~WaveManager(void)
 /**
  * @brief Initialize
  */
-void WaveManager::Initialize(void)
+void WaveManager::Initialize(const CShIdentifier & levelIdentifier)
 {
 	for (int i = 0; i < WAVE_MAX; i++)
 	{
 		Wave wave;
-		wave.Initialize(10, 1.0f);
+		wave.Initialize(levelIdentifier, 10, 0.5f);
 		m_aWave.Add(wave);
 	}
 
@@ -84,6 +84,7 @@ void WaveManager::Update(float dt)
  */
 void WaveManager::Start(void)
 {
+	AddWave();
 	m_eState = e_state_on;
 	m_fTime = 0.0f;
 }
@@ -103,5 +104,6 @@ void WaveManager::AddWave(void)
 {
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
+	wave.Start();
 	m_iCurrentWave++;
 }
