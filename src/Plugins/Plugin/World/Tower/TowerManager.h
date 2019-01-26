@@ -4,7 +4,7 @@
 
 #include "TowerBase.h"
 
-class EnemyManager;
+class WaveManager;
 
 class TowerManager
 {
@@ -13,7 +13,7 @@ public:
 	explicit	 TowerManager	(void);
 	virtual		~TowerManager	(void);
 
-	void		Initialize		(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
+	void		Initialize		(const CShIdentifier & levelIdentifier, WaveManager * pWaveManager);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -26,7 +26,7 @@ private:
 	
 	CShIdentifier			m_levelIdentifier;
 
-	EnemyManager *			m_pEnemyManager;
+	WaveManager *			m_pWaveManager;
 
 	CShArray<TowerBase>		m_aTowerList;
 };

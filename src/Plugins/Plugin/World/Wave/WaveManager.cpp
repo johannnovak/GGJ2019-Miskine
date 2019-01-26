@@ -98,6 +98,19 @@ void WaveManager::Stop(void)
 }
 
 /**
+ * @brief GetEnemyListInRange
+ */
+void WaveManager::GetEnemyListInRange(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax)
+{
+	int iWaveCount = m_apActiveWave.GetCount();
+	for (int iWave = 0; iWave < iWaveCount; ++iWave)
+	{
+		Wave * pWave = m_apActiveWave[iWave];
+		pWave->GetEnemyListInRange(aEnemyList, pos, rangeMin, rangeMax);
+	}
+}
+
+/**
  * @brief AddWave
  */
 void WaveManager::AddWave(void)

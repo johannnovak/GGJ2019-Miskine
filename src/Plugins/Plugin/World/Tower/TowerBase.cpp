@@ -2,6 +2,8 @@
 
 #include "ShSDK/ShSDK.h"
 
+#include "../Wave/WaveManager.h"
+
 #include "../Enemy/EnemyManager.h"
 #include "../Enemy/Enemy.h"
 
@@ -23,7 +25,7 @@ TowerBase::TowerBase(void)
 , m_fAttackCooldown(0.0f)
 , m_fAttackSpeed(0.0f)
 , m_level(0)
-, m_pEnemyManager(shNULL)
+, m_pWaveManager(shNULL)
 , m_pCurrentTarget(shNULL)
 , m_fAOERange(-1.0f)
 , m_fAnimationDt(0.0f)
@@ -44,7 +46,7 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerBase::Initialize(const CShIdentifier & levelIdentifier, WaveManager * pWaveManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_levelIdentifier = levelIdentifier;
 
@@ -54,8 +56,8 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 	m_damages = damages;
 	m_fAttackSpeed = attackSpeed;
 
-	m_pEnemyManager = pEnemyManager;
-	SH_ASSERT(shNULL != m_pEnemyManager);
+	m_pWaveManager = pWaveManager;
+	SH_ASSERT(shNULL != m_pWaveManager);
 	
 	m_fAOERange = rangeAOE;
 	m_fAnimationSpeed = 0.5f;
@@ -131,7 +133,7 @@ void TowerBase::Update(float dt)
 						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
 
 						CShArray<Enemy*> aEnemyList;
-						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
+						m_pWaveManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
 
 						int nEnemyCount = aEnemyList.GetCount();
 						for (int i = 0; i < nEnemyCount; ++i)
@@ -170,7 +172,7 @@ void TowerBase::Update(float dt)
 			{
 				// Find potential enemy based on focus type
 				CShArray<Enemy *> aEnemyList;
-				m_pEnemyManager->GetEnemyListInRange(aEnemyList, m_vPosition, m_fRadiusMin, m_fRadiusMax);
+				m_pWaveManager->GetEnemyListInRange(aEnemyList, m_vPosition, m_fRadiusMin, m_fRadiusMax);
 
 				int currentId = -1;
 				int health = -1;

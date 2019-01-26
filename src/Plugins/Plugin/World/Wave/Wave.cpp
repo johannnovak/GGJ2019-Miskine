@@ -57,6 +57,14 @@ void Wave::Stop(void)
 }
 
 /**
+ * @brief GetEnemyListInRange
+ */
+void Wave::GetEnemyListInRange(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax)
+{
+	m_enemyManager.GetEnemyListInRange(aEnemyList, pos, rangeMin, rangeMax);
+}
+
+/**
  * @brief Update
  */
 void Wave::Update(float dt)
