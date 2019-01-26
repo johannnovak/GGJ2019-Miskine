@@ -41,7 +41,7 @@ int Player2Event::GetErrorNb(void)
 /**
  * @brief Player2Event::Constructor
  */
-/*explicit*/ Player2Event::Player2Event(EPlayer2EventType eType)
+/*explicit*/ Player2Event::Player2Event(void)
 : m_eDifficulty(e_player2_event_difficulty_medium)
 , m_bFinished(false)
 , m_iErrorNb(0)
@@ -52,7 +52,7 @@ int Player2Event::GetErrorNb(void)
 /**
  * @brief Player2Event::Constructor
  */
-/*explicit*/ Player2Event::Player2Event(EPlayer2EventType eType, EPlayer2EventDifficulty eDifficulty)
+/*explicit*/ Player2Event::Player2Event(EPlayer2EventDifficulty eDifficulty)
 : m_eDifficulty(eDifficulty)
 , m_bFinished(false)
 {
