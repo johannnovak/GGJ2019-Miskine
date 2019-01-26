@@ -2,6 +2,8 @@
 
 #include "WayPoint.h"
 
+#define DEBUG_PATHFINDING 0
+
 class Graph
 {
 public:
