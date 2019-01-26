@@ -101,7 +101,7 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 /**
  * @brief GetPlayer2EventManager
  */
-const Player2EventManager & Plugin::GetPlayer2EventManager(void)
+Player2EventManager & Plugin::GetPlayer2EventManager(void)
 {
 	return m_player2EventManager;
 }
