@@ -36,7 +36,15 @@ set(SOURCES_Wave World/Wave/Wave.cpp World/Wave/Wave.h World/Wave/WaveManager.cp
 source_group("World\\Wave" FILES ${SOURCES_Wave})
 
 # Tower files
-set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h World/Tower/TowerManager.cpp World/Tower/TowerManager.h)
+set(SOURCES_Towers 
+World/Tower/TowerBase.cpp 
+World/Tower/TowerBase.h 
+World/Tower/TowerManager.cpp 
+World/Tower/TowerManager.h 
+World/Tower/TowerRange.cpp 
+World/Tower/TowerRange.h
+World/Tower/TowerMelee.cpp 
+World/Tower/TowerMelee.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
 
 # Graph files

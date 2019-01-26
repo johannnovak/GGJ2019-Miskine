@@ -22,13 +22,13 @@ public:
 		focus_biggest_lifebase,
 	};
 
-	explicit	 TowerBase			(void);
-	virtual		~TowerBase			(void);
+	explicit		TowerBase			(void);
+	virtual			~TowerBase			(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
-	void		Release				(void);
+	virtual void	Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	virtual void	Release				(void);
 
-	void		Update				(float dt);
+	virtual void	Update				(float dt);
 
 protected:
 
@@ -60,8 +60,8 @@ protected:
 
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
+	int						m_currentSprite;
 	CShArray<ShEntity2 *>	m_aAttackAnimation;
-
 
 	//Évolutions possibles	
 };

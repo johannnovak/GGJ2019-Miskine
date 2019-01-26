@@ -1,3 +1,4 @@
+#include "TowerMelee.h"
 #include "TowerBase.h"
 
 #include "ShSDK/ShSDK.h"
@@ -10,26 +11,8 @@
 /**
  * @brief Constructor
  */
-TowerBase::TowerBase(void)
-: m_eTowerType(tower_melee)
-, m_eFocusType(focus_nearest)
-, m_vPosition(CShVector3::ZERO)
-, m_fRadiusMin(0.0f)
-, m_fRadiusMax(100.0f)
-, m_pDebugRadiusMin(shNULL)
-, m_pDebugRadiusMax(shNULL)
-, m_damages(0)
-, m_bIsAttacking(false)
-, m_fAttackCooldown(0.0f)
-, m_fAttackSpeed(0.0f)
-, m_level(0)
-, m_pEnemyManager(shNULL)
-, m_pCurrentTarget(shNULL)
-, m_fAOERange(-1.0f)
-, m_fAnimationDt(0.0f)
-, m_fAnimationSpeed(0.0f)
-, m_currentSprite(0)
-, m_aAttackAnimation()
+TowerMelee::TowerMelee(void)
+: TowerBase()
 {
 
 }
@@ -37,7 +20,7 @@ TowerBase::TowerBase(void)
 /**
  * @brief Destructor
  */
-TowerBase::~TowerBase(void)
+TowerMelee::~TowerMelee(void)
 {
 	// ...
 }
@@ -45,49 +28,32 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
-	m_levelIdentifier = levelIdentifier;
+	m_eTowerType = tower_melee;
 
-	m_eFocusType = focusType;
-	m_vPosition = position;
-	m_damages = damages;
-	m_fAttackSpeed = attackSpeed;
+	m_fRadiusMin = 10.0f;
+	m_fRadiusMax = 200.0f;
 
-	m_pEnemyManager = pEnemyManager;
-	SH_ASSERT(shNULL != m_pEnemyManager);
-	
-	m_fAOERange = rangeAOE;
-	m_fAnimationSpeed = 0.5f;
+	TowerBase::Initialize(levelIdentifier, pEnemyManager, focusType, position, damages, attackSpeed, rangeAOE);
 
-	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
-	SH_ASSERT(shNULL != m_pDebugRadiusMin);
-	ShPrimitiveCircle::Set2d(m_pDebugRadiusMin, true);
-	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
-	SH_ASSERT(shNULL != m_pDebugRadiusMax);
-	ShPrimitiveCircle::Set2d(m_pDebugRadiusMax, true);
+	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
+	SH_ASSERT(shNULL != pEntity);
+	m_aAttackAnimation.Add(pEntity);
 }
 
 /**
  * @brief Release
  */
-void TowerBase::Release(void)
+void TowerMelee::Release(void)
 {
-	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
-	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
 
-	int nAttackAnimCount = m_aAttackAnimation.GetCount();
-	for (int i = 0; i < nAttackAnimCount; ++i)
-	{
-		ShEntity2::Destroy(m_aAttackAnimation[i]);
-	}
-	m_aAttackAnimation.Empty();
 }
 
 /**
  * @brief Update
  */
-void TowerBase::Update(float dt)
+void TowerMelee::Update(float dt)
 {
 	if (m_bIsAttacking)
 	{
