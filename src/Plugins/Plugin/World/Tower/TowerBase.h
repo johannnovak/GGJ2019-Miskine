@@ -2,7 +2,7 @@
 
 #include "ShSDK/ShSDK.h"
 
-class WaveManager;
+class EnemyManager;
 class Enemy;
 
 class TowerBase
@@ -25,7 +25,7 @@ public:
 	explicit	 TowerBase			(void);
 	virtual		~TowerBase			(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier, WaveManager * pWaveManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
 	void		Release				(void);
 
 	void		Update				(float dt);
@@ -53,7 +53,7 @@ protected:
 
 	int						m_level;
 
-	WaveManager *			m_pWaveManager;
+	EnemyManager *			m_pEnemyManager;
 	Enemy *					m_pCurrentTarget;
 
 	float					m_fAOERange;

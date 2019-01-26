@@ -1,12 +1,12 @@
 #include "TowerManager.h"
 
-#include "../Wave/WaveManager.h"
+#include "../Enemy/EnemyManager.h"
 
 /**
  * @brief Constructor
  */
 TowerManager::TowerManager(void)
-: m_pWaveManager(shNULL)
+: m_pEnemyManager(shNULL)
 , m_aTowerList()
 {
 	// ...
@@ -23,12 +23,12 @@ TowerManager::~TowerManager(void)
 /**
  * @brief Initialize
  */
-void TowerManager::Initialize(const CShIdentifier & levelIdentifier, WaveManager * pWaveManager)
+void TowerManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager)
 {
 	m_levelIdentifier = levelIdentifier;
 
-	m_pWaveManager = pWaveManager;
-	SH_ASSERT(shNULL != m_pWaveManager);
+	m_pEnemyManager = pEnemyManager;
+	SH_ASSERT(shNULL != m_pEnemyManager);
 }
 
 /**
@@ -62,7 +62,7 @@ void TowerManager::Update(float dt)
 void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed)
 {
 	TowerBase tower;
-	tower.Initialize(m_levelIdentifier, m_pWaveManager, towerType, focusType, position, damages, attackSpeed);
+	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
 	m_aTowerList.Add(tower);
 }
 

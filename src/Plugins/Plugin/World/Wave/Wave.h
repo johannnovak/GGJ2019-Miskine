@@ -22,8 +22,6 @@ public:
 	void		Start				(void);
 	void		Stop				(void);
 
-	void		GetEnemyListInRange	(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax);
-
 	void		Update				(float dt);
 private:
 
