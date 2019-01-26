@@ -15,6 +15,12 @@ inline GameState * Game::get(EState state)
 		}
 		break;
 
+		case CHARACTER_INTRO:
+		{
+			return(&m_stateCharacterIntro);
+		}
+		break;
+
 		case INGAME:
 		{
 			return(&m_stateGame);
