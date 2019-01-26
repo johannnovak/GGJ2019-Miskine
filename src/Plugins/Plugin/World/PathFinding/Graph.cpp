@@ -150,6 +150,15 @@ bool Graph::FindPath(WayPoint* pWPStart, WayPoint* pWPEnd, CShArray<WayPoint*> &
 		if (pCurrent == pWPEnd)
 		{
 			ReconstructPath(pCurrent, aPathPoint);
+
+			for (int i = 0; i < aPathPoint.GetCount(); i++)
+			{
+				WayPoint * pWP = aPathPoint[i];
+#if DEBUG_PATHFINDING
+				pWP->SetColor(CShRGBAf(1.0f, 0.0f, 0.0f, 1.0f));
+#endif //DEBUG_PATHFINDING
+			}
+
 			return(true);
 		}
 
