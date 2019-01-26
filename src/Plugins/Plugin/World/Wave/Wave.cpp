@@ -11,6 +11,7 @@ Wave::Wave(void)
 , m_vStartPosition()
 , m_vDestination()
 , m_iRemainingEnemy()
+, m_fStartTime(0.0f)
 , m_eState(e_state_off)
 , m_fApparitionTime(0.0f)
 , m_fTime(0.0f)
@@ -29,9 +30,10 @@ Wave::~Wave(void)
 /**
  * @brief Initialize
  */
-void Wave::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, const CShArray<CShVector2> & aStartPosition, const CShVector2 & vDestination, int iEnemyCount, float fApparitionTime)
+void Wave::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, const CShArray<CShVector2> & aStartPosition, const CShVector2 & vDestination, int iEnemyCount, float fApparitionTime, float fStartTime)
 {
-	m_vStartPosition = aStartPosition[rand() % aStartPosition.GetCount()];
+	m_fStartTime = fStartTime;
+	m_aStartPosition = aStartPosition;
 	m_vDestination = vDestination;
 
 	m_iRemainingEnemy = iEnemyCount;
@@ -53,6 +55,8 @@ void Wave::Release(void)
  */
 void Wave::Start()
 {
+	m_vStartPosition = m_aStartPosition[rand() % m_aStartPosition.GetCount()];
+
 	m_eState = e_state_on;
 	m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, m_vStartPosition, m_vDestination));
 	m_iRemainingEnemy--;
@@ -64,6 +68,22 @@ void Wave::Start()
 void Wave::Stop(void)
 {
 	m_eState = e_state_off;
+}
+
+/**
+ * @brief GetStartTime
+ */
+float Wave::GetStartTime(void)
+{
+	return m_fStartTime;
+}
+
+/**
+ * @brief GetState
+ */
+Wave::EState Wave::GetState(void)
+{
+	return(m_eState);
 }
 
 /**
