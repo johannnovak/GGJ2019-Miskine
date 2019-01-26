@@ -1,6 +1,6 @@
 <gui version="1.0">
     <sss>
-        <style pseudo_state="default" id="in_game" offset_x="-301.000000" offset_x_unit="auto" offset_y="-153.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="in_game" offset_x="-301.000000" offset_x_unit="auto" offset_y="-153.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_header" offset_x="118.195221" offset_x_unit="auto" offset_y="-180.403229" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_wave" offset_x="-36.000000" offset_x_unit="auto" offset_y="-68.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_wave_label" offset_x="134.784012" offset_x_unit="auto" offset_y="257.472015" offset_y_unit="auto"/>
@@ -12,9 +12,9 @@
         <style pseudo_state="default" id="radiobutton_play" offset_x="90.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="radiobutton_fast_forward" offset_x="181.000000" offset_x_unit="auto" offset_y="15.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="button_menu" offset_x="178.000000" offset_x_unit="auto" offset_y="110.000000" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="panel_content" offset_x="82.944016" offset_x_unit="auto" offset_y="201.139236" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_content" offset_x="82.944016" offset_x_unit="auto" offset_y="201.139236" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_left" offset_x="-358.000000" offset_x_unit="auto" offset_y="1.000000" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="panel_center" offset_x="-379.000000" offset_x_unit="auto" offset_y="-25.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="panel_center" offset_x="-379.000000" offset_x_unit="auto" offset_y="-25.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_right" offset_x="-416.000000" offset_x_unit="auto" offset_y="7.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_infos" offset_x="-2.000000" offset_x_unit="auto" offset_y="-80.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_username" offset_x="144.000000" offset_x_unit="auto" offset_y="127.000000" offset_y_unit="auto"/>

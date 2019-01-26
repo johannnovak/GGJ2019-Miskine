@@ -31,86 +31,127 @@ Graph g_graph;
 //--------------------------------------------------------------------------------------------------
 void Graph::Initialize(ShDummyAABB2 * pDummyAABB2)
 {
-	CShVector2 vPosition = ShDummyAABB2::GetPosition2(pDummyAABB2);
+	CShVector2 vPosition = ShDummyAABB2::GetWorldPosition2(pDummyAABB2);
 	float fWidth = ShDummyAABB2::GetAABB(pDummyAABB2).GetWidth();
 	float fHeight = ShDummyAABB2::GetAABB(pDummyAABB2).GetHeight();
 
-	int iCols = fWidth / WP_SPACE_WIDTH;
-	int iRows = fHeight / WP_SPACE_HEIGHT;
+	CShArray<ShObject*> aChildren;
+	ShDummyAABB2::GetChildArray(pDummyAABB2, aChildren);
+
+	int iCols = (fWidth / WP_SPACE_WIDTH);
+	int iRows = (fHeight / WP_SPACE_HEIGHT);
 
 	m_aWayPoint.SetCount(iCols * iRows);
 
-	CShVector2 vStartPosition = vPosition + CShVector2(-fWidth * 0.5f, fHeight * 0.5f);
+	CShVector2 vStartPosition(ShDummyAABB2::GetAABB(pDummyAABB2).GetMin());
 
 	for (int i = 0; i < (iCols * iRows); ++i)
 	{
 		int iRow = i / iCols;
 		int iCol = i % iCols;
-		CShVector3 vWPPosition = CShVector3(vStartPosition, 1.0f) + CShVector3(iCol * (fWidth / iCols), -iRow * (fHeight / iRows), 0.0f);
-		m_aWayPoint[i] = new Node(CShVector2(vWPPosition.m_x, vWPPosition.m_y));
+
+		const CShVector2 vWPPosition = CShVector2(vStartPosition) + CShVector2(iCol * (fWidth / iCols), iRow * (fHeight / iRows));
+
+		bool bObstacle = false;
+
+		const int ChildCount = aChildren.GetCount();
+
+		for (int i = 0; i < ChildCount; ++i)
+		{
+			if (ShDummyAABB2 * pDummyAABB = ShObject::Cast<ShDummyAABB2>(aChildren[i]))
+			{
+				const CShAABB2 & AABB = ShDummyAABB2::GetAABB(pDummyAABB);
+				CShVector2 vChildPosition = ShDummyAABB2::GetWorldPosition2(pDummyAABB);
+
+				const CShVector2 Min = vChildPosition + AABB.GetMin();
+				const CShVector2 Max = vChildPosition + AABB.GetMax();
+
+				if (vWPPosition.m_x > shMin(Min.m_x, Max.m_x) && vWPPosition.m_y > shMin(Min.m_y, Max.m_y) && vWPPosition.m_x < shMax(Min.m_x, Max.m_x) && vWPPosition.m_y < shMax(Min.m_y, Max.m_y))
+				{
+					bObstacle = true;
+					break;
+				}
+			}
+			else if (ShDummyCircle * pDummyCircle = ShObject::Cast<ShDummyCircle>(aChildren[i]))
+			{
+				const CShCircle & Circle = ShDummyCircle::GetCircle(pDummyCircle);
+			}
+		}
+
+		if (!bObstacle)
+		{
+			m_aWayPoint[i] = new Node(vWPPosition);
+		}
+		else
+		{
+			m_aWayPoint[i] = shNULL;
+		}
 	}
 
 	for (int i = 0; i < (iCols * iRows); ++i)
 	{
-		m_aWayPoint[i]->m_aNeighbor[e_direction_up] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_down] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_left] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_right] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = shNULL;
-		m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = shNULL;
-
-		//
-		// Up
-		if (i > iCols)
+		if (m_aWayPoint[i] != shNULL)
 		{
-			m_aWayPoint[i]->m_aNeighbor[e_direction_up] = m_aWayPoint[i - iCols];
+			m_aWayPoint[i]->m_aNeighbor[e_direction_up] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_down] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_left] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_right] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = shNULL;
+			m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = shNULL;
 
 			//
-			// Up Left
+			// Up
+			if (i > iCols)
+			{
+				m_aWayPoint[i]->m_aNeighbor[e_direction_up] = m_aWayPoint[i - iCols];
+
+				//
+				// Up Left
+				if (i % iCols != 0)
+				{
+					m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = m_aWayPoint[i - iCols - 1];
+				}
+
+				//
+				// Up Right
+				if (i % iCols != (iCols - 1))
+				{
+					m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = m_aWayPoint[i - iCols + 1];
+				}
+			}
+
+			//
+			// Down
+			if (i < iCols * iRows - iCols)
+			{
+				m_aWayPoint[i]->m_aNeighbor[e_direction_down] = m_aWayPoint[i + iCols];
+
+				//
+				// Down Right
+				if (i % iCols != (iCols - 1))
+				{
+					m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = m_aWayPoint[i + iCols + 1];
+				}
+
+				//
+				// Down Left
+				if (i % iCols != 0)
+				{
+					m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = m_aWayPoint[i + iCols - 1];
+				}
+			}
+
 			if (i % iCols != 0)
 			{
-				m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = m_aWayPoint[i - iCols - 1];
+				m_aWayPoint[i]->m_aNeighbor[e_direction_left] = m_aWayPoint[i - 1];
 			}
 
-			//
-			// Up Right
 			if (i % iCols != (iCols - 1))
 			{
-				m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = m_aWayPoint[i - iCols + 1];
+				m_aWayPoint[i]->m_aNeighbor[e_direction_right] = m_aWayPoint[i + 1];
 			}
-		}
-
-		//
-		// Down
-		if (i < iCols * iRows - iCols)
-		{
-			m_aWayPoint[i]->m_aNeighbor[e_direction_down] = m_aWayPoint[i + iCols];
-
-			//
-			// Down Right
-			if (i % iCols != (iCols - 1))
-			{
-				m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = m_aWayPoint[i + iCols + 1];
-			}
-
-			//
-			// Down Left
-			if (i % iCols != 0)
-			{
-				m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = m_aWayPoint[i + iCols - 1];
-			}
-		}
-
-		if (i % iCols != 0)
-		{
-			m_aWayPoint[i]->m_aNeighbor[e_direction_left] = m_aWayPoint[i - 1];
-		}
-
-		if (i % iCols != (iCols - 1))
-		{
-			m_aWayPoint[i]->m_aNeighbor[e_direction_right] = m_aWayPoint[i + 1];
 		}
 	}
 }
@@ -209,12 +250,15 @@ Node * Graph::FindNearestWayPoint(const CShVector2 & vPosition)
 	for (int iWP = 0; iWP < iWPCount; ++iWP)
 	{
 		Node * pWP = m_aWayPoint[iWP];
-		float fDistance = pWP->m_vPosition.Distance(vPosition);
-
-		if (fDistance < fDistanceMin)
+		if (pWP)
 		{
-			pNearestWP = pWP;
-			fDistanceMin = fDistance;
+			float fDistance = pWP->m_vPosition.Distance(vPosition);
+
+			if (fDistance < fDistanceMin)
+			{
+				pNearestWP = pWP;
+				fDistanceMin = fDistance;
+			}
 		}
 	}
 
@@ -295,13 +339,16 @@ void Graph::ResetAll(void)
 	for (int i = 0; i < iWPCount; ++i)
 	{
 		Node * pWP = m_aWayPoint[i];
-		pWP->m_f = 0;
-		pWP->m_g = 0;
-		pWP->m_h = 0;
-		pWP->m_pWPCameFrom = shNULL;
+		if (pWP)
+		{
+			pWP->m_f = 0;
+			pWP->m_g = 0;
+			pWP->m_h = 0;
+			pWP->m_pWPCameFrom = shNULL;
 
 #if DEBUG_PATHFINDING
-		ShEntity2::SetColor(pWP->m_pEntity, CShRGBAf(1.0f, 1.0f, 1.0f, 1.0f));
+			ShEntity2::SetColor(pWP->m_pEntity, CShRGBAf(1.0f, 1.0f, 1.0f, 1.0f));
 #endif //DEBUG_PATHFINDING
+		}
 	}
 }

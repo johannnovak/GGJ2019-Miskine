@@ -75,5 +75,5 @@ void World::Update(float dt)
  */
 void World::CreateTower(const CShVector2 & position)
 {
-	m_towerManager.CreateTower(TowerBase::tower_melee, TowerBase::focus_nearest, CShVector3(position, 5.0f), 20, 3.0f);
+	m_towerManager.CreateMeleeTower(TowerBase::focus_nearest, CShVector3(position, 5.0f), 20, 3.0f);
 }

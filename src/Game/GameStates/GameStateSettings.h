@@ -1,15 +1,14 @@
-#pragma once
+#ifndef GAMESTATESETTINGS_H
+#define GAMESTATESETTINGS_H
 
 #include "GameState.h"
 #include <ShSDK/ShSDK.h>
 
-class GameStateMainMenu : public GameState
+class GameStateSettings : public GameState
 {
-
 public:
-
-	explicit			GameStateMainMenu		(void);
-	virtual				~GameStateMainMenu		(void) override;
+	explicit			GameStateSettings		(void);
+	virtual				~GameStateSettings		(void) override;
 
 	void				init					(void) override;
 	void				release					(void) override;
@@ -33,3 +32,5 @@ protected:
 private:
 	ShGUIControlPanel *	m_pMainPanel;
 };
+
+#endif // GAMESTATESETTINGS_H
