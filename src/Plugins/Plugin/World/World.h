@@ -1,6 +1,7 @@
 #pragma once
 
 #include "InputManager.h"
+#include "Wave/WaveManager.h"
 #include "Enemy/EnemyManager.h"
 #include "Tower/TowerManager.h"
 
@@ -11,7 +12,7 @@ public:
 	explicit	 World			(void);
 	virtual		~World			(void);
 
-	void		Initialize		(void);
+	void		Initialize		(const CShIdentifier & levelIdentifier);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -22,6 +23,7 @@ private:
 
 	PluginInputManager	m_inputManager;
 
+	WaveManager			m_waveManager;
 	EnemyManager		m_enemyManager;
 	TowerManager		m_towerManager;
 };

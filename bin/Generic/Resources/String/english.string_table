@@ -4,30 +4,32 @@
 	<entry name="load_existing_game" value="Load an existing game"/>
 	<entry name="settings" value="Settings"/>
 	<entry name="credits" 	value="Credits"/>
+	<entry name="quit" 	value="Quit"/>
 
-	<entry name="team_introduction_title" 	value="Family members with you :"/>
+	<entry name="team_introduction_title" 	value="Family members with you:"/>
 	<entry name="play" 	value="Play !"/>
 
-	<entry name="load_existing_game_title" 		value="Choose a game save :"/>
+	<entry name="load_existing_game_title" 		value="Choose a game save:"/>
 	<entry name="empty" value="Empty"/>
 	<entry name="ok" 	value="OK"/>
 	<entry name="back" 	value="Back"/>
-	
-	<entry name="setting_difficulty_label" value="Difficulty :" />
+
+	<entry name="setting_difficulty_label" value="Difficulty:" />
+	<entry name="user_name" value="User Name" />
 	<entry name="easy" value="Easy" />
 	<entry name="medium" value="Medium" />
 	<entry name="hard" value="Hard" />
 	<entry name="save" 	value="Save"/>
 	<entry name="cancel" 	value="Cancel"/>
 
-	<entry name="developpers" value="Developpers :" />
-	<entry name="graphic_designers" value="Graphics Designers :" />
+	<entry name="developpers" value="Developpers:" />
+	<entry name="graphic_designers" value="Graphics Designers:" />
 
-	<entry name="ig_wave_label" value="Wave :" />
+	<entry name="ig_wave_label" value="Wave:" />
 	<entry name="ig_menu" value="Menu" />
-	<entry name="ig_money_label" value="PireCoin :" />
-	<entry name="ig_hp_label" value="HP :" />
-	<entry name="ig_towers_label" value="Family members :" />
+	<entry name="ig_money_label" value="PireCoin:" />
+	<entry name="ig_hp_label" value="HP:" />
+	<entry name="ig_towers_label" value="Family members:" />
 	
 	<entry name="fam_member_father" value="Father" />
 	<entry name="fam_member_mother" value="Mother" />

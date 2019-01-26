@@ -21,21 +21,20 @@ World::~World(void)
 
 /**
  * @brief Initialize
- * @param pUser
  */
-void World::Initialize(void)
+void World::Initialize(const CShIdentifier & levelIdentifier)
 {
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
-	
-	CShIdentifier levelIdentifier("level_test_pathfinding");
 
 	m_enemyManager.Initialize(levelIdentifier);
+	m_waveManager.Initialize(levelIdentifier, &m_enemyManager);
 	m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
 
 	ShDummyAABB2* pDummy = ShDummyAABB2::Find(levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
+
 	SH_ASSERT(shNULL != pDummy);
 
 	g_graph.Initialize(pDummy);
@@ -45,6 +44,8 @@ void World::Initialize(void)
 
 	CShArray<Node*> aPoints;
 	g_graph.FindPath(pWPStart, pWPEnd, aPoints);
+
+	m_waveManager.Start();
 }
 
 /**
@@ -53,7 +54,7 @@ void World::Initialize(void)
 void World::Release(void)
 {
 	m_inputManager.Release();
-
+	m_waveManager.Release();
 	m_enemyManager.Release();
 	m_towerManager.Release();
 }
@@ -64,6 +65,9 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
+	m_waveManager.Update(dt);
+	m_enemyManager.Update(dt);
+	m_towerManager.Update(dt);
 }
 
 /**
@@ -71,5 +75,7 @@ void World::Update(float dt)
  */
 void World::CreateTower(const CShVector2 & position)
 {
-	m_towerManager.CreateTower(TowerBase::tower_melee, TowerBase::focus_nearest, CShVector3(position, 5.0f), 10.0f, 3.0f);
+	m_towerManager.CreateMeleeTower(TowerBase::focus_nearest, CShVector3(position, 5.0f), 20, 3.0f);
+	g_graph.AddBlocker(position, 30.0f);
+	g_graph.UpdateGraph();
 }

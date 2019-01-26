@@ -4,3 +4,5 @@ build
 buildExternal
 Assets/tmp_sprites
 bin/Generic/Resources/SpritesTemp/*
+*.user
+*.autosave

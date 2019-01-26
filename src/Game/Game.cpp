@@ -7,7 +7,15 @@ Game Game::m_Instance;
 /**
  * @brief Game::Game
  */
-Game::Game(void) : m_iCurrentState(-1)
+Game::Game(void)
+: m_aStates()
+, m_iCurrentState(-1)
+, m_stateMainMenu()
+, m_stateCharacterIntro()
+, m_stateSettings()
+, m_stateCredits()
+, m_stateGame()
+, m_fRatio()
 {
 	for (int i = 0; i < MAX_GAME_STATES; ++i)
 	{
@@ -20,6 +28,16 @@ Game::Game(void) : m_iCurrentState(-1)
  */
 void Game::Initialize(void)
 {
+
+
+	int display_width = ShDisplay::GetWidth();
+	int display_height = ShDisplay::GetHeight();
+
+	float ratio_x = ORIGINAL_VIEWPORT_X / display_width;
+	float ratio_y = ORIGINAL_VIEWPORT_Y / display_height;
+
+	m_fRatio = shMax(ratio_x, ratio_y, 2.0f);
+
 	//
 	// Initialize states
 	for (int i = 0; i < MAX_GAME_STATES; ++i)
@@ -29,7 +47,7 @@ void Game::Initialize(void)
 
 	//
 	// push Main Menu
-	push(INGAME);
+	push(MAIN_MENU);
 }
 
 /**
@@ -56,6 +74,30 @@ void Game::Release(void)
 void Game::Update(float dt)
 {
 	m_aStates[m_iCurrentState]->update(dt);
+}
+
+/**
+ * @brief Game::touchBegin
+ */
+void Game::touchBegin(const CShVector2 & pos)
+{
+	m_aStates[m_iCurrentState]->touchBegin(pos, m_fRatio);
+}
+
+/**
+ * @brief Game::touchEnd
+ */
+void Game::touchEnd(const CShVector2 & pos)
+{
+	m_aStates[m_iCurrentState]->touchEnd(pos, m_fRatio);
+}
+
+/**
+ * @brief Game::touchMove
+ */
+void Game::touchMove(const CShVector2 & pos)
+{
+	m_aStates[m_iCurrentState]->touchMove(pos, m_fRatio);
 }
 
 /**

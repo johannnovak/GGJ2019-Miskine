@@ -1,4 +1,6 @@
 #include "TowerManager.h"
+#include "TowerMelee.h"
+#include "TowerRange.h"
 
 #include "../Enemy/EnemyManager.h"
 
@@ -59,10 +61,10 @@ void TowerManager::Update(float dt)
 /**
  * @brief CreateTower
  */
-void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
+void TowerManager::CreateMeleeTower(TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed)
 {
-	TowerBase tower;
-	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	TowerMelee tower;
+	tower.Initialize(m_levelIdentifier, m_pEnemyManager, focusType, position, damages, attackSpeed);
 	m_aTowerList.Add(tower);
 }
 

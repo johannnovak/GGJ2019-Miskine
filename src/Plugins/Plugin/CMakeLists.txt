@@ -31,8 +31,20 @@ source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 set(SOURCES_Enemy World/Enemy/Enemy.cpp World/Enemy/Enemy.h World/Enemy/EnemyManager.cpp World/Enemy/EnemyManager.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
+# Wave files
+set(SOURCES_Wave World/Wave/Wave.cpp World/Wave/Wave.h World/Wave/WaveManager.cpp World/Wave/WaveManager.h)
+source_group("World\\Wave" FILES ${SOURCES_Wave})
+
 # Tower files
-set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h World/Tower/TowerManager.cpp World/Tower/TowerManager.h)
+set(SOURCES_Towers 
+World/Tower/TowerBase.cpp 
+World/Tower/TowerBase.h 
+World/Tower/TowerManager.cpp 
+World/Tower/TowerManager.h 
+World/Tower/TowerRange.cpp 
+World/Tower/TowerRange.h
+World/Tower/TowerMelee.cpp 
+World/Tower/TowerMelee.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
 
 # Graph files
@@ -42,6 +54,31 @@ source_group("World\\PathFinding" FILES ${SOURCES_Graph})
 # Node files
 set(SOURCES_Node World/PathFinding/Node.cpp World/PathFinding/Node.h)
 source_group("World\\PathFinding" FILES ${SOURCES_Node})
+
+set(SOURCES_Player2Event	Players/Player2Event.cpp Players/Player2Event.h
+							Players/Player2EventManager.cpp Players/Player2EventManager.h)
+source_group("Players\\Player2\\Event" FILES ${SOURCES_Player2Event})
+
+set(SOURCES_Player2EventTypeWords	Players/Player2EventTypeWords.cpp Players/Player2EventTypeWords.h)
+source_group("Players\\Player2\\Event\\TypeWords" FILES ${SOURCES_Player2EventTypeWords})
+
+#set(SOURCES_Player2EventBoostTower	Players/Player2EventBoostTower.cpp Players/Player2EventBoostTower.h)
+#source_group("Players\\Player2\\Event\\BoostTower" FILES ${SOURCES_Player2EventBoostTower})
+#
+#set(SOURCES_Player2EventGrantSpecialAttack	Players/Player2EventGrantSpecialAttack.cpp Players/Player2EventGrantSpecialAttack.h)
+#source_group("Players\\Player2\\Event\\GrantSpecialAttack" FILES ${SOURCES_Player2EventGrantSpecialAttack})
+#
+#set(SOURCES_Player2EventControlEnemy	Players/Player2EventControlEnemy.cpp Players/Player2EventControlEnemy.h)
+#source_group("Players\\Player2\\Event\\ControlEnemy" FILES ${SOURCES_Player2EventControlEnemy})
+#
+#set(SOURCES_Player2EventImmediateQTE	Players/Player2EventImmediateQTE.cpp Players/Player2EventImmediateQTE.h)
+#source_group("Players\\Player2\\Event\\ImmediateQTE" FILES ${SOURCES_Player2EventImmediateQTE})
+#
+#set(SOURCES_Player2EventSuperMegaCombo	Players/Player2EventSuperMegaCombo.cpp Players/Player2EventSuperMegaCombo.h)
+#source_group("Players\\Player2\\Event\\SuperMegaCombo" FILES ${SOURCES_Player2EventSuperMegaCombo})
+
+set(SOURCES_Player2EventListener	Players/IPlayer2EventListener.h)
+source_group("Players\\Player2\\Event" FILES ${SOURCES_Player2EventListener})
 
 # Put everything together before adding platform-specific files
 set(SOURCES 
@@ -53,6 +90,14 @@ ${SOURCES_Enemy}
 ${SOURCES_Towers}
 ${SOURCES_Graph}
 ${SOURCES_Node}
+${SOURCES_Wave}
+${SOURCES_Player2Event}
+${SOURCES_Player2EventTypeWords}
+#${SOURCES_Player2EventBoostTower}
+#${SOURCES_Player2EventGrantSpecialAttack}
+#${SOURCES_Player2EventControlEnemy}
+#${SOURCES_Player2EventImmediateQTE}
+${SOURCES_Player2EventListener}
 )
 
 # Compile to use it on Runtime
@@ -62,7 +107,7 @@ set_property(TARGET Plugin APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPILE_
 set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS}")
 
 if (NOT MSVC)
-set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
+	set_property(TARGET Plugin APPEND PROPERTY COMPILE_FLAGS "-fno-exceptions -fno-rtti")
 endif()
 
 target_link_libraries(Plugin INTERFACE ${SHSDK_LIBRARIES})
@@ -74,9 +119,13 @@ target_include_directories(Plugin INTERFACE "${CMAKE_CURRENT_SOURCE_DIR}")
 add_library(Plugin_Editor SHARED ${SOURCES_main} ${SOURCES})
 set_property(TARGET Plugin_Editor PROPERTY FOLDER "Editor")
 set_property(TARGET Plugin_Editor APPEND PROPERTY COMPILE_DEFINITIONS "${SHSDK_COMPILE_DEFINITIONS}")
-set_property(TARGET Plugin_Editor APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS} -fPIC")
+set_property(TARGET Plugin_Editor APPEND PROPERTY COMPILE_FLAGS "${SHSDK_COMPILE_FLAGS}")
 set_property(TARGET Plugin_Editor APPEND PROPERTY COMPILE_DEFINITIONS "SH_EDITOR=1" "_INTERNAL_DLL") # FIXME
 set_property(TARGET Plugin_Editor APPEND PROPERTY POSITION_INDEPENDENT_CODE True)
+
+if (NOT MSVC)
+set_property(TARGET Plugin_Editor APPEND PROPERTY COMPILE_FLAGS " -fPIC -fno-exceptions -fno-rtti")
+endif()
 
 target_link_libraries(Plugin_Editor PRIVATE ${SHSDK_EDITOR_LIBRARIES})
 
