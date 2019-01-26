@@ -9,13 +9,12 @@ class Enemy;
 
 class EnemyManager
 {
+public:
 	enum EEnemy
 	{
 		e_enemy_01,
 		e_enemy_max
 	};
-
-public:
 
 	explicit	 EnemyManager		(void);
 	virtual		~EnemyManager		(void);

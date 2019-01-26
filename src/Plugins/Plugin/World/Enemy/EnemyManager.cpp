@@ -36,7 +36,7 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			{
 				case e_enemy_01 : 
 				{
-					sprintf(szSpriteIdentifier, ""); //TODO
+					sprintf(szSpriteIdentifier, "walk_01"); //TODO
 					iHealth = 100;
 				}
 				break;
@@ -48,7 +48,7 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 				}
 				break;
 			}
-			ShEntity2* pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier(szSpriteIdentifier), CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+			ShEntity2* pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier(szSpriteIdentifier), CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
 			m_aEnemy[i][j].Initialize(pEntity, iHealth);
 			m_aiCurrentEnemy[i] = 0;
 		}

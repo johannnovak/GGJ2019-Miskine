@@ -84,7 +84,9 @@ void Enemy::Update(float dt)
 
 	if (e_state_on == m_eState)
 	{
-		// Move
+		// Test move
+		m_vPosition.m_x += 20.0f * dt;
+		ShEntity2::SetPosition(m_pEntity, m_vPosition);
 
 		// Update anim
 		m_fAnimationDt += dt;
