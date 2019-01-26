@@ -5,7 +5,7 @@ set(SOURCES_main main.cpp)
 source_group("" FILES ${SOURCES_main})
 
 # Application files
-set(SOURCES_Application Application.cpp Application.h)
+set(SOURCES_Application Application.cpp Application.h Inputs.cpp Inputs.h)
 source_group("" FILES ${SOURCES_Application})
 
 # Game files

@@ -85,7 +85,7 @@ void GameStateGame::update(float dt)
  */
 void GameStateGame::touchBegin(const CShVector2 & pos_, float ratio)
 {
-	// ...
+	TouchDownPlugin(0, pos_.m_x, pos_.m_y);
 }
 
 /**
@@ -93,7 +93,7 @@ void GameStateGame::touchBegin(const CShVector2 & pos_, float ratio)
  */
 void GameStateGame::touchEnd(const CShVector2 & pos_, float ratio)
 {
-	// ...
+	TouchUpPlugin(0, pos_.m_x, pos_.m_y);
 }
 
 /**
@@ -101,5 +101,5 @@ void GameStateGame::touchEnd(const CShVector2 & pos_, float ratio)
  */
 void GameStateGame::touchMove(const CShVector2 & pos_, float ratio)
 {
-	// ...
+	TouchMovePlugin(0, pos_.m_x, pos_.m_y);
 }
