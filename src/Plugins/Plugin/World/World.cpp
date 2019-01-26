@@ -29,6 +29,9 @@ void World::Initialize(void)
 	SH_ASSERT(shNULL != pUser);
 
 	m_inputManager.Initialize(pUser);
+	
+	m_enemyManager.Initialize();
+	m_towerManager.Initialize(&m_enemyManager);
 
 	ShDummyAABB2* pDummy = ShDummyAABB2::Find(CShIdentifier("level_test_pathfinding"), CShIdentifier("dummy_aabb2_auto_001"));
 	SH_ASSERT(shNULL != pDummy);
@@ -56,4 +59,12 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
+}
+
+/**
+ * @brief CreateTower
+ */
+void World::CreateTower(const CShVector2 & position)
+{
+	m_towerManager.CreateTower(TowerBase::tower_melee, TowerBase::focus_nearest, CShVector3(position, 5.0f), 10.0f, 3.0f);
 }
