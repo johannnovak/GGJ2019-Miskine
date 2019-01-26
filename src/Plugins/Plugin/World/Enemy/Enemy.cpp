@@ -145,7 +145,7 @@ void Enemy::Update(float dt)
 
 	if (e_state_on == m_eState)
 	{	
-		if (m_iDestinationNode - 2 < m_aNodes.GetCount())
+		if (m_iDestinationNode < m_aNodes.GetCount() - 1)
 		{
 			m_fCompletion += dt;
 
