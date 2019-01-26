@@ -8,6 +8,7 @@ bool ButtonNewGameClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 	SH_UNUSED(vPosition);
 	Game::GetInstance().pop();
 	Game::GetInstance().push(Game::INGAME);
+	return true;
 }
 
 
