@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <configuration>
+	<event name="escape">
+		<keyboard>
+			<input name="pressed">
+				<parameter name="control" value="escape"/>
+				<parameter name="threshold" value="0.5"/>
+			</input>
+		</keyboard>
+	</event>
+
 	<event name="a">
 		<keyboard>
 			<input name="pressed">
