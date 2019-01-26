@@ -5,7 +5,7 @@
 #include "Wave.h"
 
 #define WAVE_MAX 10
-#define TIME_BETWEEN_WAVE 50.0f
+#define TIME_BETWEEN_WAVE 10.0f
 
 class WaveManager
 {

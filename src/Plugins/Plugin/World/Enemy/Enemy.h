@@ -19,7 +19,7 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(const CShArray<ShEntity2*> aEntity, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
 	void				Start				(const CShVector3 & vPosition, const CShVector2 & vDestination);

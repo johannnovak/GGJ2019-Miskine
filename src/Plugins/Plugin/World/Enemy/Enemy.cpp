@@ -36,11 +36,13 @@ Enemy::~Enemy(void)
 /**
  * @brief Initialize
  */
-void Enemy::Initialize(const CShArray<ShEntity2*> aEntity, int iBaseHealth)
+void Enemy::Initialize(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLifebar, int iBaseHealth)
 {
 	m_eState = e_state_off;
 	m_aMoveAnimation = aEntity;
 	m_baseHealth = iBaseHealth;
+
+	m_pEntityLifeBar = pEntityLifebar;
 }
 
 /**
@@ -64,6 +66,7 @@ void Enemy::Start(const CShVector3 & position, const CShVector2 & vDestination)
 	m_currentHealth = m_baseHealth;
 	m_vPosition = position;
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
+
 	ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], position);
 
 	CShArray<Node*> aNodes;
@@ -120,10 +123,24 @@ void Enemy::SetState(EState state)
 
 	switch (state)
 	{
-		case e_state_appear: ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true); break;
-		case e_state_disappear : break;
+		case e_state_appear: 
+		{
+			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true);
+			ShEntity2::SetScale(m_pEntityLifeBar, 1.0f, 1.0f, 1.0f);
+		}
+		break;
+
+		case e_state_disappear : 
+		{
+			
+		}
+		break;
+
 		case e_state_on: break;
-		case e_state_off: ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], false); break;
+		case e_state_off: 
+		{
+			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], false); break;
+		}
 
 		default: SH_ASSERT_ALWAYS();
 	}
@@ -213,7 +230,10 @@ void Enemy::TakeDamages(int damages)
 {
 	SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
 	m_currentHealth -= damages;
-	if (0 > m_currentHealth)
+
+	ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(m_currentHealth / (float)m_baseHealth, 1.0f, 1.0f));
+
+	if (0 >= m_currentHealth)
 	{ // Dead
 		Stop();
 	}
@@ -236,5 +256,5 @@ const int & Enemy::GetCurrentHealth(void) const
 
 bool Enemy::IsDead(void)
 {
-	return m_eState == e_state_off;
+	return (m_eState == e_state_disappear || m_eState == e_state_off);
 }

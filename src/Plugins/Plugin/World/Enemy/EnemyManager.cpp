@@ -58,11 +58,18 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 				ShSprite * pSprite = ShSprite::Find(CShIdentifier("player"), CShIdentifier(szFinalSpriteIdentifier));
 				if (shNULL == pSprite)
 					break;
-				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 1.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
 				aEntityList.Add(pEntity);
 			}
 			
-			m_aEnemy[i][j].Initialize(aEntityList, iHealth);
+			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3(0.0f, 0.0f, 1.1f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+			ShEntity2::SetPivotCenterLeft(pEntityLifebar);
+			ShEntity2::Link(aEntityList[0], pEntityLifebar);
+			float fEntityHeight = ShEntity2::GetHeight(aEntityList[0]);
+			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar);
+			ShEntity2::SetRelativePosition2(pEntityLifebar, CShVector2(-fEntityLifebarWidth * 0.5f, fEntityHeight * 0.5f));	
+
+			m_aEnemy[i][j].Initialize(aEntityList, pEntityLifebar, iHealth);
 			m_aiCurrentEnemy[i] = 0;
 		}
 	}

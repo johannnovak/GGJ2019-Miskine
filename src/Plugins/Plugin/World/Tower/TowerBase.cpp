@@ -105,12 +105,6 @@ void TowerBase::Update(float dt)
 				}
 				else
 				{
-					m_pCurrentTarget->TakeDamages(m_damages);
-					if (m_pCurrentTarget->IsDead())
-					{
-						m_pCurrentTarget = shNULL;
-					}
-
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
 						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
@@ -125,6 +119,13 @@ void TowerBase::Update(float dt)
 							aEnemyList[i]->TakeDamages(m_damages * 0.5f);
 						}
 					}
+
+					m_pCurrentTarget->TakeDamages(m_damages);
+					if (m_pCurrentTarget->IsDead())
+					{
+						m_pCurrentTarget = shNULL;
+					}
+
 				}
 
 				m_bIsAttacking = false;
