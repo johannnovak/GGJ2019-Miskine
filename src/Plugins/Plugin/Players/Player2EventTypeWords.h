@@ -15,12 +15,12 @@ public:
 	virtual void				Release					(void) SH_ATTRIBUTE_OVERRIDE;
 
 	virtual void				Update					(float dt) SH_ATTRIBUTE_OVERRIDE;
-	virtual void				Reset					(void) SH_ATTRIBUTE_OVERRIDE;
 	
 	virtual EPlayer2EventType	GetType					(void) SH_ATTRIBUTE_OVERRIDE;
 	
 	void						SetWordToType			(const CShString & strWordToType);
 protected:
+	virtual void				ResetInternal			(void) SH_ATTRIBUTE_OVERRIDE;
 private:
 	static void					SerializeDictionnary	(void);
 

@@ -23,6 +23,7 @@ void Player2EventManager::Initialize(void)
 	m_fTypoGaugeValue		= 0.0f;
 	m_fTypoGaugeMax			= TYPO_GAUGE_DEFAULT_MAX_VALUE;
 	m_pPlayer2EventListener	= shNULL;
+	m_iCurrentEventStreak	= 0;
 
 	//
 	// Get User
@@ -103,7 +104,7 @@ bool Player2EventManager::ChooseEventType(EPlayer2EventType eEventType)
 		//
 		// Reset just completed as we start a new event and make available the old one
 		ResetBoolArray(m_aJustCompletedEvents);
-		m_pPreviousEvent->Reset();
+		m_pPreviousEvent->Reset(1);
 		
 		//
 		// Update current event index and remove the chosen one from the available ones
@@ -132,7 +133,7 @@ bool Player2EventManager::LeaveEventType(void)
 
 		//
 		// Reset just completed
-		m_pPreviousEvent->Reset();
+		m_pPreviousEvent->Reset(1);
 		
 		//
 		// Update current event index
@@ -267,6 +268,10 @@ void Player2EventManager::Update(float dt)
 			{
 				m_pPlayer2EventListener->OnEventTypeFinished(m_pCurrentEvent);
 			}
+
+			//
+			// Reset EventType
+			m_pCurrentEvent->Reset(1);
 		}
 	}
 

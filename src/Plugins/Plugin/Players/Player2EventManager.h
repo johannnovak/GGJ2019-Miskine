@@ -71,6 +71,8 @@ private:
 	Player2Event *						m_pCurrentEvent;
 	Player2Event *						m_pPreviousEvent;
 
+	int									m_iCurrentEventStreak;
+
 	float								m_fTypoGaugeValue;
 	float								m_fTypoGaugeMax;
 

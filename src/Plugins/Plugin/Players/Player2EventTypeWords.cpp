@@ -73,31 +73,6 @@
 			m_bFinished = (m_iCurrentIndex >= m_aIAIdWordToType.GetCount());
 		}
 	}
-	
-	if (IsFinished())
-	{
-		Reset();
-	}
-}
-
-/**
- * @brief Reset
- */
-/*virtual*/ void Player2EventTypeWords::Reset(void)
-{
-	const CShArray<CShString> * aDifficulty = s_aastrDictionnary.Find(m_eDifficulty);
-	int iWordsCount = aDifficulty->GetCount();
-	int iIndex	= -1;
-	int iLength	= -1;
-	do
-	{
-		iIndex	= static_cast<int>(std::rand() * (iWordsCount - 1));	// [0;count[
-		iLength	= static_cast<int>(std::rand() * (iWordsCount*0.5f));	// [0;count/2[
-	}
-	while (iIndex + iLength > iWordsCount);
-
-	const int iFinalIndex = static_cast<int>(std::rand() * (iLength - 1));	// [0;iLength[
-	SetWordToType(aDifficulty->At(iFinalIndex));
 }
 
 /**
@@ -121,6 +96,26 @@ void Player2EventTypeWords::SetWordToType(const CShString & strWordToType)
 		const char character[] = { strWordToType[iCharIndex] };
 		m_aIAIdWordToType.Add(CShIdentifier(character));
 	}
+}
+
+/**
+ * @brief ResetInternal
+ */
+/*virtual*/ void Player2EventTypeWords::ResetInternal(void)
+{
+	const CShArray<CShString> * aDifficulty = s_aastrDictionnary.Find(m_eDifficulty);
+	int iWordsCount = aDifficulty->GetCount();
+	int iIndex	= -1;
+	int iLength	= -1;
+	do
+	{
+		iIndex	= static_cast<int>(std::rand() * (iWordsCount - 1));	// [0;count[
+		iLength	= static_cast<int>(std::rand() * (iWordsCount*0.5f));	// [0;count/2[
+	}
+	while (iIndex + iLength > iWordsCount);
+
+	const int iFinalIndex = static_cast<int>(std::rand() * (iLength - 1));	// [0;iLength[
+	SetWordToType(aDifficulty->At(iFinalIndex));
 }
 
 /**
