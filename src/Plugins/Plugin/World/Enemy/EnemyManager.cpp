@@ -125,6 +125,9 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 	{
 		const CShVector3 & enemyPos = m_apActiveEnemy[i]->GetPosition();
 
+		if (m_apActiveEnemy[i]->IsDead())
+			continue;
+
 		if (enemyPos == pos)
 			continue;
 

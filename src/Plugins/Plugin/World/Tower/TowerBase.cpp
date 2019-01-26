@@ -58,14 +58,21 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 
 	if (m_eTowerType == ETowerType::tower_melee)
 	{
-		m_fRadiusMin = 0.0f;
-		m_fRadiusMax = 500.0f;
+		m_fRadiusMin = 10.0f;
+		m_fRadiusMax = 200.0f;
 	}
 	else
 	{
 		m_fRadiusMin = 50.0f;
 		m_fRadiusMax = 300.0f;
 	}
+
+	ShPrimitiveCircle * pCircleMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
+	SH_ASSERT(shNULL != pCircleMin);
+	ShPrimitiveCircle::Set2d(pCircleMin, true);
+	ShPrimitiveCircle * pCircleMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
+	SH_ASSERT(shNULL != pCircleMax);
+	ShPrimitiveCircle::Set2d(pCircleMax, true);
 
 	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
 	SH_ASSERT(shNULL != pEntity);
@@ -83,7 +90,6 @@ void TowerBase::Release(void)
  */
 void TowerBase::Update(float dt)
 {
-
 	if (m_bIsAttacking)
 	{
 		m_fAnimationDt += dt;
@@ -94,9 +100,18 @@ void TowerBase::Update(float dt)
 
 			// TODO if animation ended
 			{ // Attack ended
-				if (!m_pCurrentTarget->IsDead())
+				if (m_pCurrentTarget->IsDead())
+				{
+					m_pCurrentTarget = shNULL;
+				}
+				else
 				{
 					m_pCurrentTarget->TakeDamages(m_damages);
+					if (m_pCurrentTarget->IsDead())
+					{
+						m_pCurrentTarget = shNULL;
+					}
+
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
 						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
@@ -107,14 +122,10 @@ void TowerBase::Update(float dt)
 						int nEnemyCount = aEnemyList.GetCount();
 						for (int i = 0; i < nEnemyCount; ++i)
 						{
-							// Damages / 2 ?
+							// Damages / 2
 							aEnemyList[i]->TakeDamages(m_damages * 0.5f);
 						}
 					}
-				}
-				else
-				{
-					m_pCurrentTarget = shNULL;
 				}
 
 				m_bIsAttacking = false;
@@ -136,6 +147,7 @@ void TowerBase::Update(float dt)
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
 					|| distSquared < m_fRadiusMin * m_fRadiusMin)
 				{// Lost focus
+					SH_TRACE("FOCUS LOST\n");
 					m_pCurrentTarget = shNULL;
 				}
 			}
