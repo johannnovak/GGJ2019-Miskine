@@ -1,6 +1,6 @@
 #include "ShSDK/ShSDK.h"
 #include "Graph.h"
-#include "WayPoint.h"
+#include "Node.h"
 
 Graph g_graph;
 

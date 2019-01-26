@@ -1,6 +1,6 @@
 #pragma once
 
-#include "WayPoint.h"
+#include "Node.h"
 
 #define DEBUG_PATHFINDING 1
 

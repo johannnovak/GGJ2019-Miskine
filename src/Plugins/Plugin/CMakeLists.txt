@@ -39,9 +39,9 @@ source_group("World\\Tower" FILES ${SOURCES_Towers})
 set(SOURCES_Graph World/PathFinding/Graph.cpp World/PathFinding/Graph.h)
 source_group("World\\PathFinding" FILES ${SOURCES_Graph})
 
-# WayPoint files
-set(SOURCES_WayPoint World/PathFinding/WayPoint.cpp World/PathFinding/WayPoint.h)
-source_group("World\\PathFinding" FILES ${SOURCES_WayPoint})
+# Node files
+set(SOURCES_Node World/PathFinding/Node.cpp World/PathFinding/Node.h)
+source_group("World\\PathFinding" FILES ${SOURCES_Node})
 
 # Put everything together before adding platform-specific files
 set(SOURCES 
@@ -52,7 +52,7 @@ ${SOURCES_Inputs}
 ${SOURCES_Enemy}
 ${SOURCES_Towers}
 ${SOURCES_Graph}
-${SOURCES_WayPoint}
+${SOURCES_Node}
 )
 
 # Compile to use it on Runtime

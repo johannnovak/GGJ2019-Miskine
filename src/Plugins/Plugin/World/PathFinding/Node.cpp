@@ -1,5 +1,5 @@
 #include "ShSDK/ShSDK.h"
-#include "WayPoint.h"
+#include "Node.h"
 
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
