@@ -37,6 +37,9 @@ public:
 	void					SetColor							(const CShRGBAf & color);
 #endif //DEBUG_PATHFINDING
 
+	void					Enable								(void);
+	void					Disable								(void);
+
 protected:
 
 private:
@@ -46,6 +49,8 @@ public:
 protected:
 	
 private:
+
+	bool m_bAccessible;
 
 	CShVector2		m_vPosition;
 	float			m_f;
