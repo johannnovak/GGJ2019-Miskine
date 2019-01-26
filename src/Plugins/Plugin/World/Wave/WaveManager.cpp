@@ -33,7 +33,7 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	for (int i = 0; i < WAVE_MAX; i++)
 	{
 		Wave wave;
-		wave.Initialize(levelIdentifier, pEnemyManager, 1, 0.5f);
+		wave.Initialize(levelIdentifier, pEnemyManager, 1, 1.0f);
 		m_aWave.Add(wave);
 	}
 
@@ -104,6 +104,6 @@ void WaveManager::AddWave(void)
 {
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
-	wave.Start();
+	wave.Start(CShVector3(0.0f,0.0f,1.0f), CShVector2(200.0f, -200.0f));
 	m_iCurrentWave++;
 }

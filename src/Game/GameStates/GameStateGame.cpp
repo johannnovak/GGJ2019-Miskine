@@ -26,7 +26,11 @@ GameStateGame::~GameStateGame(void)
 */
 void GameStateGame::init(void)
 {
-	// ...
+	CShString strSuffix("_in_game");
+	ShGUI::LoadGUIAndSSS(CShIdentifier("in_game"), ShGUI::GetRootControl(), strSuffix);
+	m_pMainPanel = static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("in_game").Append(strSuffix.Get()), ShGUI::GetRootControl()));
+	SH_ASSERT(shNULL != m_pMainPanel);
+	ShGUIControlPanel::Hide(m_pMainPanel);
 }
 
 /**
@@ -34,7 +38,7 @@ void GameStateGame::init(void)
 */
 void GameStateGame::release(void)
 {
-	// ...
+	ShGUIControl::RemoveFromParent(m_pMainPanel);
 }
 
 /**
@@ -46,6 +50,7 @@ void GameStateGame::entered(void)
 	{
 		SH_ASSERT_ALWAYS();
 	}
+	ShGUIControlPanel::Show(m_pMainPanel);
 }
 
 /**
@@ -53,7 +58,7 @@ void GameStateGame::entered(void)
 */
 void GameStateGame::exiting(void)
 {
-	// ...
+	ShGUIControlPanel::Hide(m_pMainPanel);
 }
 
 /**
@@ -61,7 +66,7 @@ void GameStateGame::exiting(void)
 */
 void GameStateGame::obscuring(void)
 {
-	// ...
+	ShGUIControlPanel::Hide(m_pMainPanel);
 }
 
 /**
@@ -69,7 +74,7 @@ void GameStateGame::obscuring(void)
 */
 void GameStateGame::revealed(void)
 {
-	// ...
+	ShGUIControlPanel::Show(m_pMainPanel);
 }
 
 /**
@@ -77,7 +82,7 @@ void GameStateGame::revealed(void)
 */
 void GameStateGame::update(float dt)
 {
-	// ...
+	SH_UNUSED(dt);
 }
 
 /**
@@ -86,6 +91,7 @@ void GameStateGame::update(float dt)
 void GameStateGame::touchBegin(const CShVector2 & pos_, float ratio)
 {
 	TouchDownPlugin(0, pos_.m_x, pos_.m_y);
+	SH_UNUSED(ratio);
 }
 
 /**
@@ -94,6 +100,7 @@ void GameStateGame::touchBegin(const CShVector2 & pos_, float ratio)
 void GameStateGame::touchEnd(const CShVector2 & pos_, float ratio)
 {
 	TouchUpPlugin(0, pos_.m_x, pos_.m_y);
+	SH_UNUSED(ratio);
 }
 
 /**
@@ -102,4 +109,5 @@ void GameStateGame::touchEnd(const CShVector2 & pos_, float ratio)
 void GameStateGame::touchMove(const CShVector2 & pos_, float ratio)
 {
 	TouchMovePlugin(0, pos_.m_x, pos_.m_y);
+	SH_UNUSED(ratio);
 }
