@@ -6,7 +6,8 @@
 Enemy::Enemy(void)
 : m_pEntity(shNULL)
 , m_vPosition(CShVector3::ZERO)
-, m_health(0)
+, m_baseHealth(0)
+, m_currentHealth(0)
 , m_fAnimationDt(0.0f)
 , m_fAnimationSpeed(0.0f)
 , m_aMoveAnimation()
@@ -31,7 +32,8 @@ void Enemy::Initialize(const CShIdentifier & levelIdentifier, const CShIdentifie
 	SH_ASSERT(shNULL != m_pEntity);
 
 	m_vPosition = position;
-	m_health = health;
+	m_baseHealth = health;
+	m_currentHealth = health;
 }
 
 /**
@@ -59,14 +61,24 @@ void Enemy::Update(float dt)
 
 void Enemy::TakeDamages(float damages)
 {
-	m_health -= damages;
-	if (0 > m_health)
+	m_currentHealth -= damages;
+	if (0 > m_currentHealth)
 	{ // Dead
 		
 	}
 }
 
-const CShVector3 & Enemy::GetPosition(void)
+const CShVector3 & Enemy::GetPosition(void) const
 {
 	return m_vPosition;
+}
+
+const int & Enemy::GetBaseHealth(void) const
+{
+	return m_baseHealth;
+}
+
+const int & Enemy::GetCurrentHealth(void) const
+{
+	return m_currentHealth;
 }

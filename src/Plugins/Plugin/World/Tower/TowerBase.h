@@ -2,6 +2,7 @@
 
 #include "ShSDK/ShSDK.h"
 
+class EnemyManager;
 class Enemy;
 
 class TowerBase
@@ -17,17 +18,20 @@ public:
 	enum EFocusType
 	{
 		focus_nearest,
-		focus_most_life,
+		focus_lowest_life,
 		focus_biggest_lifebase,
 	};
 
-	explicit	 TowerBase		(void);
-	virtual		~TowerBase		(void);
+	explicit	 TowerBase			(void);
+	virtual		~TowerBase			(void);
 
-	void		Initialize		(ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed);
-	void		Release			(void);
+	void		Initialize			(EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed);
+	void		Release				(void);
 
-	void		Update			(float dt);
+	void		Update				(float dt);
+
+private:
+	float		GetDistanceBetween	(const CShVector3 & dest);
 
 protected:
 	
@@ -47,6 +51,7 @@ protected:
 
 	int						m_level;
 
+	EnemyManager *			m_pEnemyManager;
 	Enemy *					m_pCurrentTarget;
 
 	float					m_fAnimationDt;

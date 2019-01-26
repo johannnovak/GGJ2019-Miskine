@@ -16,7 +16,9 @@ public:
 
 	void		TakeDamages			(float damages);
 
-	const CShVector3 & GetPosition	(void);
+	const CShVector3 & GetPosition	(void) const;
+	const int & GetBaseHealth		(void) const;
+	const int & GetCurrentHealth	(void) const;
 
 private:
 
@@ -24,7 +26,8 @@ private:
 
 	CShVector3				m_vPosition;
 
-	int						m_health;
+	int						m_baseHealth;
+	int						m_currentHealth;
 
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
