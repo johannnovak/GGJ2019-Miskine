@@ -40,6 +40,9 @@ public:
 	bool								UnregisterListener			(IPlayer2EventListener * pListener);
 protected:
 private:
+	void								SetEventTypeAvailable		(EPlayer2EventType eType);
+	void								SetEventTypeUnavailable		(EPlayer2EventType eType);
+
 	void								PollNewEvents				(float dt);
 	void								OnCurrentEventFinished		(void);
 
