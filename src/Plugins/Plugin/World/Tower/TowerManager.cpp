@@ -37,8 +37,7 @@ void TowerManager::Release(void)
 	int nTowerCount = m_aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		m_aTowerList[i]->Release();
-		SH_SAFE_FREE(m_aTowerList[i]);
+		m_aTowerList[i].Release();
 	}
 	m_aTowerList.Empty();
 }
@@ -51,7 +50,7 @@ void TowerManager::Update(float dt)
 	int nTowerCount = m_aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		m_aTowerList[i]->Update(dt);
+		m_aTowerList[i].Update(dt);
 	}
 }
 
@@ -60,9 +59,9 @@ void TowerManager::Update(float dt)
  */
 void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
 {
-	TowerBase * pTower = new TowerBase();
-	pTower->Initialize(m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
-	m_aTowerList.Add(pTower);
+	TowerBase tower;
+	tower.Initialize(m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(tower);
 }
 
 /**
@@ -73,6 +72,6 @@ void TowerManager::GetTowerList(CShArray<TowerBase*>& aTowerList)
 	int nTowerCount = aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		aTowerList.Add(m_aTowerList[i]);
+		aTowerList.Add(&m_aTowerList[i]);
 	}
 }

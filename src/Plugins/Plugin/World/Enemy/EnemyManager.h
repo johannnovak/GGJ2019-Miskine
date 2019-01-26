@@ -22,6 +22,6 @@ public:
 
 private:
 
-	CShArray<Enemy *>	m_aEnemyList;
+	CShArray<Enemy>		m_aEnemyList;
 };
 
