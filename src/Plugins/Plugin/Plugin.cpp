@@ -90,3 +90,17 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
 	// ...
 }
+
+/**
+* @brief GetDistanceSquared
+*/
+float Plugin::GetDistanceSquared(const CShVector3 & start, const CShVector3 & dest)
+{
+	//TODO Test me
+
+	CShVector2 A(dest.m_x, dest.m_y);
+	CShVector2 B(start.m_x, start.m_y);
+	CShVector2 delta = A - B;
+
+	return delta.DotProduct(delta);
+}

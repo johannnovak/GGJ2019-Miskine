@@ -31,17 +31,17 @@ source_group("World\\Inputs" FILES ${SOURCES_Inputs})
 set(SOURCES_Enemy World/Enemy/Enemy.cpp World/Enemy/Enemy.h World/Enemy/EnemyManager.cpp World/Enemy/EnemyManager.h)
 source_group("World\\Enemy" FILES ${SOURCES_Enemy})
 
-# TowerBase files
-set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h)
+# Tower files
+set(SOURCES_Towers World/Tower/TowerBase.cpp World/Tower/TowerBase.h World/Tower/TowerManager.cpp World/Tower/TowerManager.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
 
 # Graph files
 set(SOURCES_Graph World/PathFinding/Graph.cpp World/PathFinding/Graph.h)
 source_group("World\\PathFinding" FILES ${SOURCES_Graph})
 
-# WayPoint files
-set(SOURCES_WayPoint World/PathFinding/WayPoint.cpp World/PathFinding/WayPoint.h)
-source_group("World\\PathFinding" FILES ${SOURCES_WayPoint})
+# Node files
+set(SOURCES_Node World/PathFinding/Node.cpp World/PathFinding/Node.h)
+source_group("World\\PathFinding" FILES ${SOURCES_Node})
 
 # Put everything together before adding platform-specific files
 set(SOURCES 
@@ -52,7 +52,7 @@ ${SOURCES_Inputs}
 ${SOURCES_Enemy}
 ${SOURCES_Towers}
 ${SOURCES_Graph}
-${SOURCES_WayPoint}
+${SOURCES_Node}
 )
 
 # Compile to use it on Runtime

@@ -1,10 +1,10 @@
 #include "ShSDK/ShSDK.h"
-#include "WayPoint.h"
+#include "Node.h"
 
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-/*explicit*/ WayPoint::WayPoint(const CShVector2 & vPosition)
+/*explicit*/ Node::Node(const CShVector2 & vPosition)
 : m_vPosition(0.0f,0.0f)
 , m_f(0.0f)
 , m_g(0.0f)
@@ -14,7 +14,7 @@
 	m_vPosition = vPosition;
 
 #if DEBUG_PATHFINDING
-	m_pEntity = ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), vWPPosition, CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f));
+	m_pEntity = ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), CShVector3(m_vPosition, 10.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f));
 #endif //DEBUG_PATHFINDING
 
 	for (int i = 0; i < e_direction_max; ++i)
@@ -26,7 +26,7 @@
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-/*virtual*/ WayPoint::~WayPoint(void)
+/*virtual*/ Node::~Node(void)
 {
 
 }
@@ -34,7 +34,7 @@
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-const CShVector2 & WayPoint::GetPosition(void) const
+const CShVector2 & Node::GetPosition(void) const
 {
 	return(m_vPosition);
 }
@@ -42,7 +42,7 @@ const CShVector2 & WayPoint::GetPosition(void) const
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-void WayPoint::SetNeighbour(EDirection direction, WayPoint* pWP)
+void Node::SetNeighbour(EDirection direction, Node * pWP)
 {
 	m_aNeighbor[direction] = pWP;
 }
@@ -50,13 +50,13 @@ void WayPoint::SetNeighbour(EDirection direction, WayPoint* pWP)
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-WayPoint* WayPoint::GetNeighbour(EDirection direction)
+Node * Node::GetNeighbour(EDirection direction)
 {
 	return(m_aNeighbor[direction]);
 }
 
 #if DEBUG_PATHFINDING
-void WayPoint::SetColor(const CShRGBAf & color)
+void Node::SetColor(const CShRGBAf & color)
 {
 	ShEntity2::SetColor(m_pEntity, color);
 }
@@ -65,7 +65,7 @@ void WayPoint::SetColor(const CShRGBAf & color)
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-void WayPoint::GetNeighbor(CShArray<WayPoint*> & aWP)
+void Node::GetNeighbor(CShArray<Node*> & aWP)
 {
 	for (int i = 0; i < e_direction_max; i++)
 	{

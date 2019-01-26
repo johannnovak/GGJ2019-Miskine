@@ -18,10 +18,11 @@ public:
 
 	void		CreateEnemies	(int number);
 
-	void		GetEnemyList	(CShArray<Enemy *>& aEnemyList);
+	void		GetEnemyList		(CShArray<Enemy *>& aEnemyList);
+	void		GetEnemyListInRange	(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax);
 
 private:
 
-	CShArray<Enemy *>	m_aEnemyList;
+	CShArray<Enemy>		m_aEnemyList;
 };
 

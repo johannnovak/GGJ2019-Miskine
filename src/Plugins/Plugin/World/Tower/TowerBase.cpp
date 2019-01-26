@@ -5,6 +5,8 @@
 #include "../Enemy/EnemyManager.h"
 #include "../Enemy/Enemy.h"
 
+#include "../../Plugin.h"
+
 /**
  * @brief Constructor
  */
@@ -18,6 +20,7 @@ TowerBase::TowerBase(void)
 , m_level(0)
 , m_pEnemyManager(shNULL)
 , m_pCurrentTarget(shNULL)
+, m_fAOERange(-1.0f)
 , m_fAnimationDt(0.0f)
 , m_fAnimationSpeed(0.0f)
 , m_aAttackAnimation()
@@ -36,7 +39,7 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
+void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_eTowerType = towerType;
 	m_eFocusType = focusType;
@@ -46,8 +49,20 @@ void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, E
 
 	m_pEnemyManager = pEnemyManager;
 	SH_ASSERT(shNULL != m_pEnemyManager);
-
+	
+	m_fAOERange = rangeAOE;
 	m_fAnimationSpeed = 0.5f;
+
+	if (m_eTowerType == ETowerType::tower_melee)
+	{
+		m_fRadiusMin = 0.0f;
+		m_fRadiusMax = 100.0f;
+	}
+	else
+	{
+		m_fRadiusMin = 50.0f;
+		m_fRadiusMax = 300.0f;
+	}
 }
 
 /**
@@ -55,16 +70,6 @@ void TowerBase::Initialize(EnemyManager * pEnemyManager, ETowerType towerType, E
  */
 void TowerBase::Release(void)
 {
-	if (m_eTowerType == ETowerType::tower_melee)
-	{
-		m_fRadiusMin = 0.0f;
-		m_fRadiusMax = 10.0f;
-	}
-	else
-	{
-		m_fRadiusMin = 0.0f;
-		m_fRadiusMax = 20.0f;
-	}
 }
 
 /**
@@ -76,10 +81,29 @@ void TowerBase::Update(float dt)
 	{
 		m_fAnimationDt += dt;
 		if (m_fAnimationDt >= m_fAnimationSpeed)
-		{ // Attack ended
-			m_bIsAttacking = false;
+		{
 			m_fAnimationDt = 0.0f;
-			m_pCurrentTarget->TakeDamages(m_fDamages);
+			// TODO Animate
+
+			// TODO if animation ended
+			{ // Attack ended
+				m_pCurrentTarget->TakeDamages(m_fDamages);
+				if (-1 != m_fAOERange)
+				{ // Hit enemies in currentTarget range
+					const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+
+					CShArray<Enemy*> aEnemyList;
+					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
+
+					int nEnemyCount = aEnemyList.GetCount();
+					for (int i = 0; i < nEnemyCount; ++i)
+					{
+						// Damages / 2 ?
+						aEnemyList[i]->TakeDamages(m_fDamages * 0.5f);
+					}
+				}
+				m_bIsAttacking = false;
+			}
 		}
 	}
 	else
@@ -94,7 +118,7 @@ void TowerBase::Update(float dt)
 			{				
 				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
 
-				float distSquared = GetDistanceSquared(targetPos);
+				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
 					|| distSquared < m_fRadiusMin * m_fRadiusMin)
 				{// Lost focus
@@ -102,31 +126,27 @@ void TowerBase::Update(float dt)
 
 					// Find potential enemy based on focus type
 					CShArray<Enemy *> aEnemyList;
-					m_pEnemyManager->GetEnemyList(aEnemyList);
+					m_pEnemyManager->GetEnemyListInRange(aEnemyList, m_vPosition, m_fRadiusMin, m_fRadiusMax);
 
 					int currentId = -1;
 					int health = -1;
-					float distSquared = m_fRadiusMax;
+					float distSquared = m_fRadiusMax * m_fRadiusMax;
 					int nEnemyCount = aEnemyList.GetCount();
 					for (int i = 0; i < nEnemyCount; ++i)
 					{
-						const Enemy * pEnemy = aEnemyList[i];
+						Enemy * pEnemy = aEnemyList[i];
 
 						switch (m_eFocusType)
 						{
 							case focus_nearest:
 							{
 								const CShVector3 & enemyPos = pEnemy->GetPosition();
-								float dist = GetDistanceSquared(enemyPos);
-								
-								if (dist <= m_fRadiusMax * m_fRadiusMax
-									|| dist >= m_fRadiusMin * m_fRadiusMin)
+								float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
+
+								if (dist < distSquared)
 								{
-									if (dist < distSquared)
-									{
-										currentId = i;
-										distSquared = dist;
-									}
+									currentId = i;
+									distSquared = dist;
 								}
 							}
 							break;
@@ -154,6 +174,9 @@ void TowerBase::Update(float dt)
 							break;
 						}
 					}
+
+					if (-1 != currentId)
+						m_pCurrentTarget = aEnemyList[currentId];
 				}
 			}
 
@@ -164,15 +187,4 @@ void TowerBase::Update(float dt)
 			}
 		}
 	}
-}
-
-float TowerBase::GetDistanceSquared(const CShVector3 & dest)
-{
-	//TODO Test me
-
-	CShVector2 A(dest.m_x, dest.m_y);
-	CShVector2 B(m_vPosition.m_x, m_vPosition.m_y);
-	CShVector2 delta = A - B;
-
-	return delta.DotProduct(delta);
 }
