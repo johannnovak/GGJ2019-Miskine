@@ -54,7 +54,7 @@ void Wave::Release(void)
 void Wave::Start()
 {
 	m_eState = e_state_on;
-	m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01));
+	m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, m_vStartPosition, m_vDestination));
 	m_iRemainingEnemy--;
 }
 
