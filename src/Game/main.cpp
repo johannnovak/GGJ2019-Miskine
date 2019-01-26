@@ -50,6 +50,8 @@ int main(int argc, char ** argv)
 	ShApplication::SetOnPostUpdate(OnPostUpdate);
 	ShApplication::SetOnPreRelease(OnPreRelease);
 	ShApplication::SetOnPostRelease(OnPostRelease);
+	ShApplication::SetOnDeactivate(OnDeactivate);
+
 
 	ShDisplayProperties displayProperties;
 

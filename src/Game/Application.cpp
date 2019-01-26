@@ -86,8 +86,8 @@ void OnActivate(void)
  */
 void OnDeactivate(bool & bAllowBackgroundUpdates, bool & bAllowBackgroundInputs)
 {
-	bAllowBackgroundUpdates = false;
-	bAllowBackgroundInputs = false;
+	bAllowBackgroundUpdates = true;
+	bAllowBackgroundInputs = true;
 }
 
 /**
