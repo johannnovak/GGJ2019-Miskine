@@ -2,6 +2,8 @@
 
 #include "GameState.h"
 
+#include <ShSDK/ShSDK.h>
+
 class GameStateGame : public GameState
 {
 
@@ -24,5 +26,12 @@ public:
 	void				touchBegin				(const CShVector2 & pos, float ratio) override;
 	void				touchEnd				(const CShVector2 & pos, float ratio) override;
 	void				touchMove				(const CShVector2 & pos, float ratio) override;
+protected:
+private:
+
+public:
+protected:
+private:
+	ShGUIControlPanel *	m_pMainPanel;
 
 };
