@@ -26,8 +26,6 @@ public:
 	void		touchMove					(const CShVector2 & pos, float ratio) override;
 protected:
 private:
-//	void
-
 
 public:
 protected:
