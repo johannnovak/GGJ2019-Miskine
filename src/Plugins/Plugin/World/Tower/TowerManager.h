@@ -9,7 +9,6 @@ class EnemyManager;
 class TowerManager
 {
 public:
-
 	explicit	 TowerManager		(void);
 	virtual		~TowerManager		(void);
 
@@ -18,12 +17,15 @@ public:
 
 	void		Update				(float dt);
 
-	void		CreateMeleeTower	(TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+	void		CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
 
 	void		GetTowerList		(CShArray<TowerBase *>& aTowerList);
 
 private:
-	
+	void		CreateMeleeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+	void		CreateRangeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed);
+
+private:
 	CShIdentifier			m_levelIdentifier;
 
 	EnemyManager *			m_pEnemyManager;

@@ -23,6 +23,7 @@ void Player2EventManager::Initialize(void)
 	m_fTypoGaugeValue		= 0.0f;
 	m_fTypoGaugeMax			= TYPO_GAUGE_DEFAULT_MAX_VALUE;
 	m_pPlayer2EventListener	= shNULL;
+
 	//
 	// Get User
 	m_pUser = ShUser::GetUser(0);
@@ -179,7 +180,7 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
 }
 
 /**
- * @brief PollNewEvents
+ * @brief SetEventTypeAvailable
  */
 void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
 {
@@ -187,11 +188,14 @@ void Player2EventManager::SetEventTypeAvailable(EPlayer2EventType eType)
 
 	//
 	// Notify listeners
-	m_pPlayer2EventListener->OnEventTypeAvailable(&m_aAvailableEvents[eType]);
+	if (shNULL != m_pPlayer2EventListener)
+	{
+		m_pPlayer2EventListener->OnEventTypeAvailable(m_apEvents[eType]);
+	}
 }
 
 /**
- * @brief PollNewEvents
+ * @brief SetEventTypeUnavailable
  */
 void Player2EventManager::SetEventTypeUnavailable(EPlayer2EventType eType)
 {
@@ -199,7 +203,10 @@ void Player2EventManager::SetEventTypeUnavailable(EPlayer2EventType eType)
 
 	//
 	// Notify listeners
-	m_pPlayer2EventListener->OnEventTypeUnavailable(&m_aAvailableEvents[eType]);
+	if (shNULL != m_pPlayer2EventListener)
+	{
+		m_pPlayer2EventListener->OnEventTypeUnavailable(m_apEvents[eType]);
+	}
 }
 
 /**
@@ -227,7 +234,7 @@ void Player2EventManager::OnCurrentEventFinished(void)
 
 	//
 	// Apply reward reforwarding from event
-	// TODO
+	// TODO=+
 }
 
 /**
@@ -256,7 +263,10 @@ void Player2EventManager::Update(float dt)
 		{
 			//
 			// Notify listeners on event finished
-			m_pPlayer2EventListener->OnEventTypeFinished(m_pCurrentEvent);
+			if (shNULL != m_pPlayer2EventListener)
+			{
+				m_pPlayer2EventListener->OnEventTypeFinished(m_pCurrentEvent);
+			}
 		}
 	}
 
@@ -280,7 +290,10 @@ void Player2EventManager::HandleUserChoice(void)
 		{
 			//
 			// Notify Listeners for canceled Event
-			m_pPlayer2EventListener->OnEventTypeCanceled(m_pPreviousEvent->GetType());
+			if (shNULL != m_pPlayer2EventListener)
+			{
+				m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent);
+			}
 		}
 	}
 	else
@@ -315,8 +328,12 @@ void Player2EventManager::HandleUserChoice(void)
 		if (bChanged)
 		{
 			//
-			// Notify listeners the EventType has changed
-			m_pPlayer2EventListener->OnEventTypeChanged(m_pPreviousEvent, m_pCurrentEvent);
+			// Notify listeners the EventType has ended and has begun
+			if (shNULL != m_pPlayer2EventListener)
+			{
+				m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent);
+				m_pPlayer2EventListener->OnEventTypeBegin(m_pCurrentEvent);
+			}
 		}
 	}
 
@@ -334,7 +351,10 @@ void Player2EventManager::IncreaseTypoGauge(EPlayer2EventDifficulty eDifficulty)
 
 	//
 	// Notify listeners for updated
-	m_pPlayer2EventListener->OnTypoGaugeUpdated(m_fTypoGaugeValue / m_fTypoGaugeMax);
+	if (shNULL != m_pPlayer2EventListener)
+	{
+		m_pPlayer2EventListener->OnTypoGaugeUpdated(m_fTypoGaugeValue / m_fTypoGaugeMax);
+	}
 }
 
 /**
@@ -347,7 +367,10 @@ void Player2EventManager::CheckTypoGaugeCompletion(void)
 	{
 		//
 		// Notify listeners for filled
-		m_pPlayer2EventListener->OnTypoGaugeFilled();
+		if (shNULL != m_pPlayer2EventListener)
+		{
+			m_pPlayer2EventListener->OnTypoGaugeFilled();
+		}
 
 		//
 		// Reset typo gauge

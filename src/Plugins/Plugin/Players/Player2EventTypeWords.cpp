@@ -68,13 +68,13 @@
 	{
 		if (ShUser::HasTriggeredAction(m_pUser, m_aIAIdWordToType[m_iCurrentIndex]))
 		{
+			++m_iCurrentIndex;
 
-			//
-			// Notify listeners
+			m_bFinished = (m_iCurrentIndex >= m_aIAIdWordToType.GetCount());
 		}
 	}
 	
-	if (!IsFinished())
+	if (IsFinished())
 	{
 		Reset();
 	}

@@ -11,7 +11,7 @@ public:
 	explicit	 TowerMelee			(void);
 	virtual		~TowerMelee			(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
 	void		Release				(void);
 
 	void		Update				(float dt);

@@ -11,7 +11,8 @@
  * @brief Constructor
  */
 TowerBase::TowerBase(void)
-: m_eTowerType(tower_melee)
+: m_eTowerType(tower_pere)
+, m_eTowerAttackType(tower_melee)
 , m_eFocusType(focus_nearest)
 , m_vPosition(CShVector2::ZERO)
 , m_fRadiusMin(0.0f)
@@ -45,10 +46,11 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_levelIdentifier = levelIdentifier;
 
+	m_eTowerType = towerType;
 	m_eFocusType = focusType;
 	m_vPosition = position;
 	m_damages = damages;
@@ -76,12 +78,15 @@ void TowerBase::Release(void)
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
 
-	int nAttackAnimCount = m_aAttackAnimation.GetCount();
-	for (int i = 0; i < nAttackAnimCount; ++i)
+	for (int i = 0; i < direction_max; ++i)
 	{
-		ShEntity2::Destroy(m_aAttackAnimation[i]);
+		int nAttackAnimCount = m_aAttackAnimation[i].GetCount();
+		for (int j = 0; j < nAttackAnimCount; ++j)
+		{
+			ShEntity2::Destroy(m_aAttackAnimation[i][j]);
+		}
+		m_aAttackAnimation[i].Empty();
 	}
-	m_aAttackAnimation.Empty();
 }
 
 /**
@@ -228,9 +233,9 @@ void TowerBase::Update(float dt)
 void TowerBase::LevelUp(void)
 {
 	m_level++;
-	// Add damages ?
+	m_damages += 10;
+	m_fAttackSpeed -= 1.0f;
 	// Ranges ?
-	// AS ?
 }
 
 /**

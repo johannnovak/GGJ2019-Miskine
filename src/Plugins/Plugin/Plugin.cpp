@@ -7,6 +7,8 @@ const CShIdentifier plugin_identifier("PluginGGJ2019");
  */
 Plugin::Plugin(void)
 : CShPlugin(plugin_identifier)
+, m_world()
+, m_player2EventManager()
 {
 	// ...
 }
@@ -94,6 +96,14 @@ void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
 void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
 	// ...
+}
+
+/**
+ * @brief GetPlayer2EventManager
+ */
+const Player2EventManager & Plugin::GetPlayer2EventManager(void)
+{
+	return m_player2EventManager;
 }
 
 /**
