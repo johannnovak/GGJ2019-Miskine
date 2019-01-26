@@ -13,6 +13,10 @@
 {
 	m_vPosition = vPosition;
 
+#if DEBUG_PATHFINDING
+	m_pEntity = ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), vWPPosition, CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f));
+#endif //DEBUG_PATHFINDING
+
 	for (int i = 0; i < e_direction_max; ++i)
 	{
 		m_aNeighbor[i] = shNULL;
@@ -51,28 +55,23 @@ WayPoint* WayPoint::GetNeighbour(EDirection direction)
 	return(m_aNeighbor[direction]);
 }
 
+#if DEBUG_PATHFINDING
+void WayPoint::SetColor(const CShRGBAf & color)
+{
+	ShEntity2::SetColor(m_pEntity, color);
+}
+#endif //DEBUG_PATHFINDING
+
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
 void WayPoint::GetNeighbor(CShArray<WayPoint*> & aWP)
 {
-	if (m_aNeighbor[e_direction_up] != shNULL)
+	for (int i = 0; i < e_direction_max; i++)
 	{
-		aWP.Add(m_aNeighbor[e_direction_up]);
-	}
-
-	if (m_aNeighbor[e_direction_left] != shNULL)
-	{
-		aWP.Add(m_aNeighbor[e_direction_left]);
-	}
-
-	if (m_aNeighbor[e_direction_right] != shNULL)
-	{
-		aWP.Add(m_aNeighbor[e_direction_right]);
-	}
-
-	if (m_aNeighbor[e_direction_down] != shNULL)
-	{
-		aWP.Add(m_aNeighbor[e_direction_down]);
+		if (m_aNeighbor[i] != shNULL)
+		{
+			aWP.Add(m_aNeighbor[i]);
+		}
 	}
 }

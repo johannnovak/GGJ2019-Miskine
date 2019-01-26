@@ -4,6 +4,9 @@
 
 Graph g_graph;
 
+#define WP_SPACE_WIDTH 10.0f
+#define WP_SPACE_HEIGHT 10.0f
+
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
@@ -32,108 +35,84 @@ void Graph::Initialize(ShDummyAABB2 * pDummyAABB2)
 	float fWidth = ShDummyAABB2::GetAABB(pDummyAABB2).GetWidth();
 	float fHeight = ShDummyAABB2::GetAABB(pDummyAABB2).GetHeight();
 
-	int iCols = fWidth / 10.0f;
-	int iRows = fHeight / 10.0f;
+	int iCols = fWidth / WP_SPACE_WIDTH;
+	int iRows = fHeight / WP_SPACE_HEIGHT;
+
+	m_aWayPoint.SetCount(iCols * iRows);
 
 	CShVector2 vStartPosition = vPosition + CShVector2(-fWidth * 0.5f, fHeight * 0.5f);
+
 	for (int i = 0; i < (iCols * iRows); ++i)
 	{
-		int iCol = i / iRows;
-		int iRow = i % iCols;
+		int iRow = i / iCols;
+		int iCol = i % iCols;
 		CShVector3 vWPPosition = CShVector3(vStartPosition, 1.0f) + CShVector3(iCol * (fWidth / iCols), -iRow * (fHeight / iRows), 0.0f);
-
-		ShEntity2::Create(CShIdentifier("level_test_pathfinding"), GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("white_square"), vWPPosition, CShEulerAngles::ZERO, CShVector3(1.0f,1.0f,1.0f));
+		m_aWayPoint[i] = new WayPoint(CShVector2(vWPPosition.m_x, vWPPosition.m_y));
 	}
 
-	/*
-	ShScriptTree * pScriptTree = ShScriptTree::Load(strFileName);
-	SH_ASSERT(shNULL != pScriptTree);
-
-	
-	ShScriptTreeNode* pRootNode = ShScriptTree::GetRootNode(pScriptTree);
-	if (!pRootNode)
+	for (int i = 0; i < (iCols * iRows); ++i)
 	{
-		ShScriptTree::Release(pScriptTree);
-		SH_ASSERT_ALWAYS();
-		return;
-	}
+		m_aWayPoint[i]->m_aNeighbor[e_direction_up] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_down] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_left] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_right] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = shNULL;
+		m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = shNULL;
 
-	SH_ASSERT(ShScriptTreeNode::GetIdentifier(pRootNode) == CShIdentifier("graph"));
-
-	int iNodeCount = -1;
-	ShScriptTreeNode::GetAttributeValueAsInt(pRootNode, CShIdentifier("node_count"), iNodeCount);
-
-	m_aWayPoint.SetCount(iNodeCount);
-
-	for (int iWP = 0; iWP < iNodeCount; ++iWP)
-	{
-		char szDummyIdentifier[1024];
-		sprintf(szDummyIdentifier, "dummy_circle_auto_%03d", iWP+1);
-		ShDummyCircle* pDummy = ShDummyCircle::Find(levelIdentifier, CShIdentifier(szDummyIdentifier));
-		SH_ASSERT(shNULL != pDummy);
-		m_aWayPoint[iWP] = new WayPoint(pDummy, iWP);
-	}
-
-	for (int iRootChild = 0; iRootChild < ShScriptTreeNode::GetChildCount(pRootNode); ++iRootChild)
-	{
-		ShScriptTreeNode * pRootChildNode = ShScriptTreeNode::GetChild(pRootNode, iRootChild);
-
-		if (ShScriptTreeNode::GetIdentifier(pRootChildNode) == CShIdentifier("nodes"))
+		//
+		// Up
+		if (i > iCols)
 		{
-			int iLinksChildNodeCount = ShScriptTreeNode::GetChildCount(pRootChildNode);
-			for (int iLinksChildNode = 0; iLinksChildNode < iLinksChildNodeCount; ++iLinksChildNode)
+			m_aWayPoint[i]->m_aNeighbor[e_direction_up] = m_aWayPoint[i - iCols];
+
+			//
+			// Up Left
+			if (i % iCols != 0)
 			{
-				ShScriptTreeNode * pLinksChildNode = ShScriptTreeNode::GetChild(pRootChildNode, iLinksChildNode);
+				m_aWayPoint[i]->m_aNeighbor[e_direction_up_left] = m_aWayPoint[i - iCols - 1];
+			}
 
-				int iNodeFrom, iNodeTo;
-
-				if (ShScriptTreeNode::GetIdentifier(pLinksChildNode) == CShIdentifier("node"))
-				{
-					ShScriptTreeNode::GetAttributeValueAsInt(pLinksChildNode, CShIdentifier("id"), iNodeFrom);
-
-					int iLinkFromChildNodeCount = ShScriptTreeNode::GetChildCount(pLinksChildNode);
-					for (int iLinkFromChildNode = 0; iLinkFromChildNode < iLinkFromChildNodeCount; ++iLinkFromChildNode)
-					{
-						ShScriptTreeNode * pLinkFromChildNode = ShScriptTreeNode::GetChild(pLinksChildNode, iLinkFromChildNode);
-
-						if (ShScriptTreeNode::GetIdentifier(pLinkFromChildNode) == CShIdentifier("node_up"))
-						{
-							ShScriptTreeNode::GetAttributeValueAsInt(pLinkFromChildNode, CShIdentifier("id"), iNodeTo);
-
-							WayPoint* pWP = m_aWayPoint[iNodeTo-1];
-							m_aWayPoint[iNodeFrom-1]->m_aNeighbor[e_direction_up] = pWP;
-						}
-						else if (ShScriptTreeNode::GetIdentifier(pLinkFromChildNode) == CShIdentifier("node_left"))
-						{
-							ShScriptTreeNode::GetAttributeValueAsInt(pLinkFromChildNode, CShIdentifier("id"), iNodeTo);
-
-							WayPoint* pWP = m_aWayPoint[iNodeTo-1];
-							m_aWayPoint[iNodeFrom-1]->m_aNeighbor[e_direction_left] = pWP;
-						}
-						else if (ShScriptTreeNode::GetIdentifier(pLinkFromChildNode) == CShIdentifier("node_right"))
-						{
-							ShScriptTreeNode::GetAttributeValueAsInt(pLinkFromChildNode, CShIdentifier("id"), iNodeTo);
-
-							WayPoint* pWP = m_aWayPoint[iNodeTo-1];
-							m_aWayPoint[iNodeFrom-1]->m_aNeighbor[e_direction_right] = pWP;
-						}
-						else if (ShScriptTreeNode::GetIdentifier(pLinkFromChildNode) == CShIdentifier("node_down"))
-						{
-							ShScriptTreeNode::GetAttributeValueAsInt(pLinkFromChildNode, CShIdentifier("id"), iNodeTo);
-
-							WayPoint* pWP = m_aWayPoint[iNodeTo-1];
-							m_aWayPoint[iNodeFrom-1]->m_aNeighbor[e_direction_down] = pWP;
-						}
-						else
-						{
-							SH_ASSERT_ALWAYS();
-						}
-					}
-				}
+			//
+			// Up Right
+			if (i % iCols != (iCols - 1))
+			{
+				m_aWayPoint[i]->m_aNeighbor[e_direction_up_right] = m_aWayPoint[i - iCols + 1];
 			}
 		}
+
+		//
+		// Down
+		if (i < iCols * iRows - iCols)
+		{
+			m_aWayPoint[i]->m_aNeighbor[e_direction_down] = m_aWayPoint[i + iCols];
+
+			//
+			// Down Right
+			if (i % iCols != (iCols - 1))
+			{
+				m_aWayPoint[i]->m_aNeighbor[e_direction_down_right] = m_aWayPoint[i + iCols + 1];
+			}
+
+			//
+			// Down Left
+			if (i % iCols != 0)
+			{
+				m_aWayPoint[i]->m_aNeighbor[e_direction_down_left] = m_aWayPoint[i + iCols - 1];
+			}
+		}
+
+		if (i % iCols != 0)
+		{
+			m_aWayPoint[i]->m_aNeighbor[e_direction_left] = m_aWayPoint[i - 1];
+		}
+
+		if (i % iCols != (iCols - 1))
+		{
+			m_aWayPoint[i]->m_aNeighbor[e_direction_right] = m_aWayPoint[i + 1];
+		}
 	}
-	*/
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -158,6 +137,8 @@ void Graph::Release(void)
 bool Graph::FindPath(WayPoint* pWPStart, WayPoint* pWPEnd, CShArray<WayPoint*> & aPathPoint)
 {
 	ResetAll();
+
+	aPathPoint.Add(pWPStart);
 
 	m_openSet.Add(pWPStart);
 	pWPStart->m_h = ComputeHeuristicValue(pWPStart, pWPEnd);
@@ -309,5 +290,9 @@ void Graph::ResetAll(void)
 		pWP->m_g = 0;
 		pWP->m_h = 0;
 		pWP->m_pWPCameFrom = shNULL;
+
+#if DEBUG_PATHFINDING
+		ShEntity2::SetColor(pWP->m_pEntity, CShRGBAf(1.0f, 1.0f, 1.0f, 1.0f));
+#endif //DEBUG_PATHFINDING
 	}
 }
