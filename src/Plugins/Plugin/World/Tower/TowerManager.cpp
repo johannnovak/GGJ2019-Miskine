@@ -23,8 +23,10 @@ TowerManager::~TowerManager(void)
 /**
  * @brief Initialize
  */
-void TowerManager::Initialize(EnemyManager * pEnemyManager)
+void TowerManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager)
 {
+	m_levelIdentifier = levelIdentifier;
+
 	m_pEnemyManager = pEnemyManager;
 	SH_ASSERT(shNULL != m_pEnemyManager);
 }
@@ -60,7 +62,7 @@ void TowerManager::Update(float dt)
 void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
 {
 	TowerBase tower;
-	tower.Initialize(m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
 	m_aTowerList.Add(tower);
 }
 

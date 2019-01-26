@@ -23,8 +23,9 @@ EnemyManager::~EnemyManager(void)
 /**
  * @brief Initialize
  */
-void EnemyManager::Initialize(void)
+void EnemyManager::Initialize(const CShIdentifier & levelIdentifier)
 {
+	m_levelIdentifier = levelIdentifier;
 }
 
 /**
