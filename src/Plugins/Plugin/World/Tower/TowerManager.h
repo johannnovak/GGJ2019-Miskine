@@ -13,7 +13,7 @@ public:
 	explicit	 TowerManager	(void);
 	virtual		~TowerManager	(void);
 
-	void		Initialize		(EnemyManager * pEnemyManager);
+	void		Initialize		(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -23,6 +23,8 @@ public:
 	void		GetTowerList	(CShArray<TowerBase *>& aTowerList);
 
 private:
+	
+	CShIdentifier			m_levelIdentifier;
 
 	EnemyManager *			m_pEnemyManager;
 

@@ -11,7 +11,7 @@ public:
 	explicit	 EnemyManager	(void);
 	virtual		~EnemyManager	(void);
 
-	void		Initialize		(void);
+	void		Initialize		(const CShIdentifier & levelIdentifier);
 	void		Release			(void);
 
 	void		Update			(float dt);
@@ -22,6 +22,8 @@ public:
 	void		GetEnemyListInRange	(CShArray<Enemy *>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax);
 
 private:
+
+	CShIdentifier		m_levelIdentifier;
 
 	CShArray<Enemy>		m_aEnemyList;
 };

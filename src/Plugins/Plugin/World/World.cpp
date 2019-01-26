@@ -30,10 +30,12 @@ void World::Initialize(void)
 
 	m_inputManager.Initialize(pUser);
 	
-	m_enemyManager.Initialize();
-	m_towerManager.Initialize(&m_enemyManager);
+	CShIdentifier levelIdentifier("level_test_pathfinding");
 
-	ShDummyAABB2* pDummy = ShDummyAABB2::Find(CShIdentifier("level_test_pathfinding"), CShIdentifier("dummy_aabb2_auto_001"));
+	m_enemyManager.Initialize(levelIdentifier);
+	m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
+
+	ShDummyAABB2* pDummy = ShDummyAABB2::Find(levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
 	SH_ASSERT(shNULL != pDummy);
 
 	g_graph.Initialize(pDummy);
@@ -50,7 +52,10 @@ void World::Initialize(void)
  */
 void World::Release(void)
 {
+	m_inputManager.Release();
 
+	m_enemyManager.Release();
+	m_towerManager.Release();
 }
 
 /**
