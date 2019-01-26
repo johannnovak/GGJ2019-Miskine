@@ -30,6 +30,7 @@ TowerBase::TowerBase(void)
 , m_fAnimationDt(0.0f)
 , m_fAnimationSpeed(0.0f)
 , m_currentSprite(0)
+, m_currentAnimationType(animation_idle)
 , m_aAttackAnimation()
 {
 
@@ -78,7 +79,7 @@ void TowerBase::Release(void)
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
 
-	for (int i = 0; i < direction_max; ++i)
+	for (int i = 0; i < animation_max; ++i)
 	{
 		int nAttackAnimCount = m_aAttackAnimation[i].GetCount();
 		for (int j = 0; j < nAttackAnimCount; ++j)

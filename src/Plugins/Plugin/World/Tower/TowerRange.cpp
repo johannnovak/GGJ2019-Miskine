@@ -49,15 +49,15 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 
 	char szDirection[32];
 
-	for (int i = 0; i < direction_max; ++i)
+	for (int i = 0; i < animation_max; ++i)
 	{
 		switch ((EAnimationType)i)
 		{
-			case animation_top:sprintf(szDirection, "attack_back");
-			case animation_bottom:sprintf(szDirection, "attack_front");
-			case animation_left:sprintf(szDirection, "attack_left");
-			case animation_right:sprintf(szDirection, "attack_right");
-			case animation_idle:sprintf(szDirection, "idle");
+			case animation_top:sprintf(szDirection, "attack_back"); break;
+			case animation_bottom:sprintf(szDirection, "attack_front"); break;
+			case animation_left:sprintf(szDirection, "attack_left"); break;
+			case animation_right:sprintf(szDirection, "attack_right"); break;
+			case animation_idle:sprintf(szDirection, "idle"); break;
 			default: SH_ASSERT_ALWAYS();
 		}
 
@@ -70,11 +70,13 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 			ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
 			if (shNULL == pSprite)
 				break;
-			ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 1.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+			ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), pSprite, position, CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 			aEntityList.Add(pEntity);
 		}
 		m_aAttackAnimation[i] = aEntityList;
 	}
+
+	ShEntity2::SetShow(m_aAttackAnimation[m_currentAnimationType][m_currentSprite], true);
 
 	// Create m_pProjectile
 	// @ TODO

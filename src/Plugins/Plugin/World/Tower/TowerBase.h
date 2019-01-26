@@ -17,7 +17,7 @@ public:
 		animation_right,
 		animation_idle,
 
-		direction_max
+		animation_max
 	};
 
 	enum ETowerType
@@ -85,6 +85,7 @@ protected:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	int						m_currentSprite;
-	CShArray<ShEntity2 *>	m_aAttackAnimation[direction_max];
+	EAnimationType			m_currentAnimationType;
+	CShArray<ShEntity2 *>	m_aAttackAnimation[animation_max];
 };
 
