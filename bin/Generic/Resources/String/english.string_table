@@ -13,7 +13,7 @@
 	<entry name="empty" value="Empty"/>
 	<entry name="ok" 	value="OK"/>
 	<entry name="back" 	value="Back"/>
-	
+
 	<entry name="setting_difficulty_label" value="Difficulty:" />
 	<entry name="user_name" value="User Name" />
 	<entry name="easy" value="Easy" />

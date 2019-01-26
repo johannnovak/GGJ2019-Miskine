@@ -58,10 +58,11 @@ void Graph::Initialize(ShDummyAABB2 * pDummyAABB2)
 
 		for (int i = 0; i < ChildCount; ++i)
 		{
+			CShVector2 vChildPosition = ShObject::GetWorldPosition2(aChildren[i]);
+
 			if (ShDummyAABB2 * pDummyAABB = ShObject::Cast<ShDummyAABB2>(aChildren[i]))
 			{
 				const CShAABB2 & AABB = ShDummyAABB2::GetAABB(pDummyAABB);
-				CShVector2 vChildPosition = ShDummyAABB2::GetWorldPosition2(pDummyAABB);
 
 				const CShVector2 Min = vChildPosition + AABB.GetMin();
 				const CShVector2 Max = vChildPosition + AABB.GetMax();
@@ -75,6 +76,12 @@ void Graph::Initialize(ShDummyAABB2 * pDummyAABB2)
 			else if (ShDummyCircle * pDummyCircle = ShObject::Cast<ShDummyCircle>(aChildren[i]))
 			{
 				const CShCircle & Circle = ShDummyCircle::GetCircle(pDummyCircle);
+
+				if (vWPPosition.Distance(vChildPosition + CShVector2(Circle.GetCenter().m_x, Circle.GetCenter().m_y)) < Circle.GetRadius())
+				{
+					bObstacle = true;
+					break;
+				}
 			}
 		}
 
