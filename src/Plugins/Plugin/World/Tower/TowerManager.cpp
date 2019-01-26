@@ -1,11 +1,13 @@
 #include "TowerManager.h"
 
-#include "TowerBase.h"
+#include "../Enemy/EnemyManager.h"
 
 /**
  * @brief Constructor
  */
 TowerManager::TowerManager(void)
+: m_pEnemyManager(shNULL)
+, m_aTowerList()
 {
 	// ...
 }
@@ -21,8 +23,10 @@ TowerManager::~TowerManager(void)
 /**
  * @brief Initialize
  */
-void TowerManager::Initialize()
+void TowerManager::Initialize(EnemyManager * pEnemyManager)
 {
+	m_pEnemyManager = pEnemyManager;
+	SH_ASSERT(shNULL != m_pEnemyManager);
 }
 
 /**
@@ -54,15 +58,11 @@ void TowerManager::Update(float dt)
 /**
  * @brief CreateTower
  */
-void TowerManager::CreateTower(void)
+void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed)
 {
-	int nTowerCount = m_aTowerList.GetCount();
-	for (int i = 0; i < nTowerCount; ++i)
-	{
-		TowerBase * pTower = new TowerBase();
-		//todo pTower->Initialize();
-		m_aTowerList.Add(pTower);
-	}
+	TowerBase * pTower = new TowerBase();
+	pTower->Initialize(m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(pTower);
 }
 
 /**
