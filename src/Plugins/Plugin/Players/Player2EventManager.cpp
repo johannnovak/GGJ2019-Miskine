@@ -297,7 +297,7 @@ void Player2EventManager::Update(float dt)
 	// Check state of current event
 	if (shNULL != m_pCurrentEvent)
 	{
-		m_pCurrentEvent->Update(dt);
+		m_pCurrentEvent->Update(dt, m_pEditBoxHidden);
 		if (m_pCurrentEvent->IsFinished())
 		{
 			//
@@ -351,6 +351,8 @@ void Player2EventManager::Update(float dt)
 	//
 	// Check typo jauge
 	CheckTypoGaugeCompletion();
+	
+	ShGUIControlEditBox::SetText(m_pEditBoxHidden, CShString(""));
 }
 
 /**

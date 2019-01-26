@@ -29,7 +29,7 @@ public:
 	virtual void					Initialize		(void) = 0;
 	virtual void					Release			(void) = 0;
 
-	virtual void					Update			(float dt) = 0;
+	virtual void					Update			(float dt, ShGUIControlEditBox * pEditBoxHidden) = 0;
 	void							Reset			(int iStreak);
 
 	virtual EPlayer2EventType		GetType			(void) = 0;
