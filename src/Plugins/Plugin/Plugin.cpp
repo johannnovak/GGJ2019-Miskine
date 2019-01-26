@@ -97,6 +97,14 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 }
 
 /**
+ * @brief GetPlayer2EventManager
+ */
+const Player2EventManager & Plugin::GetPlayer2EventManager(void)
+{
+	return m_player2EventManager;
+}
+
+/**
  * @brief GetDistanceSquared
  */
 float Plugin::GetDistanceSquared(const CShVector3 & start, const CShVector3 & dest)
