@@ -25,13 +25,10 @@ public:
 	explicit	 TowerBase			(void);
 	virtual		~TowerBase			(void);
 
-	void		Initialize			(EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed);
+	void		Initialize			(EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector3 & position, float damages, float attackSpeed, float rangeAOE = -1.0f);
 	void		Release				(void);
 
 	void		Update				(float dt);
-
-private:
-	float		GetDistanceSquared	(const CShVector3 & dest);
 
 protected:
 	
@@ -53,6 +50,8 @@ protected:
 
 	EnemyManager *			m_pEnemyManager;
 	Enemy *					m_pCurrentTarget;
+
+	float					m_fAOERange;
 
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;

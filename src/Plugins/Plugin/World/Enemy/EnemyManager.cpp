@@ -2,6 +2,8 @@
 
 #include "Enemy.h"
 
+#include "../../Plugin.h"
+
 /**
  * @brief Constructor
  */
@@ -72,5 +74,31 @@ void EnemyManager::GetEnemyList(CShArray<Enemy*>& aEnemyList)
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
 		aEnemyList.Add(&m_aEnemyList[i]);
+	}
+}
+
+/**
+ * @brief GetEnemyListInRange
+ */
+void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax)
+{
+	float rangeMinSquared = rangeMin * rangeMin;
+	float rangeMaxSquared = rangeMax * rangeMax;
+
+	int nEnemyCount = m_aEnemyList.GetCount();
+	for (int i = 0; i < nEnemyCount; ++i)
+	{
+		const CShVector3 & enemyPos = m_aEnemyList[i].GetPosition();
+
+		if (enemyPos == pos)
+			continue;
+
+		float distSquared = Plugin::GetDistanceSquared(enemyPos, pos);
+		
+		if (distSquared <= rangeMaxSquared
+			&& distSquared >= rangeMinSquared)
+		{
+			aEnemyList.Add(&m_aEnemyList[i]);
+		}
 	}
 }
