@@ -17,8 +17,9 @@ void Player2Event::Reset(int iStreak)
 {
 	ResetInternal();
 
-	m_bFinished	= false;
-	m_iErrorNb	= 0;
+	m_bFinished		= false;
+	m_iErrorNb		= 0;
+	m_eDifficulty	= static_cast<EPlayer2EventDifficulty>(shMin(iStreak % 3, static_cast<int>(e_player2_event_difficulty_hardcore)));
 }
 
 /**
@@ -27,6 +28,14 @@ void Player2Event::Reset(int iStreak)
 EPlayer2EventDifficulty Player2Event::GetDifficulty(void)
 {
 	return m_eDifficulty;
+}
+
+/**
+ * @brief Player2Event::GetErrorNb
+ */
+int Player2Event::GetErrorNb(void)
+{
+	return m_iErrorNb;
 }
 
 /**

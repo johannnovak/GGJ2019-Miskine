@@ -34,6 +34,8 @@ public:
 
 	virtual EPlayer2EventType		GetType			(void) = 0;
 	virtual EPlayer2EventDifficulty	GetDifficulty	(void);
+	virtual int						GetErrorNb		(void);
+
 	bool							IsFinished		(void);
 
 protected:
