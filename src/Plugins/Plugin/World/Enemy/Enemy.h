@@ -15,7 +15,7 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(ShEntity2* pEntity, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity, int iBaseHealth);
 	void				Release				(void);
 
 	void				Start				(const CShVector3 & vPosition);
@@ -38,7 +38,6 @@ private:
 	EState					m_eState;
 	float					m_fStateTime;
 
-	ShEntity2 *				m_pEntity;
 	ShEntity2 *				m_pEntityLifeBar;
 
 	CShVector3				m_vPosition;
@@ -48,6 +47,7 @@ private:
 
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
+	int						m_currentSprite;
 	CShArray<ShEntity2 *>	m_aMoveAnimation;
 };
 
