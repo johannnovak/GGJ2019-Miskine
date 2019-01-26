@@ -42,6 +42,9 @@ protected:
 	float					m_fRadiusMin;
 	float					m_fRadiusMax;
 
+	ShPrimitiveCircle *		m_pDebugRadiusMin;
+	ShPrimitiveCircle *		m_pDebugRadiusMax;
+
 	int						m_damages;
 
 	bool					m_bIsAttacking;
@@ -58,6 +61,7 @@ protected:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	CShArray<ShEntity2 *>	m_aAttackAnimation;
+
 
 	//Évolutions possibles	
 };

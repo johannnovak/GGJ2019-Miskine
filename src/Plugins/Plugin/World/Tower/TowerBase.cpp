@@ -14,6 +14,10 @@ TowerBase::TowerBase(void)
 : m_eTowerType(tower_melee)
 , m_eFocusType(focus_nearest)
 , m_vPosition(CShVector3::ZERO)
+, m_fRadiusMin(0.0f)
+, m_fRadiusMax(100.0f)
+, m_pDebugRadiusMin(shNULL)
+, m_pDebugRadiusMax(shNULL)
 , m_damages(0)
 , m_bIsAttacking(false)
 , m_fAttackCooldown(0.0f)
@@ -67,15 +71,16 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 		m_fRadiusMax = 300.0f;
 	}
 
-	ShPrimitiveCircle * pCircleMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
-	SH_ASSERT(shNULL != pCircleMin);
-	ShPrimitiveCircle::Set2d(pCircleMin, true);
-	ShPrimitiveCircle * pCircleMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
-	SH_ASSERT(shNULL != pCircleMax);
-	ShPrimitiveCircle::Set2d(pCircleMax, true);
+	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
+	SH_ASSERT(shNULL != m_pDebugRadiusMin);
+	ShPrimitiveCircle::Set2d(m_pDebugRadiusMin, true);
+	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
+	SH_ASSERT(shNULL != m_pDebugRadiusMax);
+	ShPrimitiveCircle::Set2d(m_pDebugRadiusMax, true);
 
 	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
 	SH_ASSERT(shNULL != pEntity);
+	m_aAttackAnimation.Add(pEntity);
 }
 
 /**
@@ -83,6 +88,15 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
  */
 void TowerBase::Release(void)
 {
+	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
+	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
+
+	int nAttackAnimCount = m_aAttackAnimation.GetCount();
+	for (int i = 0; i < nAttackAnimCount; ++i)
+	{
+		ShEntity2::Destroy(m_aAttackAnimation[i]);
+	}
+	m_aAttackAnimation.Empty();
 }
 
 /**
