@@ -41,7 +41,7 @@ void TowerManager::Release(void)
 	int nTowerCount = m_aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		m_aTowerList[i].Release();
+		m_aTowerList[i]->Release();
 	}
 	m_aTowerList.Empty();
 }
@@ -54,7 +54,7 @@ void TowerManager::Update(float dt)
 	int nTowerCount = m_aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		m_aTowerList[i].Update(dt);
+		m_aTowerList[i]->Update(dt);
 	}
 }
 
@@ -78,9 +78,9 @@ void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocu
  */
 void TowerManager::CreateMeleeTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
-	TowerMelee tower;
-	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
-	m_aTowerList.Add(tower);
+	TowerMelee * pTower = new TowerMelee();
+	pTower->Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(pTower);
 }
 
 /**
@@ -88,9 +88,9 @@ void TowerManager::CreateMeleeTower(TowerBase::ETowerType towerType, TowerBase::
  */
 void TowerManager::CreateRangeTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
-	TowerRange tower;
-	tower.Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
-	m_aTowerList.Add(tower);
+	TowerRange * pTower = new TowerRange();
+	pTower->Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(pTower);
 }
 
 /**
@@ -101,6 +101,6 @@ void TowerManager::GetTowerList(CShArray<TowerBase*>& aTowerList)
 	int nTowerCount = aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
-		aTowerList.Add(&m_aTowerList[i]);
+		aTowerList.Add(m_aTowerList[i]);
 	}
 }

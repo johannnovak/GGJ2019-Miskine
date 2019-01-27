@@ -29,16 +29,12 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 {
 	m_eTowerAttackType = tower_range;
 
-	m_fRadiusMin = 50.0f;
+	m_fRadiusMin = 150.0f;
 	m_fRadiusMax = 300.0f;
 
 	TowerBase::Initialize(levelIdentifier, pEnemyManager, towerType, focusType, position, damages, attackSpeed, rangeAOE);	
 
-	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), CShVector3(m_vPosition, 10.0f), CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
-	SH_ASSERT(shNULL != pEntity);
-	//m_aAttackAnimation.Add(pEntity);
-
-		char szSpriteIdentifier[1024];
+	char szSpriteIdentifier[1024];
 			
 	switch (towerType)
 	{
@@ -77,9 +73,6 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 	}
 
 	ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
-
-	// Create m_pProjectile
-	// @ TODO
 }
 
 /**
@@ -97,7 +90,61 @@ void TowerRange::Release(void)
  */
 void TowerRange::Update(float dt)
 {
+	m_fAnimationDt += dt;
+	if (m_fAnimationDt >= m_fAnimationSpeed)
+	{
+		m_fAnimationDt = 0.0f;
+		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite++], false);
+
+		if (m_currentSprite >= m_aAttackAnimation[m_eCurrentAnimationType].GetCount())
+		{ // Animation ended
+			m_currentSprite = 0;
+
+			if (m_bIsAttacking)
+			{
+				// Create + launch projectile
+				m_pProjectile = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+				SH_ASSERT(shNULL != m_pProjectile);
+
+				m_bIsAttacking = false;
+				m_fAttackCooldown = m_fAttackSpeed;
+				m_eCurrentAnimationType = animation_idle;
+			}
+		}
+
+		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+	}
+
+	// Update projectiles
+	{
+		// Move
+
+		// Check if projectile hited its the target
+		if (false)
+		{
+			m_pCurrentTarget->TakeDamages(m_damages);
+
+			if (-1 != m_fAOERange)
+			{ // Hit enemies in currentTarget range
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
+
+				CShArray<Enemy*> aEnemyList;
+				m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
+
+				int nEnemyCount = aEnemyList.GetCount();
+				for (int i = 0; i < nEnemyCount; ++i)
+				{
+					// Damages / 2
+					aEnemyList[i]->TakeDamages(m_damages * 0.5f);
+				}
+			}
+
+			if (m_pCurrentTarget->IsDead())
+			{
+				m_pCurrentTarget = shNULL;
+			}
+		}
+	}
+
 	TowerBase::Update(dt);
-	
-	// Update projectile or rewrite Base Update here
 }

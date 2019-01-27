@@ -94,49 +94,7 @@ void TowerBase::Release(void)
  */
 void TowerBase::Update(float dt)
 {
-	m_fAnimationDt += dt;
-	if (m_fAnimationDt >= m_fAnimationSpeed)
-	{
-		m_fAnimationDt = 0.0f;
-		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite++], false);
-
-		if (m_currentSprite >= m_aAttackAnimation[m_eCurrentAnimationType].GetCount())
-		{ // Animation ended
-			m_currentSprite = 0;
-
-			if (m_bIsAttacking)
-			{
-				m_pCurrentTarget->TakeDamages(m_damages);
-
-				if (-1 != m_fAOERange)
-				{ // Hit enemies in currentTarget range
-					const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
-
-					CShArray<Enemy*> aEnemyList;
-					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
-
-					int nEnemyCount = aEnemyList.GetCount();
-					for (int i = 0; i < nEnemyCount; ++i)
-					{
-						// Damages / 2
-						aEnemyList[i]->TakeDamages(m_damages * 0.5f);
-					}
-				}
-
-				if (m_pCurrentTarget->IsDead())
-				{
-					m_pCurrentTarget = shNULL;
-				}
-
-				m_bIsAttacking = false;
-				m_fAttackCooldown = m_fAttackSpeed;
-				m_eCurrentAnimationType = animation_idle;
-			}
-		}
-
-		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
-	}
-
+	// Search for target
 	if (!m_bIsAttacking)
 	{
 		m_fAttackCooldown += dt;
