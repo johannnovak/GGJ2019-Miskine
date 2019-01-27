@@ -24,7 +24,7 @@ AoE				: 5
 Special Effect	: None
 
 Description : Spoiled child who never gets tired of playing videogames.
-PGM of Fornite and Overwatch, he also is the shooting star of his soccer team.
+PGM of Fortnite and Overwatch, he also is the shooting star of his soccer team.
 He brought his soccer ball to help his family protect the house against their enemies.
 Weapon : soccer ball.
 Special Attack : Ball of Steel : the ball doesn't stop when an enemy is hit.
