@@ -116,7 +116,7 @@ float Plugin::GetDistanceSquared(const CShVector2 & start, const CShVector2 & de
 /**
  * @brief GetWorld
  */
-const World & Plugin::GetWorld()
+World & Plugin::GetWorld()
 {
 	return m_world;
 }
