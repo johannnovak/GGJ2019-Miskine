@@ -13,10 +13,15 @@
         <animated_texture_list/>
         <sprite_texture_list>
             <sprite_texture name="game.blackbackground.tga"/>
+            <sprite_texture name="game.fille_idle_01.tga"/>
+            <sprite_texture name="game.fille_unavailable.tga"/>
             <sprite_texture name="game.fils_idle_01.tga"/>
+            <sprite_texture name="game.fils_unavailable.tga"/>
             <sprite_texture name="game.map.tga"/>
             <sprite_texture name="game.mere_idle_01.tga"/>
+            <sprite_texture name="game.mere_unavailable.tga"/>
             <sprite_texture name="game.pere_idle_01.tga"/>
+            <sprite_texture name="game.pere_unavailable.tga"/>
             <sprite_texture name="ui.selection_circle.tga"/>
         </sprite_texture_list>
         <material_library_list/>
@@ -152,7 +157,7 @@
         <path_list/>
         <animation_list/>
         <prefab_list>
-            <prefab name="selection_circle_001" position_x="-1209.446533" position_y="0.000000" position_z="15.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" prefab_resource_identifier="prefab_selection_circle" layer="layer_default">
+            <prefab name="selection_circle_001" position_x="-1192.269775" position_y="-0.000008" position_z="15.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" prefab_resource_identifier="prefab_selection_circle" layer="layer_default">
                 <object_list>
                     <point_list/>
                     <entity2_list>
@@ -160,6 +165,11 @@
                         <entity2 name="sprite_game_mere_idle_01_001_001" position_x="102.882599" position_y="-2.612900" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_mere_idle_01_001"/>
                         <entity2 name="sprite_game_pere_idle_01_001_001" position_x="0.979800" position_y="101.249603" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_pere_idle_01_001"/>
                         <entity2 name="sprite_game_fils_idle_01_001_001" position_x="1.633100" position_y="-112.354301" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_fils_idle_01_001"/>
+                        <entity2 name="sprite_game_fille_idle_01_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_game_fille_idle_01_001"/>
+                        <entity2 name="sprite_game_pere_unavailable_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_game_pere_unavailable_001"/>
+                        <entity2 name="sprite_game_mere_unavailable_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_game_mere_unavailable_001"/>
+                        <entity2 name="sprite_game_fils_unavailable_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_game_fils_unavailable_001"/>
+                        <entity2 name="sprite_game_fille_unavailable_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_game_fille_unavailable_001"/>
                     </entity2_list>
                     <ruler_list/>
                     <text_zone_list/>
@@ -307,6 +317,11 @@
             <entity2 name="sprite_game_mere_idle_01_001_001"/>
             <entity2 name="sprite_game_pere_idle_01_001_001"/>
             <entity2 name="sprite_game_fils_idle_01_001_001"/>
+            <entity2 name="sprite_game_fille_idle_01_001_001"/>
+            <entity2 name="sprite_game_pere_unavailable_001_001"/>
+            <entity2 name="sprite_game_mere_unavailable_001_001"/>
+            <entity2 name="sprite_game_fils_unavailable_001_001"/>
+            <entity2 name="sprite_game_fille_unavailable_001_001"/>
         </prefab>
     </scene_graph>
     <plugins>
@@ -323,6 +338,6 @@
         <translate_z enabled="true"/>
         <grid enabled="false" position_x="0.000000" position_y="0.000000" position_z="0.000000" size_x="100.000000" size_y="100.000000" subdivision_x="10" subdivision_y="10"/>
         <show_markers enabled="false"/>
-        <camera position_x="-192.309479" position_y="-82.667778" position_z="2147.096924" target_x="-192.309494" target_y="-82.667107" target_z="-0.000031" znear="1.000000" zfar="40000.000000" zoom="2.147097" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-2147.096924" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
+        <camera position_x="-192.309479" position_y="-82.667641" position_z="1717.677490" target_x="-192.309494" target_y="-82.667107" target_z="-0.000031" znear="1.000000" zfar="40000.000000" zoom="1.717677" camera_angle_y="-1.570796" camera_angle_z="1.570796" type="0" arcball_x="-1717.677490" arcball_y="0.000000" arcball_z="0.000000" camera_up_x="0.000000" camera_up_y="0.000000" camera_up_z="1.000000"/>
     </editor_settings>
 </level>

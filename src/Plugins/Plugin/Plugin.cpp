@@ -10,6 +10,7 @@ Plugin::Plugin(void)
 , m_world()
 , m_pSelectionCircle(shNULL)
 , m_vSelectionPosition(0.0f, 0.0f)
+, m_pHoveredTower(shNULL)
 {
 	// ...
 }
@@ -34,6 +35,16 @@ Plugin::Plugin(void)
 	Player2EventManager::GetInstance().Initialize();
 
 	m_pSelectionCircle = ShPrefab::Find(levelIdentifier, CShIdentifier("selection_circle_001"));
+
+	m_apEntitesAvailable[0] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_pere_idle_01_001"));
+	m_apEntitesAvailable[1] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_mere_idle_01_001"));
+	m_apEntitesAvailable[2] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_fils_idle_01_001"));
+	m_apEntitesAvailable[3] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_fille_idle_01_001"));
+
+	m_apEntitesUnavailable[0] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_pere_unavailable_001"));
+	m_apEntitesUnavailable[1] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_mere_unavailable_001"));
+	m_apEntitesUnavailable[2] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_fils_unavailable_001"));
+	m_apEntitesUnavailable[3] = (ShEntity2*)ShPrefab::FindObjectInPrefab(m_pSelectionCircle, CShIdentifier("sprite_game_fille_unavailable_001"));
 }
 
 /**
@@ -86,6 +97,11 @@ Plugin::Plugin(void)
 void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 {
 	const CShVector2 pos(positionX, positionY);
+	
+	TowerBase * pTower = shNULL;
+	if (m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
+	{
+	}
 
 	if (m_pSelectionCircle)
 	{
@@ -94,6 +110,50 @@ void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 			m_vSelectionPosition = pos;
 			ShPrefab::SetWorldPosition2(m_pSelectionCircle, m_vSelectionPosition);
 			ShPrefab::SetShow(m_pSelectionCircle, true);
+
+			if (TowerManager::GetCostByType(TowerBase::tower_pere) > m_world.GetMoney())
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[0], false);
+				ShEntity2::SetShow(m_apEntitesUnavailable[0], true);
+			}
+			else
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[0], true);
+				ShEntity2::SetShow(m_apEntitesUnavailable[0], false);
+			}
+
+			if (TowerManager::GetCostByType(TowerBase::tower_mere) > m_world.GetMoney())
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[1], false);
+				ShEntity2::SetShow(m_apEntitesUnavailable[1], true);
+			}
+			else
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[1], true);
+				ShEntity2::SetShow(m_apEntitesUnavailable[1], false);
+			}
+
+			if (TowerManager::GetCostByType(TowerBase::tower_fils) > m_world.GetMoney())
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[2], false);
+				ShEntity2::SetShow(m_apEntitesUnavailable[2], true);
+			}
+			else
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[2], true);
+				ShEntity2::SetShow(m_apEntitesUnavailable[2], false);
+			}
+
+			if (TowerManager::GetCostByType(TowerBase::tower_fille) > m_world.GetMoney())
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[3], false);
+				ShEntity2::SetShow(m_apEntitesUnavailable[3], true);
+			}
+			else
+			{
+				ShEntity2::SetShow(m_apEntitesAvailable[3], true);
+				ShEntity2::SetShow(m_apEntitesUnavailable[3], false);
+			}
 		}
 	}
 }
@@ -142,7 +202,29 @@ void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
  */
 void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
-	// ...
+	TowerBase * pTower = shNULL;
+	if(m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
+	{
+		if (shNULL == m_pHoveredTower)
+		{
+			m_pHoveredTower = pTower;
+			m_pHoveredTower->SetShowDebugInfo(true);
+		}
+		else if (pTower != m_pHoveredTower)
+		{
+			m_pHoveredTower->SetShowDebugInfo(false);
+			m_pHoveredTower = pTower;
+			m_pHoveredTower->SetShowDebugInfo(true);
+		}
+	}
+	else
+	{
+		if (shNULL != m_pHoveredTower)
+		{
+			m_pHoveredTower->SetShowDebugInfo(false);
+			m_pHoveredTower = shNULL;
+		}
+	}
 }
 
 /**

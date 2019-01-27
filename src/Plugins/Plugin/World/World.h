@@ -30,6 +30,7 @@ public:
 	bool					RegisterWorldListener	(IWorldListener * pListener);
 	bool					UnregisterWorldListener	(IWorldListener * pListener);
 
+	bool					IsTowerAtPos			(const CShVector2 & position, TowerBase * & pTowerOut);
 	bool					CanCreateTowerAtPos		(const CShVector2 & position);
 	void					CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
 
@@ -43,6 +44,11 @@ public:
 
 	void					LooseMoney		(int iAmountToLoose);
 	void					GainMoney		(int iAmountToGain);
+
+	int	GetMoney() const
+	{
+		return m_iMoney;
+	}
 
 private:
 
