@@ -7,6 +7,7 @@
  * @brief Constructor
  */
 World::World(void)
+: m_fGameSpeed(1.0f)
 {
 	// ...
 }
@@ -66,9 +67,9 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
-	m_waveManager.Update(dt);
-	m_enemyManager.Update(dt);
-	m_towerManager.Update(dt);
+	m_waveManager.Update(dt * m_fGameSpeed);
+	m_enemyManager.Update(dt * m_fGameSpeed);
+	m_towerManager.Update(dt * m_fGameSpeed);
 }
 
 /**
@@ -132,8 +133,16 @@ void World::CreateTower(const CShVector2 & position)
 
 	if (!bObstacle)
 	{
-		m_towerManager.CreateTower(TowerBase::tower_pere, TowerBase::focus_nearest, position, 20, 3.0f);
+		m_towerManager.CreateTower(TowerBase::tower_fils, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
 	}
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::SetGameSpeed(float fGameSpeed)
+{
+	m_fGameSpeed = fGameSpeed;
 }

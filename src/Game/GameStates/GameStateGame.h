@@ -62,9 +62,9 @@ public:
 protected:
 private:
 	static bool			OnGUIMenuClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
-	static bool			OnGUIPauseClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
-	static bool			OnGUIPlayClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
-	static bool			OnGUIFastForwardClicked				(ShGUIControl * pControl, const CShVector2 & vPosition);
+	static bool			OnGUIPauseSelected					(ShGUIControl * pControl);
+	static bool			OnGUIPlaySelected					(ShGUIControl * pControl);
+	static bool			OnGUIFastForwardSelected			(ShGUIControl * pControl);
 public:
 protected:
 private:

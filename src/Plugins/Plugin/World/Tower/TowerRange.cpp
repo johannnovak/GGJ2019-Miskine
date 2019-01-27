@@ -108,7 +108,7 @@ void TowerRange::Update(float dt)
 			if (m_bIsAttacking)
 			{
 				// Create + launch projectile
-				ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+				ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f));
 				SH_ASSERT(shNULL != pEntity);
 
 				TowerProjectile projectile;
