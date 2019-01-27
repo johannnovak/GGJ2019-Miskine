@@ -148,6 +148,16 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 		m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
+
+		CShArray<Enemy*> aEnemyList;
+		m_enemyManager.GetEnemyList(aEnemyList);
+
+		for (int i = 0; i < aEnemyList.GetCount(); ++i)
+		{
+			CShArray<Node*> aNodes;
+			g_graph.FindPath(g_graph.FindNearestWayPoint(aEnemyList[i]->GetPosition()), g_graph.FindNearestWayPoint(CShVector2(196.0f, -305.0f)), aNodes);
+			aEnemyList[i]->SetPath(aNodes);
+		}
 	}
 }
 
