@@ -24,7 +24,7 @@ public:
 
 	void		Update				(float dt);
 
-	Enemy *		SpawnEnemy			(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination);
+	Enemy *		SpawnEnemy			(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
 
 	void		GetEnemyList		(CShArray<Enemy *>& aEnemyList);
 	void		GetEnemyListInRange	(CShArray<Enemy *>& aEnemyList, const CShVector2 & pos, float rangeMin, float rangeMax);

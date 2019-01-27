@@ -16,7 +16,7 @@ public:
 	explicit	 Wave				(void);
 	virtual		~Wave				(void);
 
-	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, const CShArray<CShVector2> & aStartPosition, const CShVector2 & vDestination, int iEnemyCount, float fTime, float fStartTime);
+	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, const CShArray<CShVector2> & aStartPosition, const CShVector2 & vDestination, int iEnemyCount, float fEnemySpeed, float fTime, float fStartTime);
 	void		Release				(void);
 
 	void		Start				(void);
@@ -41,6 +41,7 @@ private:
 
 	int					m_iRemainingEnemy;
 	float				m_fStartTime;
+	float				m_fWaveSpeed;
 	float				m_fApparitionTime;
 	float				m_fTime;
 };

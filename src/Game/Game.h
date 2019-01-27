@@ -5,6 +5,7 @@
 #include "GameStates/GameStateSettings.h"
 #include "GameStates/GameStateCredits.h"
 #include "GameStates/GameStateGame.h"
+#include "GameStates/GameStateGameOver.h"
 
 #define ORIGINAL_VIEWPORT_X 1280.0f
 #define ORIGINAL_VIEWPORT_Y 720.0f
@@ -22,6 +23,7 @@ public:
 		SETTINGS,
 		CREDITS,
 		INGAME,
+		GAME_OVER,
 
 		MAX_GAME_STATES
 	};
@@ -64,6 +66,7 @@ private:
 	GameStateSettings		m_stateSettings;
 	GameStateCredits		m_stateCredits;
 	GameStateGame			m_stateGame;
+	GameStateGameOver		m_stateGameOver;
 
 	float m_fRatio;
 };

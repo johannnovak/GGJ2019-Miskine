@@ -11,6 +11,7 @@ static const float half_tower_radius = tower_radius * 0.5f;
  */
 World::World(void)
 : m_fGameSpeed(1.0f)
+, m_iWave(0)
 , m_iHP(DEFAULT_HP_DIFFICULTY_MEDIUM)
 , m_iMoney(DEFAULT_MONEY_DIFFICULTY_MEDIUM)
 {
@@ -32,6 +33,11 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 {
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
+
+	m_fGameSpeed = 1.0f;
+	m_iWave = 0;
+	m_iHP = DEFAULT_HP_DIFFICULTY_MEDIUM;
+	m_iMoney = DEFAULT_MONEY_DIFFICULTY_MEDIUM;
 
 	ShSoundResource * pMusicMain = ShSoundResource::Find(CShIdentifier("music_main"));
 	ShSound::PlayMusic(pMusicMain, m_soundHandle);
@@ -63,6 +69,16 @@ void World::Release(void)
 	m_towerManager.Release();
 
 	ShSound::Stop(m_soundHandle);
+}
+
+/**
+ * @brief World::Reset
+ */
+void World::Reset(void)
+{
+	m_fGameSpeed = 1.0f;
+	m_iHP = DEFAULT_HP_DIFFICULTY_MEDIUM;
+	m_iMoney = DEFAULT_MONEY_DIFFICULTY_MEDIUM;
 }
 
 /**
@@ -110,6 +126,38 @@ bool World::UnregisterWorldListener(IWorldListener * pListener)
 
 		return true;
 	}
+}
+
+/**
+ * @brief World::IsTowerAtPos
+ * @param position
+ * @return
+ */
+bool World::IsTowerAtPos(const CShVector2 & position, TowerBase * & pTowerOut)
+{
+	CShArray<TowerBase*> aTowers;
+	m_towerManager.GetTowerList(aTowers);
+
+	int iTowerCount = aTowers.GetCount();
+	for (int iTowerIndex = 0; iTowerIndex < iTowerCount; ++iTowerIndex)
+	{
+		TowerBase * pTower = aTowers[iTowerIndex];
+		CShRectangle2 rect;
+		rect.SetHeight(tower_radius);
+		rect.SetWidth(tower_radius);
+		rect.SetPosition(CShVector2(aTowers[iTowerIndex]->GetPosition().m_x - tower_radius*0.5f, aTowers[iTowerIndex]->GetPosition().m_y - tower_radius*0.5f));
+
+		if (rect.Contains(position))
+		{
+			pTowerOut = pTower;
+
+			return true;
+		}
+	}
+
+	pTowerOut = shNULL;
+
+	return false;
 }
 
 /**
@@ -184,7 +232,47 @@ bool World::CanCreateTowerAtPos(const CShVector2 & position)
 		}
 	}
 
-	return !bObstacle;
+	if (bObstacle)
+	{
+		return false;
+	}
+
+	unsigned int index = g_graph.AddBlocker(position, 30.0f);
+
+	g_graph.UpdateGraph();
+	g_graph.ResetAll();
+
+	CShVector2 vEndPosition(196.0f, -305.0f);
+
+	CShArray<CShVector2> aStartPosition;
+	aStartPosition.Add(CShVector2(-325.0f, 268.0f));
+	aStartPosition.Add(CShVector2(175.0f, 288.0f));
+	aStartPosition.Add(CShVector2(-32.0f, -90.0f));
+	aStartPosition.Add(CShVector2(-292.0f, -14.0f));
+
+	bool bBlocking = false;
+
+	for (int i = 0; i < aStartPosition.GetCount(); ++i)
+	{
+		CShArray<Node*> aNodes;
+		if (!g_graph.FindPath(g_graph.FindNearestWayPoint(aStartPosition[i]), g_graph.FindNearestWayPoint(vEndPosition), aNodes))
+		{
+			bBlocking = true;
+			break;
+		}
+	}
+
+	g_graph.RemoveBlocker(index);
+
+	g_graph.UpdateGraph();
+	g_graph.ResetAll();
+
+	if (bBlocking)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 /**
@@ -226,7 +314,22 @@ void World::SetGameSpeed(float fGameSpeed)
 }
 
 /**
- * @brief SetGameSpeed
+ * @brief SetWave
+ */
+void World::SetWave(int iWave)
+{
+	m_iWave = iWave;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnWaveUpdated(m_iWave);
+	}
+}
+
+/**
+ * @brief LooseHP
  */
 void World::LooseHP(void)
 {

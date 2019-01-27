@@ -286,13 +286,34 @@ Node * Graph::GetWayPoint(int index)
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-bool Graph::AddBlocker(const CShVector2 & pos, float radius)
+unsigned int Graph::AddBlocker(const CShVector2 & pos, float radius)
 {
 	Blocker blocker;
+	blocker.bActive = true;
 	blocker.position = pos;
 	blocker.radius = radius;
+
+	unsigned int index = m_aBlockers.GetCount();
+
 	m_aBlockers.Add(blocker);
-	return(true);
+
+	return(index);
+}
+
+//--------------------------------------------------------------------------------------------------
+/// @todo comment
+//--------------------------------------------------------------------------------------------------
+bool Graph::RemoveBlocker(unsigned int index)
+{
+	if (index >= m_aBlockers.GetCount())
+	{
+		return false;
+	}
+
+	m_aBlockers[index].bActive = false;
+	m_aBlockers[index].position = CShVector2(9999999.0f, 9999999.0f);
+
+	return true;
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -309,10 +330,17 @@ bool Graph::UpdateGraph(void)
 		{
 			for (int j = 0; j < BlockerCount; ++j)
 			{
-				if (m_aWayPoint[i]->GetPosition().Distance(m_aBlockers[j].position) < m_aBlockers[j].radius)
+				if (m_aBlockers[j].bActive)
 				{
-					m_aWayPoint[i]->Disable();
-					break;
+					if (m_aWayPoint[i]->GetPosition().Distance(m_aBlockers[j].position) < m_aBlockers[j].radius)
+					{
+						m_aWayPoint[i]->Disable();
+						break;
+					}
+					else
+					{
+						m_aWayPoint[i]->Enable();
+					}
 				}
 				else
 				{

@@ -50,6 +50,7 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			}
 
 			CShArray<ShEntity2 *> aEntityList[Enemy::animation_max];
+			CShArray<ShEntity2 *> aEntityListCG[Enemy::animation_max];
 			char szDirection[32];
 			for (int i = 0; i < Enemy::animation_max; ++i)
 			{
@@ -73,6 +74,18 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 					ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.3f, 0.3f, 1.0f), false);
 					aEntityList[i].Add(pEntity);
 				}
+
+				id = 1;
+				while (1)
+				{
+					char szFinalSpriteIdentifier[1024];
+					sprintf(szFinalSpriteIdentifier, "%s_cg_%s_%02d", szSpriteIdentifier, szDirection, id++);
+					ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
+					if (shNULL == pSprite)
+						break;
+					ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.3f, 0.3f, 1.0f), false);
+					aEntityListCG[i].Add(pEntity);
+				}
 			}
 			
 			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3::ZERO, CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
@@ -82,7 +95,7 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar) * ShEntity2::GetScale(aEntityList[0][0]).m_x;
 			ShEntity2::SetRelativePosition2(pEntityLifebar, CShVector2(-fEntityLifebarWidth * 0.5f, fEntityHeight + 10.0f));	
 
-			m_aEnemy[i][j].Initialize(aEntityList, pEntityLifebar, iHealth);
+			m_aEnemy[i][j].Initialize(aEntityList, aEntityListCG, pEntityLifebar, iHealth);
 			m_aiCurrentEnemy[i] = 0;
 		}
 	}
@@ -131,7 +144,7 @@ void EnemyManager::Update(float dt)
 /**
  * @brief CreateEnemies
  */
-Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination)
+Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed)
 {
 	Enemy * pEnemy = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
 
@@ -139,7 +152,7 @@ Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, co
 	m_aiCurrentEnemy[eEnemy] %= POOL_SIZE;
 		
 	m_apActiveEnemy.Add(pEnemy);
-	pEnemy->Start(vPosition, vDestination);
+	pEnemy->Start(vPosition, vDestination, fSpeed);
 
 	return pEnemy;
 }

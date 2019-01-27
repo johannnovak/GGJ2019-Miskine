@@ -38,10 +38,10 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], const CShArray<ShEntity2*> aEntityCG[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
-	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination);
+	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
 	void				Stop				(void);
 
 	void				SetPath				(const CShArray<Node*> & aNodes);
@@ -89,5 +89,6 @@ private:
 	int						m_currentSprite;
 	EAnimationType			m_eCurrentAnimationType;
 	CShArray<ShEntity2 *>	m_aMoveAnimation[animation_max];
+	CShArray<ShEntity2 *>	m_aMoveAnimationCG[animation_max];
 };
 

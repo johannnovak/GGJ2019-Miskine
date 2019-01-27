@@ -36,6 +36,10 @@ source_group("State\\MainMenu" FILES ${SOURCES_GameCredits})
 set(SOURCES_GameStateGame GameStates/GameStateGame.cpp GameStates/GameStateGame.h)
 source_group("State\\Game" FILES ${SOURCES_GameStateGame})
 
+# Game Over
+set(SOURCES_GameStateGameOver GameStates/GameStateGameOver.cpp GameStates/GameStateGameOver.h)
+source_group("State\\Game" FILES ${SOURCES_GameStateGameOver})
+
 # Put everything together before adding platform-specific files
 set(SOURCES 
 ${SOURCES_main}
@@ -47,6 +51,7 @@ ${SOURCES_GameStateCharacterIntro}
 ${SOURCES_GameStateSettings}
 ${SOURCES_GameStateCredits}
 ${SOURCES_GameStateGame}
+${SOURCES_GameStateGameOver}
 )
 
 if (${CMAKE_SYSTEM_NAME} MATCHES "Windows")

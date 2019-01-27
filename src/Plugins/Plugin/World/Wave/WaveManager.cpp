@@ -2,6 +2,7 @@
 #include "Wave.h"
 
 #include "../../Plugin.h"
+#include "../../PluginFactory.h"
 
 /**
  * @brief Constructor
@@ -39,39 +40,29 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 
 	CShVector2 vEndPosition(196.0f, -305.0f);
 
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 0.0f);
-	InitWave(aStartPosition, vEndPosition, 2, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 0.0f);
+	InitWave(aStartPosition, vEndPosition, 2, 50.0f, 1.0f, 3.0f);
 
-	InitWave(aStartPosition, vEndPosition, 5, 1.5f, 3.0f);
-	InitWave(aStartPosition, vEndPosition, 2, 0.7f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 5, 50.0f, 1.5f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 2, 120.0f, 1.0f, 3.0f);
 	
 	aStartPosition.Add(CShVector2(175.0f, 288.0f));
 
-	InitWave(aStartPosition, vEndPosition, 4, 1.0f, 3.0f);
-	InitWave(aStartPosition, vEndPosition, 10, 1.0f, 3.0f);
-	InitWave(aStartPosition, vEndPosition, 5, 1.0f, 3.0f);
-	InitWave(aStartPosition, vEndPosition, 4, 1.0f, 3.0f);
-	InitWave(aStartPosition, vEndPosition, 15, 0.5f, 10.0f);
+	InitWave(aStartPosition, vEndPosition, 4, 50.0f, 0.6f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 10, 50.0f, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 5, 120.0f, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 2, 250.0f, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 15, 60.0f, 0.5f, 10.0f);
 
 	aStartPosition.Add(CShVector2(-32.0f, -90.0f));
 
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-
-	aStartPosition.Add(CShVector2(-292.0f, -14.0f));
-
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
+	InitWave(aStartPosition, vEndPosition, 4, 50.0f, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 10, 50.0f, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 20, 50.0f, 1.0f, 1.0f);
+	InitWave(aStartPosition, vEndPosition, 10, 120.0f, 1.0f, 1.0f);
+	InitWave(aStartPosition, vEndPosition, 15, 50.0f, 0.2f, 10.0f);
 	
-	m_iCurrentWave = -1;
+	m_iCurrentWave = 0;
 }
 
 /**
@@ -89,10 +80,10 @@ void WaveManager::Release(void)
 /**
  * @brief InitWave
  */
-void WaveManager::InitWave(CShArray<CShVector2>aStartPosition, CShVector2 vEndPosition, int iEnemyCount, float fApparitionTime, float fStartTime)
+void WaveManager::InitWave(CShArray<CShVector2>aStartPosition, CShVector2 vEndPosition, int iEnemyCount, float fWaveSpeed, float fApparitionTime, float fStartTime)
 {
 	Wave wave;
-	wave.Initialize(m_levelIdentifier, m_pEnemyManager, aStartPosition, vEndPosition, iEnemyCount, fApparitionTime, fStartTime);
+	wave.Initialize(m_levelIdentifier, m_pEnemyManager, aStartPosition, vEndPosition, iEnemyCount, fWaveSpeed, fApparitionTime, fStartTime);
 	m_aWave.Add(wave);
 }
 
@@ -144,7 +135,7 @@ void WaveManager::Update(float dt)
  */
 void WaveManager::Start(void)
 {
-	AddNextWave();
+	//AddNextWave();
 	m_eState = e_state_on;
 	m_fTime = 0.0f;
 }
@@ -163,9 +154,16 @@ void WaveManager::Stop(void)
 void WaveManager::AddNextWave(void)
 {
 	m_iCurrentWave++;
+
+	//
+	// Notify Plugin
+	static_cast<Plugin*>(GetPlugin())->GetWorld().SetWave(m_iCurrentWave);
 	SH_TRACE("WAVE %d \n", m_iCurrentWave);
+
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
 	wave.Start();
+
+
 	
 }

@@ -20,8 +20,11 @@ public:
 	Node *							FindNearestWayPoint					(const CShVector2 & vPosition);
 	Node *							GetWayPoint							(int index);
 
-	bool							AddBlocker							(const CShVector2 & pos, float radius);
+	unsigned int					AddBlocker							(const CShVector2 & pos, float radius);
+	bool							RemoveBlocker						(unsigned int index);
 	bool							UpdateGraph							(void);
+
+	void							ResetAll							(void);
 
 protected:
 
@@ -30,7 +33,6 @@ private:
 	float							ComputeHeuristicValue				(Node* pWPStart, Node* pWPEnd);
 	void							ReconstructPath						(Node* pWP, CShArray<Node*> & aPathPoint);
 	Node *							GetCurrent							(const CShArray<Node*> & openSet);
-	void							ResetAll							(void);
 
 public:
 
@@ -42,6 +44,7 @@ private:
 
 	struct Blocker
 	{
+		bool bActive;
 		CShVector2 position;
 		float radius;
 	};

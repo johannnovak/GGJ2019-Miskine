@@ -10,5 +10,7 @@ public:
 	virtual void OnMoneyUpdated		(int iMoneyAmount) = 0;
 	
 	virtual void OnHPUpdated		(int iHPAmount) = 0;
+
+	virtual void OnWaveUpdated		(int iWave) = 0;
 };
 
