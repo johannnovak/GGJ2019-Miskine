@@ -7,22 +7,22 @@
         <style pseudo_state="default" id="text_character_1" offset_x="7.000000" offset_x_unit="auto" offset_y="-69.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_character_description_1" offset_x="18.000000" offset_x_unit="auto" offset_y="64.000000" offset_y_unit="auto" overflow="auto"/>
         <style pseudo_state="default" id="text_character_description_1" offset_x="-20.000000" offset_x_unit="auto" offset_y="275.000000" offset_y_unit="auto" height_max="340282346638528859811704183484516925440.000000" height_max_unit="dip" text_align="top_left" text_wrap="1"/>
-        <style pseudo_state="default" id="image_character_1" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="image_character_1" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_character_2" offset_x="-546.000000" offset_x_unit="auto" offset_y="-68.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_character_2" offset_x="7.000000" offset_x_unit="auto" offset_y="-69.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_character_description_2" offset_x="18.000000" offset_x_unit="auto" offset_y="64.000000" offset_y_unit="auto" overflow="auto"/>
         <style pseudo_state="default" id="text_character_description_2" offset_x="-20.000000" offset_x_unit="auto" offset_y="275.000000" offset_y_unit="auto" height_max="340282346638528859811704183484516925440.000000" height_max_unit="dip" text_align="top_left" text_wrap="1"/>
-        <style pseudo_state="default" id="image_character_2" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="image_character_2" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_character_3" offset_x="-546.000000" offset_x_unit="auto" offset_y="-68.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_character_3" offset_x="7.000000" offset_x_unit="auto" offset_y="-69.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_character_description_3" offset_x="18.000000" offset_x_unit="auto" offset_y="64.000000" offset_y_unit="auto" overflow="auto"/>
         <style pseudo_state="default" id="text_character_description_3" offset_x="-20.000000" offset_x_unit="auto" offset_y="275.000000" offset_y_unit="auto" height_max="340282346638528859811704183484516925440.000000" height_max_unit="dip" text_align="top_left" text_wrap="1"/>
-        <style pseudo_state="default" id="image_character_3" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="image_character_3" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_character_4" offset_x="-546.000000" offset_x_unit="auto" offset_y="-68.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_character_4" offset_x="7.000000" offset_x_unit="auto" offset_y="-69.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="panel_character_description_4" offset_x="18.000000" offset_x_unit="auto" offset_y="64.000000" offset_y_unit="auto" overflow="auto"/>
         <style pseudo_state="default" id="text_character_description_4" offset_x="-20.000000" offset_x_unit="auto" offset_y="275.000000" offset_y_unit="auto" height_max="340282346638528859811704183484516925440.000000" height_max_unit="dip" text_align="top_left" text_wrap="1"/>
-        <style pseudo_state="default" id="image_character_4" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="image_character_4" offset_x="5.000000" offset_x_unit="auto" offset_y="99.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="button_start" offset_x="-464.000000" offset_x_unit="auto" offset_y="-15.000000" offset_y_unit="auto"/>
     </sss>
     <root>
@@ -50,21 +50,32 @@ Special Attack : Word of Authority : stuns nearby enemies for some time." text_t
                 <panel id="panel_character_2" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                     <text id="text_character_2" pseudo_state="default" text="{fam_member_mother}" text_type="rich"/>
                     <panel id="panel_character_description_2" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="10.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-                        <text id="text_character_description_2" pseudo_state="default" text="Description of the mother" text_type="rich"/>
+                        <text id="text_character_description_2" pseudo_state="default" text="Description of the mother" text_type="raw"/>
                     </panel>
                     <image id="image_character_2" pseudo_state="default" sprite_library="game" image="mere_idle_01" color_filter="#FFFFFFFF"/>
                 </panel>
                 <panel id="panel_character_3" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                     <text id="text_character_3" pseudo_state="default" text="{fam_member_son}" text_type="rich"/>
                     <panel id="panel_character_description_3" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="10.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-                        <text id="text_character_description_3" pseudo_state="default" text="Description of the son" text_type="rich"/>
+                        <text id="text_character_description_3" pseudo_state="default" text="Kevin Miskine (aka DarkKenjiDu25)
+
+Type        : Distance
+Attack        : 30
+Speed        : 30
+Range        : 50
+AoE            : 5
+
+Description : Spoiled child who never gets tired of playing videogames.
+PGM of Fornite and Overwatch, he also is the shooting star of his soccer team.
+He brought his soccer ball to help his family protect the house against their enemies.
+Special Attack : Ball of Steel : the ball doesn't stop when an enemy is hit." text_type="raw"/>
                     </panel>
                     <image id="image_character_3" pseudo_state="default" sprite_library="game" image="fils_idle_01" color_filter="#FFFFFFFF"/>
                 </panel>
                 <panel id="panel_character_4" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_weights="1.000000:3.000000" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
                     <text id="text_character_4" pseudo_state="default" text="{fam_member_daughter}" text_type="rich"/>
                     <panel id="panel_character_description_4" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="10.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
-                        <text id="text_character_description_4" pseudo_state="default" text="Description of the daughter" text_type="rich"/>
+                        <text id="text_character_description_4" pseudo_state="default" text="Description of the daughter" text_type="raw"/>
                     </panel>
                     <image id="image_character_4" pseudo_state="default" color_filter="#FFFFFFFF"/>
                 </panel>
