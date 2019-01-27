@@ -1,0 +1,60 @@
+<prefab engine_save_ver="1.4.2">
+    <preload>
+        <texture_list/>
+        <animated_texture_list/>
+        <sprite_texture_list>
+            <sprite_texture name="ui.selection_circle.tga"/>
+        </sprite_texture_list>
+        <material_library_list/>
+        <submesh_list/>
+        <mesh_list/>
+        <prefab_list/>
+    </preload>
+    <layer_list>
+        <layer name="layer_default" show="true" position_x="0.000000" position_y="0.000000" position_z="0.000000" min_x="-141.000000" min_y="-141.000000" max_x="256.000000" max_y="256.000000"/>
+        <layer name="layer_gui" show="true" position_x="0.000000" position_y="0.000000" position_z="0.000000" min_x="0.000000" min_y="0.000000" max_x="0.000000" max_y="0.000000"/>
+    </layer_list>
+    <object_list>
+        <point_list/>
+        <entity2_list>
+            <entity2 name="sprite_ui_selection_circle_001" position_x="0.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="0.862745" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="ui" sprite_name="selection_circle" blend_function="alpha"/>
+        </entity2_list>
+        <ruler_list/>
+        <text_zone_list/>
+        <entity3_list/>
+        <billboard_list/>
+        <camera_list/>
+        <particle_system_list/>
+        <light_list/>
+        <dummy_aabb2_list/>
+        <dummy_aabb3_list/>
+        <dummy_circle_list>
+            <dummy_circle name="dummy_circle_auto_001" position_x="0.000000" position_y="105.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_003" position_x="0.000000" position_y="-105.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_004" position_x="-105.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_002" position_x="105.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_008" position_x="-75.000000" position_y="75.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_005" position_x="75.000000" position_y="75.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_006" position_x="75.000000" position_y="-75.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+            <dummy_circle name="dummy_circle_auto_007" position_x="-75.000000" position_y="-75.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" center_x="0.000000" center_y="0.000000" center_z="0.000000" radius="36.000000"/>
+        </dummy_circle_list>
+        <dummy_sphere_list/>
+        <navigation_mesh_list/>
+        <path_list/>
+        <animation_list/>
+        <collision_segment_list/>
+        <collision_shape_list/>
+        <prefab_list/>
+    </object_list>
+    <scene_graph>
+        <dummy_circle name="dummy_circle_auto_001"/>
+        <dummy_circle name="dummy_circle_auto_003"/>
+        <dummy_circle name="dummy_circle_auto_004"/>
+        <dummy_circle name="dummy_circle_auto_002"/>
+        <dummy_circle name="dummy_circle_auto_008"/>
+        <dummy_circle name="dummy_circle_auto_005"/>
+        <dummy_circle name="dummy_circle_auto_006"/>
+        <dummy_circle name="dummy_circle_auto_007"/>
+        <entity2 name="sprite_ui_selection_circle_001"/>
+    </scene_graph>
+</prefab>
