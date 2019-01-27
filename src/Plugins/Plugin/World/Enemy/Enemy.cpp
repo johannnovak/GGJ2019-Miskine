@@ -166,6 +166,7 @@ void Enemy::SetState(EState state)
 		case e_state_off: 
 		{
 			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false); break;
+			ShEntity2::SetShow(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], false); break;
 		}
 
 		default: SH_ASSERT_ALWAYS();
@@ -212,11 +213,19 @@ void Enemy::Update(float dt)
 	{
 		if (m_fStateTime < 1.0f)
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 1.0f - m_fStateTime);
+			if (1.0f != m_fSlowEffect)
+			{
+				ShEntity2::SetAlpha(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], 1.0f - m_fStateTime);
+			}
+			else
+			{
+				ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 1.0f - m_fStateTime);
+			}
 		}
 		else
 		{
 			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 0.0f);
+			ShEntity2::SetAlpha(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], 0.0f);
 			SetState(e_state_off);
 		}
 	}
