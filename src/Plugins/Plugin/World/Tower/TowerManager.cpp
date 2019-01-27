@@ -65,7 +65,7 @@ void TowerManager::Update(float dt)
 /**
  * @brief CreateTower
  */
-void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
+TowerBase * TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
 	int iMoneyToLoose = 0;
 	switch (towerType)
@@ -100,6 +100,8 @@ void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocu
 	}
 
 	static_cast<Plugin*>(GetPlugin())->GetWorld().LooseMoney(iMoneyToLoose);
+
+	return m_aTowerList[m_aTowerList.GetCount()-1];
 }
 
 /**

@@ -33,7 +33,7 @@ public:
 
 	void		Update				(float dt);
 
-	void		CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
+	TowerBase *	CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 	void		DeleteTower			(TowerBase * pTower);
 	int 		SellTower			(TowerBase * pTowerToSell);
 

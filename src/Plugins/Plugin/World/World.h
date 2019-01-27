@@ -58,10 +58,6 @@ private:
 	int						m_iHP;
 	int						m_iMoney;
 
-	float				m_fGameSpeed;
-	int					m_iHP;
-	int					m_iMoney;
-
 	IWorldListener *	m_pWorldListener;
 };
 

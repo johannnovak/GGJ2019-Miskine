@@ -493,11 +493,10 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 	SH_UNUSED(fDurationTime);
 }
 
-
 /**
  * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
  */
-/*virtual*/ void GameStateGame::OnTowerCreated(void)
+/*virtual*/ void GameStateGame::OnTowerCreated(TowerBase * pTower)
 {
 	// ...
 }
