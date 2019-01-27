@@ -94,6 +94,26 @@ void GameStateGame::init(void)
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPause,		(pSlotSDKButtonSelected)GameStateGame::OnGUIPauseSelected);
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPlay,			(pSlotSDKButtonSelected)GameStateGame::OnGUIPlaySelected);
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pFastForward,	(pSlotSDKButtonSelected)GameStateGame::OnGUIFastForwardSelected);
+
+	//
+	// Mouse catching
+	ShGUIControlPanel * pPanelHeader	= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_header").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF1		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F1").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF2		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F2").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF3		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F3").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF4		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F4").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF5		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F5").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF6		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F6").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelRight		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_Right").Append(strSuffix.Get()), m_pMainPanel));
+
+	ShGUIControl::SetIgnoreEvents(pPanelHeader, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF1, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF2, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF3, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF4, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF5, false);
+	ShGUIControl::SetIgnoreEvents(pPanelF6, false);
+	ShGUIControl::SetIgnoreEvents(pPanelRight, false);
 }
 
 /**
