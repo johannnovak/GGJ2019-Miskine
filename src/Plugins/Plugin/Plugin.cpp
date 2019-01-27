@@ -97,6 +97,11 @@ Plugin::Plugin(void)
 void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 {
 	const CShVector2 pos(positionX, positionY);
+	
+	TowerBase * pTower = shNULL;
+	if (m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
+	{
+	}
 
 	if (m_pSelectionCircle)
 	{

@@ -39,6 +39,12 @@ inline GameState * Game::get(EState state)
 		}
 		break;
 
+		case GAME_OVER:
+		{
+			return(&m_stateGameOver);
+		}
+		break;
+
 		default:
 		{
 			//SH_ASSERT_ALWAYS();
