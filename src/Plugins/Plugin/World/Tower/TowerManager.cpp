@@ -4,6 +4,9 @@
 
 #include "../Enemy/EnemyManager.h"
 
+#include "../../Plugin.h"
+#include "../../PluginFactory.h"
+
 /**
  * @brief Constructor
  */
@@ -63,14 +66,58 @@ void TowerManager::Update(float dt)
  */
 void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
+	int iMoneyToLoose = 0;
 	switch (towerType)
 	{
-	case TowerBase::tower_pere: CreateMeleeTower(towerType, focusType, position, damages, attackSpeed); break;
-	case TowerBase::tower_mere: CreateMeleeTower(towerType, focusType, position, damages, attackSpeed); break;
-	case TowerBase::tower_fille: CreateRangeTower(towerType, focusType, position, damages, attackSpeed); break;
-	case TowerBase::tower_fils: CreateRangeTower(towerType, focusType, position, damages, attackSpeed); break;
+		case TowerBase::tower_pere:		
+		{	
+			CreateMeleeTower(towerType, focusType, position, damages, attackSpeed);
+			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
 
+		case TowerBase::tower_mere:		
+		{	
+			CreateMeleeTower(towerType, focusType, position, damages, attackSpeed);
+			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+
+		case TowerBase::tower_fille:	
+		{	
+			CreateRangeTower(towerType, focusType, position, damages, attackSpeed);
+			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+
+		case TowerBase::tower_fils:		
+		{	
+			CreateRangeTower(towerType, focusType, position, damages, attackSpeed);
+			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
 	}
+
+	//
+	// Modifier according to upgrade level
+	// TODO
+	//iMoneyToLoose *= ()
+
+	static_cast<Plugin*>(GetPlugin())->GetWorld().LooseMoney(iMoneyToLoose);
+}
+	
+/**
+ * @brief SellTower
+ */
+int TowerManager::SellTower(TowerBase * pTowerToSell)
+{
+	int iFindIndex = m_aTowerList.Find(pTowerToSell);
+	if (-1 != iFindIndex)
+	{
+		m_aTowerList.Remove(iFindIndex);
+	}
+
+	return 0;
 }
 
 /**
