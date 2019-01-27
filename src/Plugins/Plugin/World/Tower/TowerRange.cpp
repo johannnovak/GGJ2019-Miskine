@@ -1,5 +1,6 @@
 #include "TowerRange.h"
 #include "TowerBase.h"
+#include "TowerProjectile.h"
 
 #include "ShSDK/ShSDK.h"
 
@@ -80,7 +81,12 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
  */
 void TowerRange::Release(void)
 {
-	ShEntity2::Destroy(m_pProjectile);
+	int nProjectileCount = m_aProjectile.GetCount();
+	for (int i = 0; i < nProjectileCount; ++i)
+	{
+		m_aProjectile[i].Release();
+	}
+	m_aProjectile.Empty();
 
 	TowerBase::Release();
 }
@@ -103,8 +109,12 @@ void TowerRange::Update(float dt)
 			if (m_bIsAttacking)
 			{
 				// Create + launch projectile
-				m_pProjectile = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
-				SH_ASSERT(shNULL != m_pProjectile);
+				ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+				SH_ASSERT(shNULL != pEntity);
+
+				TowerProjectile projectile;
+				projectile.Initialize(m_vPosition, 20.0f, m_pCurrentTarget, pEntity);
+				m_aProjectile.Add(projectile);
 
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;
@@ -116,12 +126,12 @@ void TowerRange::Update(float dt)
 	}
 
 	// Update projectiles
+	int nProjectileCount = m_aProjectile.GetCount();
+	for (int i = 0; i < nProjectileCount; ++i)
 	{
-		// Move
+		if (m_aProjectile[i].Update(dt))
+		{ // Target hited
 
-		// Check if projectile hited its the target
-		if (false)
-		{
 			m_pCurrentTarget->TakeDamages(m_damages);
 
 			if (-1 != m_fAOERange)
