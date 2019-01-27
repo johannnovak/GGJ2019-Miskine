@@ -133,11 +133,6 @@ void WaveManager::Update(float dt)
 		{
 			m_apActiveWave.RemoveAll(apWaveToRemove[iWave]);
 		}
-
-		if (m_apActiveWave.IsEmpty())
-		{
-			m_eState = e_state_off;
-		}
 	}
 }
 

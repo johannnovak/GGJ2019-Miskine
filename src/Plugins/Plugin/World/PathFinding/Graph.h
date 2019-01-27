@@ -29,7 +29,7 @@ private:
 
 	float							ComputeHeuristicValue				(Node* pWPStart, Node* pWPEnd);
 	void							ReconstructPath						(Node* pWP, CShArray<Node*> & aPathPoint);
-	Node *							GetCurrent							(void);
+	Node *							GetCurrent							(const CShArray<Node*> & openSet);
 	void							ResetAll							(void);
 
 public:
@@ -39,8 +39,6 @@ protected:
 private:
 
 	CShArray<Node*>	m_aWayPoint;
-	CShArray<Node*> m_openSet;
-	CShArray<Node*> m_closedSet;
 
 	struct Blocker
 	{
