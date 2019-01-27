@@ -199,3 +199,13 @@ void World::GainMoney(int iAmountToGain)
 {
 	m_iMoney += iAmountToGain;
 }
+
+/**
+ * @brief World::GetEnemyManager
+ * @return
+ */
+EnemyManager &World::GetEnemyManager(void)
+{
+	return m_enemyManager;
+}
+

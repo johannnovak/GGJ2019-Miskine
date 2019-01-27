@@ -17,39 +17,42 @@ class World
 {
 public:
 
-	explicit	 World			(void);
-	virtual		~World			(void);
+	explicit				 World				(void);
+	virtual					~World				(void);
 
-	void		Initialize		(const CShIdentifier & levelIdentifier);
-	void		Release			(void);
+	void					Initialize			(const CShIdentifier & levelIdentifier);
+	void					Release				(void);
 
-	void		Update			(float dt);
+	void					Update				(float dt);
 
-	bool		CanCreateTowerAtPos		(const CShVector2 & position);
-	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
+	bool					CanCreateTowerAtPos		(const CShVector2 & position);
+	void					CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
+	void					CreateTower			(const CShVector2 & position);
 
-	void		SetGameSpeed	(float fGameSpeed);
+	EnemyManager &			GetEnemyManager		(void);
 
-	void		LooseHP			(void);
-	void		GainHP			(void);
+	void					SetGameSpeed	(float fGameSpeed);
 
-	void		LooseMoney		(int iAmountToLoose);
-	void		GainMoney		(int iAmountToGain);
+	void					LooseHP			(void);
+	void					GainHP			(void);
+
+	void					LooseMoney		(int iAmountToLoose);
+	void					GainMoney		(int iAmountToGain);
 
 private:
 
-	PluginInputManager	m_inputManager;
+	PluginInputManager		m_inputManager;
 
-	WaveManager			m_waveManager;
-	EnemyManager		m_enemyManager;
-	TowerManager		m_towerManager;
+	WaveManager				m_waveManager;
+	EnemyManager			m_enemyManager;
+	TowerManager			m_towerManager;
 
-	ShSound::Handle		m_soundHandle;
+	ShSound::Handle			m_soundHandle;
+	CShIdentifier			m_levelIdentifier;
 
-	CShIdentifier		m_levelIdentifier;
+	float					m_fGameSpeed;
+	int						m_iHP;
+	int						m_iMoney;
 
-	float				m_fGameSpeed;
-	int					m_iHP;
-	int					m_iMoney;
 };
 
