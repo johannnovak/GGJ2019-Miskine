@@ -32,7 +32,6 @@ public:
 
 	bool					CanCreateTowerAtPos		(const CShVector2 & position);
 	void					CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
-	void					CreateTower				(const CShVector2 & position);
 
 	EnemyManager &			GetEnemyManager		(void);
 
