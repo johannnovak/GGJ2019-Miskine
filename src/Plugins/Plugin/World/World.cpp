@@ -192,7 +192,7 @@ bool World::CanCreateTowerAtPos(const CShVector2 & position)
  */
 void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType towerType)
 {
-	if (CanCreateTowerAtPos(position))
+	if (CanCreateTowerAtPos(position) && m_iMoney >= TowerManager::GetCostByType(towerType))
 	{
 		TowerBase * pTower = m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
