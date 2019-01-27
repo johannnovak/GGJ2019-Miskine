@@ -13,7 +13,10 @@
         <animated_texture_list/>
         <sprite_texture_list>
             <sprite_texture name="game.blackbackground.tga"/>
+            <sprite_texture name="game.fils_idle_01.tga"/>
             <sprite_texture name="game.map.tga"/>
+            <sprite_texture name="game.mere_idle_01.tga"/>
+            <sprite_texture name="game.pere_idle_01.tga"/>
             <sprite_texture name="ui.selection_circle.tga"/>
         </sprite_texture_list>
         <material_library_list/>
@@ -154,6 +157,9 @@
                     <point_list/>
                     <entity2_list>
                         <entity2 name="sprite_ui_selection_circle_001_001" layer="layer_default" prefab_child_resource_identifier="sprite_ui_selection_circle_001"/>
+                        <entity2 name="sprite_game_mere_idle_01_001_001" position_x="102.882599" position_y="-2.612900" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_mere_idle_01_001"/>
+                        <entity2 name="sprite_game_pere_idle_01_001_001" position_x="0.979800" position_y="101.249603" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_pere_idle_01_001"/>
+                        <entity2 name="sprite_game_fils_idle_01_001_001" position_x="1.633100" position_y="-112.354301" position_z="1.000000" layer="layer_default" prefab_child_resource_identifier="sprite_game_fils_idle_01_001"/>
                     </entity2_list>
                     <ruler_list/>
                     <text_zone_list/>
@@ -298,6 +304,9 @@
             <dummy_circle name="dummy_circle_auto_006_001"/>
             <dummy_circle name="dummy_circle_auto_007_001"/>
             <entity2 name="sprite_ui_selection_circle_001_001"/>
+            <entity2 name="sprite_game_mere_idle_01_001_001"/>
+            <entity2 name="sprite_game_pere_idle_01_001_001"/>
+            <entity2 name="sprite_game_fils_idle_01_001_001"/>
         </prefab>
     </scene_graph>
     <plugins>

@@ -3,6 +3,9 @@
         <texture_list/>
         <animated_texture_list/>
         <sprite_texture_list>
+            <sprite_texture name="game.fils_idle_01.tga"/>
+            <sprite_texture name="game.mere_idle_01.tga"/>
+            <sprite_texture name="game.pere_idle_01.tga"/>
             <sprite_texture name="ui.selection_circle.tga"/>
         </sprite_texture_list>
         <material_library_list/>
@@ -18,6 +21,9 @@
         <point_list/>
         <entity2_list>
             <entity2 name="sprite_ui_selection_circle_001" position_x="0.000000" position_y="0.000000" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="0.862745" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="ui" sprite_name="selection_circle" blend_function="alpha"/>
+            <entity2 name="sprite_game_mere_idle_01_001" position_x="102.882629" position_y="-2.612892" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="mere_idle_01" blend_function="alpha"/>
+            <entity2 name="sprite_game_pere_idle_01_001" position_x="0.979843" position_y="101.249573" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="pere_idle_01" blend_function="alpha"/>
+            <entity2 name="sprite_game_fils_idle_01_001" position_x="1.633066" position_y="-112.354340" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="fils_idle_01" blend_function="alpha"/>
         </entity2_list>
         <ruler_list/>
         <text_zone_list/>
@@ -56,5 +62,8 @@
         <dummy_circle name="dummy_circle_auto_006"/>
         <dummy_circle name="dummy_circle_auto_007"/>
         <entity2 name="sprite_ui_selection_circle_001"/>
+        <entity2 name="sprite_game_mere_idle_01_001"/>
+        <entity2 name="sprite_game_pere_idle_01_001"/>
+        <entity2 name="sprite_game_fils_idle_01_001"/>
     </scene_graph>
 </prefab>
