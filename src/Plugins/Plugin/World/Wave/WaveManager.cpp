@@ -2,6 +2,7 @@
 #include "Wave.h"
 
 #include "../../Plugin.h"
+#include "../../PluginFactory.h"
 
 /**
  * @brief Constructor
@@ -163,9 +164,16 @@ void WaveManager::Stop(void)
 void WaveManager::AddNextWave(void)
 {
 	m_iCurrentWave++;
+
+	//
+	// Notify Plugin
+	static_cast<Plugin*>(GetPlugin())->GetWorld().SetWave(m_iCurrentWave);
 	SH_TRACE("WAVE %d \n", m_iCurrentWave);
+
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
 	wave.Start();
+
+
 	
 }

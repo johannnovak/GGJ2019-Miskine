@@ -536,6 +536,11 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(iHPAmount));
 }
 
+/*virtual*/ void GameStateGame::OnWaveUpdated(int iWave)
+{
+	ShGUIControlText::SetText(m_pWaveCurrent, CShString::FromInt(iWave));
+}
+
 /**
  * @brief GameStateGame::OnGUIMenuClicked
  */

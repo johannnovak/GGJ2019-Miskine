@@ -36,6 +36,7 @@ public:
 	EnemyManager &			GetEnemyManager		(void);
 
 	void					SetGameSpeed	(float fGameSpeed);
+	void					SetWave			(int iWave);
 
 	void					LooseHP			(void);
 	void					GainHP			(void);
@@ -55,6 +56,7 @@ private:
 	CShIdentifier			m_levelIdentifier;
 
 	float					m_fGameSpeed;
+	int						m_iWave;
 	int						m_iHP;
 	int						m_iMoney;
 
