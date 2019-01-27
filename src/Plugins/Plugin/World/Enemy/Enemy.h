@@ -34,6 +34,7 @@ public:
 	void				Update				(float dt);
 
 	void				TakeDamages			(int damages);
+	void				TakeSlowEffect		(float ratio);
 
 	const CShVector2 &	GetPosition			(void) const;
 	const int &			GetBaseHealth		(void) const;
@@ -47,6 +48,7 @@ private:
 	EState					m_eState;
 	float					m_fStateTime;
 	float					m_fSpeed;
+	float					m_slowEffect;
 
 	ShEntity2 *				m_pEntityLifeBar;
 
