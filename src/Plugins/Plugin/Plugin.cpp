@@ -27,6 +27,8 @@ Plugin::Plugin(void)
  */
 /*virtual*/ void Plugin::OnPlayStart(const CShIdentifier & levelIdentifier)
 {
+	srand(time_t(NULL));
+
 	m_world.Initialize(levelIdentifier);
 
 	Player2EventManager::GetInstance().Initialize();
