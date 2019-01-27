@@ -5,7 +5,7 @@
 /**
  * @brief GetInstance
  */
-const Player2EventManager & Player2EventManager::GetInstance(void)
+/*static*/ Player2EventManager & Player2EventManager::GetInstance(void)
 {
 	return Player2EventManager::s_Player2EventManager;
 }
@@ -97,7 +97,7 @@ bool Player2EventManager::ChooseEventType(EPlayer2EventType eEventType)
 		//
 		// Check for just completed not to increase error jauge by mistake
 		m_pPreviousEvent = GetCurrentEvent();
-		if (!IsEventJustCompleted(m_pPreviousEvent->GetType()))
+		if (shNULL != m_pPreviousEvent && !IsEventJustCompleted(m_pPreviousEvent->GetType()))
 		{
 			IncreaseTypoGauge(m_pPreviousEvent->GetDifficulty());
 		}
@@ -151,7 +151,7 @@ bool Player2EventManager::LeaveEventType(void)
  */
 bool Player2EventManager::RegisterListener(IPlayer2EventListener * pListener)
 {
-	if (shNULL != pListener)
+	if (shNULL == pListener)
 	{
 		return false;
 	}
@@ -187,7 +187,7 @@ bool Player2EventManager::UnregisterListener(IPlayer2EventListener * pListener)
  */
 bool Player2EventManager::RegisterEditBoxHidden(ShGUIControlEditBox * pEditBox)
 {
-	if (shNULL != pEditBox)
+	if (shNULL == pEditBox)
 	{
 		return false;
 	}
@@ -410,7 +410,7 @@ void Player2EventManager::HandleUserChoice(void)
 			// Notify listeners the EventType has ended and has begun
 			if (shNULL != m_pPlayer2EventListener)
 			{
-				m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent);
+				if (shNULL != m_pPreviousEvent) { m_pPlayer2EventListener->OnEventTypeEnd(m_pPreviousEvent); }
 				m_pPlayer2EventListener->OnEventTypeBegin(m_pCurrentEvent);
 			}
 		}
@@ -455,4 +455,23 @@ void Player2EventManager::CheckTypoGaugeCompletion(void)
 		// Reset typo gauge
 		m_fTypoGaugeValue = 0.0f;
 	}
+}
+
+/**
+ * @brief Player2EventManager::Player2EventManager
+ */
+Player2EventManager::Player2EventManager(void)
+: m_pUser(shNULL)
+, m_apEvents()
+, m_eventTypeWords()
+, m_aAvailableEvents()
+, m_aJustCompletedEvents()
+, m_pCurrentEvent(shNULL)
+, m_pPreviousEvent(shNULL)
+, m_iCurrentEventStreak(0)
+, m_fTypoGaugeValue(0.0f)
+, m_fTypoGaugeMax(TYPO_GAUGE_DEFAULT_MAX_VALUE)
+, m_pPlayer2EventListener(shNULL)
+, m_pEditBoxHidden(shNULL)
+{
 }

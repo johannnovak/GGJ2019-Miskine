@@ -16,9 +16,7 @@
 class Player2EventManager
 {
 public:
-	const Player2EventManager &			GetInstance					(void);
-
-public:
+	static Player2EventManager &		GetInstance					(void);
 
 	void								Initialize					(void);
 	void								Release						(void);
@@ -54,6 +52,8 @@ private:
 
 	void								IncreaseTypoGauge			(EPlayer2EventDifficulty eDifficulty);
 	void								CheckTypoGaugeCompletion	(void);
+
+	explicit							Player2EventManager			(void);
 public:
 protected:
 private:
