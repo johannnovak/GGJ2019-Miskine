@@ -164,7 +164,7 @@ void World::SetGameSpeed(float fGameSpeed)
  */
 void World::LooseHP(void)
 {
-	--m_iHP;
+	m_iHP = shMax(0, m_iHP - 1);
 }
 
 /**
