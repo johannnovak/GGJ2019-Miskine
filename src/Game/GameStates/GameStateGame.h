@@ -4,7 +4,7 @@
 
 #include <ShSDK/ShSDK.h>
 #include "../../Plugins/Plugin/Players/IPlayer2EventListener.h"
-#include "World/IWorldListener.h"
+#include "../../Plugins/Plugin/World/IWorldListener.h"
 
 class GameStateGame : public GameState, public IPlayer2EventListener, public IWorldListener
 {
