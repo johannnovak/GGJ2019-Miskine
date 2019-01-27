@@ -72,7 +72,7 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
 	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
 	
-	m_iCurrentWave = -1;
+	m_iCurrentWave = 0;
 }
 
 /**
@@ -145,7 +145,7 @@ void WaveManager::Update(float dt)
  */
 void WaveManager::Start(void)
 {
-	AddNextWave();
+	//AddNextWave();
 	m_eState = e_state_on;
 	m_fTime = 0.0f;
 }
