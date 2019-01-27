@@ -11,6 +11,7 @@ static const float half_tower_radius = tower_radius * 0.5f;
  */
 World::World(void)
 : m_fGameSpeed(1.0f)
+, m_iWave(0)
 , m_iHP(DEFAULT_HP_DIFFICULTY_MEDIUM)
 , m_iMoney(DEFAULT_MONEY_DIFFICULTY_MEDIUM)
 {
@@ -32,6 +33,11 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 {
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
+
+	m_fGameSpeed = 1.0f;
+	m_iWave = 0;
+	m_iHP = DEFAULT_HP_DIFFICULTY_MEDIUM;
+	m_iMoney = DEFAULT_MONEY_DIFFICULTY_MEDIUM;
 
 	ShSoundResource * pMusicMain = ShSoundResource::Find(CShIdentifier("music_main"));
 	ShSound::PlayMusic(pMusicMain, m_soundHandle);
@@ -258,7 +264,22 @@ void World::SetGameSpeed(float fGameSpeed)
 }
 
 /**
- * @brief SetGameSpeed
+ * @brief SetWave
+ */
+void World::SetWave(int iWave)
+{
+	m_iWave = iWave;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnWaveUpdated(m_iWave);
+	}
+}
+
+/**
+ * @brief LooseHP
  */
 void World::LooseHP(void)
 {

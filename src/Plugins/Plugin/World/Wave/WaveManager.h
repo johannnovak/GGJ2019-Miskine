@@ -19,7 +19,7 @@ public:
 	void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager);
 	void		Release				(void);
 
-	void		InitWave			(CShArray<CShVector2>aStartPosition, CShVector2 vEndPosition, int iEnemyCount, float fApparitionTime, float fStartTime);
+	void		InitWave			(CShArray<CShVector2>aStartPosition, CShVector2 vEndPosition, int iEnemyCount, float fWaveSpeed, float fApparitionTime, float fStartTime);
 
 	void		Start				(void);
 	void		Stop				(void);

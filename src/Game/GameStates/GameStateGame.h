@@ -64,6 +64,8 @@ public:
 	virtual void		OnTowerCreated						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnMoneyUpdated						(int iMoneyAmount) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnHPUpdated							(int iHPAmount) SH_ATTRIBUTE_OVERRIDE;
+
+	virtual void		OnWaveUpdated						(int iWave) SH_ATTRIBUTE_OVERRIDE;
 protected:
 private:
 	static bool			OnGUIMenuClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
