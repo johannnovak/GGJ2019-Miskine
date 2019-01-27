@@ -5,6 +5,15 @@
 #include "Plugin.h"
 #include "PluginFactory.h"
 
+bool ButtonMainMenuClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	Game::GetInstance().pop();
+	Game::GetInstance().push(Game::MAIN_MENU);
+	return true;
+}
+
 /**
 * @brief GameStateGame::Constructor
 */
@@ -15,7 +24,7 @@ GameStateGame::GameStateGame(void)
 , m_pUserName(shNULL)
 , m_pMoneyValue(shNULL)
 , m_pHPValue(shNULL)
-, m_pMHPTotal(shNULL)
+, m_pHPTotal(shNULL)
 , m_pPause(shNULL)
 , m_pPlay(shNULL)
 , m_pFastForward(shNULL)
@@ -62,7 +71,7 @@ void GameStateGame::init(void)
 
 	m_pWaveCurrent = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_wave_current").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pWaveCurrent);
-	m_pWaveTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_wave_current").Append(strSuffix.Get()), m_pMainPanel));
+	m_pWaveTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_wave_total").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pWaveTotal);
 	m_pUserName = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_username").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pUserName);
@@ -70,17 +79,17 @@ void GameStateGame::init(void)
 	SH_ASSERT(shNULL != m_pMoneyValue);
 	m_pHPValue = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_hp_value").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pHPValue);
-	m_pMHPTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_hp_total").Append(strSuffix.Get()), m_pMainPanel));
-	SH_ASSERT(shNULL != m_pMHPTotal);
+	m_pHPTotal = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_hp_total").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pHPTotal);
 	m_pPause = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_pause").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pPause);
 	m_pPlay = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_play").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pPlay);
-	ShGUIControlRadioButton::Select(m_pPlay);
 	m_pFastForward = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_fast_forward").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pFastForward);
 	m_pMenu = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pMenu);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu, ButtonMainMenuClicked);
 
 	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("editbox_hidden").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pEditBoxHidden);
@@ -148,6 +157,14 @@ void GameStateGame::entered(void)
 	static_cast<Plugin*>(GetPlugin())->GetWorld().RegisterWorldListener(this);
 
 	ShGUIControlPanel::Show(m_pMainPanel);
+
+	ShGUIControlRadioButton::Select(m_pPlay);
+
+	ShGUIControlText::SetText(m_pWaveCurrent, CShString::FromInt(1));
+	ShGUIControlText::SetText(m_pWaveTotal, CShString::FromInt(1));
+	ShGUIControlText::SetText(m_pMoneyValue, CShString::FromInt(DEFAULT_MONEY_DIFFICULTY_MEDIUM));
+	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(DEFAULT_HP_DIFFICULTY_MEDIUM));
+	ShGUIControlText::SetText(m_pHPTotal, CShString::FromInt(DEFAULT_HP_DIFFICULTY_MEDIUM));
 }
 
 /**
@@ -157,6 +174,8 @@ void GameStateGame::exiting(void)
 {
 	ShGUIControlPanel::Hide(m_pMainPanel);
 	ShGUIControlText::Hide(m_pTextPopup);
+	ShLevel::Release();
+	ShGUIControlRadioButton::Select(m_pPause);
 }
 
 /**
