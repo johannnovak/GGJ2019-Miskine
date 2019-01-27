@@ -12,10 +12,8 @@ Graph g_graph;
 //--------------------------------------------------------------------------------------------------
 /*explicit*/ Graph::Graph(void)
 : m_aWayPoint()
-, m_openSet()
-, m_closedSet()
 {
-
+	// ...
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -23,7 +21,7 @@ Graph g_graph;
 //--------------------------------------------------------------------------------------------------
 /*virtual*/ Graph::~Graph(void)
 {
-
+	// ...
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -175,8 +173,6 @@ void Graph::Release(void)
 	}
 
 	m_aWayPoint.Empty();
-	m_openSet.Empty();
-	m_closedSet.Empty();
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -188,30 +184,33 @@ bool Graph::FindPath(Node * pWPStart, Node * pWPEnd, CShArray<Node*> & aPathPoin
 
 	aPathPoint.Add(pWPStart);
 
-	m_openSet.Add(pWPStart);
+	CShArray<Node*> openSet;
+	CShArray<Node*> closedSet;
+
+	openSet.Add(pWPStart);
 	pWPStart->m_h = ComputeHeuristicValue(pWPStart, pWPEnd);
 
-	while (!m_openSet.IsEmpty())
+	while (!openSet.IsEmpty())
 	{
-		Node * pCurrent = GetCurrent();
+		Node * pCurrent = GetCurrent(openSet);
 
 		if (pCurrent == pWPEnd)
 		{
 			ReconstructPath(pCurrent, aPathPoint);
 
+#if DEBUG_PATHFINDING
 			for (int i = 0; i < aPathPoint.GetCount(); i++)
 			{
 				Node * pWP = aPathPoint[i];
-#if DEBUG_PATHFINDING
 				pWP->SetColor(CShRGBAf(1.0f, 0.0f, 0.0f, 1.0f));
-#endif //DEBUG_PATHFINDING
 			}
+#endif //DEBUG_PATHFINDING
 
 			return(true);
 		}
 
-		m_openSet.RemoveAll(pCurrent);
-		m_closedSet.Add(pCurrent);
+		openSet.RemoveAll(pCurrent);
+		closedSet.Add(pCurrent);
 
 		CShArray<Node*> aWP;
 		pCurrent->GetNeighbor(aWP);
@@ -223,16 +222,16 @@ bool Graph::FindPath(Node * pWPStart, Node * pWPEnd, CShArray<Node*> & aPathPoin
 
 			if (pWayPoint && pWayPoint->m_bAccessible)
 			{
-				if (m_closedSet.Find(pWayPoint) > -1)
+				if (closedSet.Find(pWayPoint) > -1)
 				{
 					continue;
 				}
 
 				float tmpG = pCurrent->m_g + pCurrent->m_vPosition.Distance(pWayPoint->m_vPosition);
 
-				if (m_openSet.Find(pWayPoint) == -1)
+				if (openSet.Find(pWayPoint) == -1)
 				{
-					m_openSet.Add(pWayPoint);
+					openSet.Add(pWayPoint);
 				}
 				else if (tmpG >= pWayPoint->m_g)
 				{
@@ -356,21 +355,20 @@ void Graph::ReconstructPath(Node * pWP, CShArray<Node*> & aPathPoint)
 	{
 		aPathPoint.Add(aTmp[i]);
 	}
-
 }
 
 //--------------------------------------------------------------------------------------------------
 /// @todo comment
 //--------------------------------------------------------------------------------------------------
-Node * Graph::GetCurrent(void)
+Node * Graph::GetCurrent(const CShArray<Node*> & openSet)
 {
-	int iWPCount = m_openSet.GetCount();
+	int iWPCount = openSet.GetCount();
 
-	Node * pCurrent = m_openSet[0];
+	Node * pCurrent = openSet[0];
 
 	for (int iWP = 0; iWP < iWPCount; ++iWP)
 	{
-		Node * pWayPoint = m_openSet[iWP];
+		Node * pWayPoint = openSet[iWP];
 		if (pWayPoint->m_f < pCurrent->m_f)
 		{
 			pCurrent = pWayPoint;
@@ -385,9 +383,6 @@ Node * Graph::GetCurrent(void)
 //--------------------------------------------------------------------------------------------------
 void Graph::ResetAll(void)
 {
-	m_openSet.Empty();
-	m_closedSet.Empty();
-
 	int iWPCount = m_aWayPoint.GetCount();
 	for (int i = 0; i < iWPCount; ++i)
 	{
@@ -406,4 +401,6 @@ void Graph::ResetAll(void)
 			pWP->Enable();
 		}
 	}
+
+	UpdateGraph();
 }
