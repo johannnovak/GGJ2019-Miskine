@@ -25,6 +25,8 @@ public:
 	void					Initialize			(const CShIdentifier & levelIdentifier);
 	void					Release				(void);
 
+	void					Reset				(void);
+
 	void					Update				(float dt);
 
 	bool					RegisterWorldListener	(IWorldListener * pListener);
