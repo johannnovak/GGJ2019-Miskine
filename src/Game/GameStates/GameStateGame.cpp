@@ -136,9 +136,10 @@ void GameStateGame::entered(void)
 	}
 
 	//
-	// Register variables for Player2EventManager
+	// Register listeners
 	Player2EventManager::GetInstance().RegisterEditBoxHidden(m_pEditBoxHidden);
 	Player2EventManager::GetInstance().RegisterListener(this);
+	static_cast<Plugin*>(GetPlugin())->GetWorld().RegisterWorldListener(this);
 
 	ShGUIControlPanel::Show(m_pMainPanel);
 }

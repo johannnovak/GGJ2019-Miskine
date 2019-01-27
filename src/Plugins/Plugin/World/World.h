@@ -5,6 +5,8 @@
 #include "Enemy/EnemyManager.h"
 #include "Tower/TowerManager.h"
 
+#include "IWorldListener.h"
+
 #define DEFAULT_HP_DIFFICULTY_LOW 20
 #define DEFAULT_HP_DIFFICULTY_MEDIUM 15
 #define DEFAULT_HP_DIFFICULTY_HIGH 10
@@ -24,6 +26,9 @@ public:
 	void		Release			(void);
 
 	void		Update			(float dt);
+
+	bool		RegisterWorldListener	(IWorldListener * pListener);
+	bool		UnregisterWorldListener	(IWorldListener * pListener);
 
 	bool		CanCreateTowerAtPos		(const CShVector2 & position);
 	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
@@ -51,5 +56,7 @@ private:
 	float				m_fGameSpeed;
 	int					m_iHP;
 	int					m_iMoney;
+
+	IWorldListener *	m_pWorldListener;
 };
 

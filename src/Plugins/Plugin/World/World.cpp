@@ -77,6 +77,42 @@ void World::Update(float dt)
 }
 
 /**
+ * @brief RegisterWorldListener
+ */
+bool World::RegisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+
+	m_pWorldListener = pListener;
+
+	return true;
+}
+
+/**
+ * @brief UnregisterWorldListener
+ */
+bool World::UnregisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+	else if (m_pWorldListener != pListener)
+	{
+		return false;
+	}
+	else
+	{
+		m_pWorldListener = shNULL;
+
+		return true;
+	}
+}
+
+/**
  * @brief World::CanCreateTowerAtPos
  * @param position
  * @return
