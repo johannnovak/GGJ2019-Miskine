@@ -29,6 +29,7 @@ public:
 
 	static float					GetDistanceSquared			(const CShVector2 & start, const CShVector2 & dest);
 
+	const World &					GetWorld					(void);
 private:
 
 	World				m_world;

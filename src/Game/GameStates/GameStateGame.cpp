@@ -82,11 +82,18 @@ void GameStateGame::init(void)
 	SH_ASSERT(shNULL != m_pMenu);
 
 
-	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), ShGUI::GetRootControl()));
+	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("editbox_hidden").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pEditBoxHidden);
 
 	m_pTextPopup = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_popup").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pTextPopup);
+
+	//
+	// Set Slots
+	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu,			(pSignalSDKClick)GameStateGame::OnGUIMenuClicked);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pPause,			(pSignalSDKClick)GameStateGame::OnGUIPauseClicked);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pPlay,			(pSignalSDKClick)GameStateGame::OnGUIPlayClicked);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pFastForward,	(pSignalSDKClick)GameStateGame::OnGUIFastForwardClicked);
 }
 
 /**
@@ -434,4 +441,55 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 {
 	SH_UNUSED(iMalusValue);
 	SH_UNUSED(fDurationTime);
+}
+
+/**
+ * @brief GameStateGame::OnGUIMenuClicked
+ */
+/*static*/ bool GameStateGame::OnGUIMenuClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	// TODO
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+	return false;
+}
+
+/**
+ * @brief GameStateGame::OnGUIPauseClicked
+ *//*static*/ bool GameStateGame::OnGUIPauseClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition)
+		;
+	// TODO
+	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(0);
+
+	return false;
+}
+
+/**
+ * @brief GameStateGame::OnGUIPlayClicked
+ *//*static*/ bool GameStateGame::OnGUIPlayClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition)
+		;
+	// TODO
+	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(1);
+
+	return false;
+}
+
+/**
+ * @brief GameStateGame::OnGUIFastForwardClicked
+ */
+/*static*/ bool GameStateGame::OnGUIFastForwardClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition)
+		;
+	// TODO
+	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(2);
+
+	return false;
 }
