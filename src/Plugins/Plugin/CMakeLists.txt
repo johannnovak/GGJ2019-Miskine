@@ -23,6 +23,10 @@ source_group("Factory" FILES ${SOURCES_Factory})
 set(SOURCES_World World/World.cpp World/World.h)
 source_group("World" FILES ${SOURCES_World})
 
+# World files
+set(SOURCES_WorldListener World/IWorldListener.h)
+source_group("World" FILES ${SOURCES_WorldListener})
+
 # Inputs files
 set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
@@ -89,6 +93,7 @@ set(SOURCES
 ${SOURCES_Plugin}
 ${SOURCES_Factory}
 ${SOURCES_World}
+${SOURCES_WorldListener}
 ${SOURCES_Inputs}
 ${SOURCES_Enemy}
 ${SOURCES_Towers}
