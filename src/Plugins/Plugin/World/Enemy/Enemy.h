@@ -2,6 +2,14 @@
 
 #include "ShSDK/ShSDK.h"
 
+#define DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_LOW 15
+#define DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_MEDIUM 10
+#define DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_HIGH 5
+
+#define DEFAULT_ENEMY_HP_DIFFICULTY_LOW 15
+#define DEFAULT_ENEMY_HP_DIFFICULTY_MEDIUM 10
+#define DEFAULT_ENEMY_HP_DIFFICULTY_HIGH 5
+
 class Node;
 
 class Enemy
@@ -34,6 +42,7 @@ public:
 	void				Update				(float dt);
 
 	void				TakeDamages			(int damages);
+	void				TakeSlowEffect		(float ratio);
 
 	const CShVector2 &	GetPosition			(void) const;
 	const int &			GetBaseHealth		(void) const;
@@ -47,6 +56,9 @@ private:
 	EState					m_eState;
 	float					m_fStateTime;
 	float					m_fSpeed;
+	float					m_fSlowEffect;
+	float					m_fSlowTime;
+	float					m_fSlowDt;
 
 	ShEntity2 *				m_pEntityLifeBar;
 

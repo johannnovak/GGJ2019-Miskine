@@ -2,8 +2,6 @@
 #include "TowerBase.h"
 #include "TowerProjectile.h"
 
-#include "ShSDK/ShSDK.h"
-
 #include "../Enemy/EnemyManager.h"
 
 /**
@@ -39,8 +37,7 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 			
 	switch (towerType)
 	{
-		case tower_pere : sprintf(szSpriteIdentifier, "fille"); break;
-		case tower_mere: sprintf(szSpriteIdentifier, "fils"); break;
+		case tower_fils: sprintf(szSpriteIdentifier, "fils"); break;
 		default: sprintf(szSpriteIdentifier, "fils"); break;
 	}
 
@@ -154,6 +151,11 @@ void TowerRange::Update(float dt)
 				if (pTarget == m_pCurrentTarget)
 				{
 					m_pCurrentTarget = shNULL;
+					m_bIsAttacking = false;
+					ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+					m_eCurrentAnimationType = animation_idle;
+					m_currentSprite = 0;
+					ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 				}
 				m_aProjectile.Remove(i--);
 			}

@@ -23,6 +23,10 @@ source_group("Factory" FILES ${SOURCES_Factory})
 set(SOURCES_World World/World.cpp World/World.h)
 source_group("World" FILES ${SOURCES_World})
 
+# World files
+set(SOURCES_WorldListener World/IWorldListener.h)
+source_group("World" FILES ${SOURCES_WorldListener})
+
 # Inputs files
 set(SOURCES_Inputs World/InputManager.cpp World/InputManager.h)
 source_group("World\\Inputs" FILES ${SOURCES_Inputs})
@@ -45,6 +49,8 @@ World/Tower/TowerRange.cpp
 World/Tower/TowerRange.h
 World/Tower/TowerMelee.cpp 
 World/Tower/TowerMelee.h
+World/Tower/TowerSupport.cpp 
+World/Tower/TowerSupport.h
 World/Tower/TowerProjectile.cpp 
 World/Tower/TowerProjectile.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
@@ -87,6 +93,7 @@ set(SOURCES
 ${SOURCES_Plugin}
 ${SOURCES_Factory}
 ${SOURCES_World}
+${SOURCES_WorldListener}
 ${SOURCES_Inputs}
 ${SOURCES_Enemy}
 ${SOURCES_Towers}
