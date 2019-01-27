@@ -4,6 +4,8 @@
 
 #include "TowerBase.h"
 
+class TowerProjectile;
+
 class TowerRange : public TowerBase
 {
 public:
@@ -18,6 +20,6 @@ public:
 
 private:
 	
-	ShEntity2 *	m_pProjectile;
+	CShArray<TowerProjectile>	m_aProjectile;
 
 };

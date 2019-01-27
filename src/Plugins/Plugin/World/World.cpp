@@ -34,7 +34,6 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	m_towerManager.Initialize(levelIdentifier, &m_enemyManager);
 
 	ShDummyAABB2* pDummy = ShDummyAABB2::Find(levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
-
 	SH_ASSERT(shNULL != pDummy);
 
 	g_graph.Initialize(pDummy);
@@ -46,6 +45,8 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	g_graph.FindPath(pWPStart, pWPEnd, aPoints);
 
 	m_waveManager.Start();
+
+	m_levelIdentifier = levelIdentifier;
 }
 
 /**
@@ -75,7 +76,64 @@ void World::Update(float dt)
  */
 void World::CreateTower(const CShVector2 & position)
 {
-	m_towerManager.CreateTower(TowerBase::tower_pere, TowerBase::focus_nearest, position, 20, 3.0f);
-	g_graph.AddBlocker(position, 30.0f);
-	g_graph.UpdateGraph();
+	const float tower_radius = 30.0f;
+	const float half_tower_radius = tower_radius * 0.5f;
+
+	ShDummyAABB2 * pDummy = ShDummyAABB2::Find(m_levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
+
+	CShArray<ShObject*> aChildren;
+	ShDummyAABB2::GetChildArray(pDummy, aChildren);
+
+	bool bObstacle = false;
+
+	for (int i = 0; i < aChildren.GetCount(); ++i)
+	{
+		CShVector2 vChildPosition = ShObject::GetWorldPosition2(aChildren[i]);
+
+		if (ShDummyAABB2 * pDummyAABB = ShObject::Cast<ShDummyAABB2>(aChildren[i]))
+		{
+			const CShAABB2 & AABB = ShDummyAABB2::GetAABB(pDummyAABB);
+
+			const CShVector2 Min = vChildPosition + AABB.GetMin();
+			const CShVector2 Max = vChildPosition + AABB.GetMax();
+
+			if ((position.m_x+half_tower_radius) > shMin(Min.m_x, Max.m_x) && (position.m_y+half_tower_radius) > shMin(Min.m_y, Max.m_y) && (position.m_x-half_tower_radius) < shMax(Min.m_x, Max.m_x) && (position.m_y-half_tower_radius) < shMax(Min.m_y, Max.m_y))
+			{
+				bObstacle = true;
+				break;
+			}
+		}
+		else if (ShDummyCircle * pDummyCircle = ShObject::Cast<ShDummyCircle>(aChildren[i]))
+		{
+			const CShCircle & Circle = ShDummyCircle::GetCircle(pDummyCircle);
+
+			if (position.Distance(vChildPosition + CShVector2(Circle.GetCenter().m_x, Circle.GetCenter().m_y)) < (half_tower_radius+Circle.GetRadius()))
+			{
+				bObstacle = true;
+				break;
+			}
+		}
+	}
+
+	if (!bObstacle)
+	{
+		CShArray<TowerBase*> aTowerList;
+		m_towerManager.GetTowerList(aTowerList);
+
+		for (int i = 0; i < aTowerList.GetCount(); ++i)
+		{
+			if (position.Distance(aTowerList[i]->GetPosition()) < (tower_radius))
+			{
+				bObstacle = true;
+				break;
+			}
+		}
+	}
+
+	if (!bObstacle)
+	{
+		m_towerManager.CreateTower(TowerBase::tower_pere, TowerBase::focus_nearest, position, 20, 3.0f);
+		g_graph.AddBlocker(position, tower_radius);
+		g_graph.UpdateGraph();
+	}
 }

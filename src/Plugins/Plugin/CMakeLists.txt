@@ -44,7 +44,9 @@ World/Tower/TowerManager.h
 World/Tower/TowerRange.cpp 
 World/Tower/TowerRange.h
 World/Tower/TowerMelee.cpp 
-World/Tower/TowerMelee.h)
+World/Tower/TowerMelee.h
+World/Tower/TowerProjectile.cpp 
+World/Tower/TowerProjectile.h)
 source_group("World\\Tower" FILES ${SOURCES_Towers})
 
 # Graph files

@@ -26,5 +26,7 @@ private:
 	WaveManager			m_waveManager;
 	EnemyManager		m_enemyManager;
 	TowerManager		m_towerManager;
+
+	CShIdentifier m_levelIdentifier;
 };
 

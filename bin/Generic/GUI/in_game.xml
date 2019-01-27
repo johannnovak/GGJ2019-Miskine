@@ -8,7 +8,7 @@
         <style pseudo_state="default" id="text_wave_current" offset_x="101.952011" offset_x_unit="auto" offset_y="288.576019" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_wave_slash" offset_x="134.784012" offset_x_unit="auto" offset_y="245.376022" offset_y_unit="auto"/>
         <style pseudo_state="default" id="text_wave_total" offset_x="302.400024" offset_x_unit="auto" offset_y="240.192032" offset_y_unit="auto"/>
-        <style pseudo_state="default" id="radiobuttongroup_time" offset_x="-11.000000" offset_x_unit="auto" offset_y="-245.000000" offset_y_unit="auto" background_color="#0E5283FF"/>
+        <style pseudo_state="default" id="radiobuttongroup_time" offset_x="-11.000000" offset_x_unit="auto" offset_y="-245.000000" offset_y_unit="auto" background_color="#A10000D0"/>
         <style pseudo_state="default" id="radiobutton_pause" offset_x="-92.000000" offset_x_unit="auto" offset_y="-11.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="radiobutton_play" offset_x="90.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto"/>
         <style pseudo_state="default" id="radiobutton_fast_forward" offset_x="181.000000" offset_x_unit="auto" offset_y="15.000000" offset_y_unit="auto"/>
@@ -16,22 +16,22 @@
         <style pseudo_state="default" id="panel_content" offset_x="82.944016" offset_x_unit="auto" offset_y="201.139236" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_left" offset_x="-281.000000" offset_x_unit="auto" offset_y="-169.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_bottom_filler_left" offset_x="-22.000000" offset_x_unit="auto" offset_y="-9.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f1" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f1" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f1" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f1" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f2" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f2" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f2" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f2" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f3" offset_x="0.000000" offset_x_unit="auto" offset_y="0.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f3" offset_x="0.000000" offset_x_unit="auto" offset_y="0.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f3" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f3" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f4" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f4" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f4" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f4" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f5" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f5" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f5" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f5" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
-        <style pseudo_state="default" id="panel_f6" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_bottom="0.000000" padding_bottom_unit="dip"/>
+        <style pseudo_state="default" id="panel_f6" offset_x="-446.000000" offset_x_unit="auto" offset_y="8.000000" offset_y_unit="auto" padding_top="5.000000" padding_top_unit="dip" padding_left="0.000000" padding_left_unit="dip"/>
         <style pseudo_state="default" id="image_f6" offset_x="-456.000000" offset_x_unit="auto" offset_y="73.000000" offset_y_unit="auto" size_ratio_type="height_dependant" size_ratio_width="1.000000" size_ratio_height="1.000000"/>
         <style pseudo_state="default" id="text_f6" offset_x="-599.000000" offset_x_unit="auto" offset_y="-98.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
         <style pseudo_state="default" id="panel_bottom_filler_right" offset_x="-22.000000" offset_x_unit="auto" offset_y="-9.000000" offset_y_unit="auto" background_color="#FFFFFF00"/>
