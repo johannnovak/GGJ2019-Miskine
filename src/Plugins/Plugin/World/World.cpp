@@ -126,11 +126,10 @@ bool World::IsTowerAtPos(const CShVector2 & position, TowerBase * & pTowerOut)
 	for (int iTowerIndex = 0; iTowerIndex < iTowerCount; ++iTowerIndex)
 	{
 		TowerBase * pTower = aTowers[iTowerIndex];
-		ShEntity2 * pEntity2 = pTower->GetCurrentEntity2();
 		CShRectangle2 rect;
-		rect.SetPosition(aTowers[iTowerIndex]->GetPosition());
-		rect.SetHeight(ShEntity2::GetHeight(pEntity2));
-		rect.SetWidth(ShEntity2::GetWidth(pEntity2));
+		rect.SetHeight(tower_radius);
+		rect.SetWidth(tower_radius);
+		rect.SetPosition(CShVector2(aTowers[iTowerIndex]->GetPosition().m_x - tower_radius*0.5f, aTowers[iTowerIndex]->GetPosition().m_y - tower_radius*0.5f));
 
 		if (rect.Contains(position))
 		{
