@@ -161,7 +161,7 @@ void GameStateGame::entered(void)
 	ShGUIControlRadioButton::Select(m_pPlay);
 
 	ShGUIControlText::SetText(m_pWaveCurrent, CShString::FromInt(1));
-	ShGUIControlText::SetText(m_pWaveTotal, CShString::FromInt(21));
+	ShGUIControlText::SetText(m_pWaveTotal, CShString::FromInt(13));
 	ShGUIControlText::SetText(m_pMoneyValue, CShString::FromInt(DEFAULT_MONEY_DIFFICULTY_MEDIUM));
 	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(DEFAULT_HP_DIFFICULTY_MEDIUM));
 	ShGUIControlText::SetText(m_pHPTotal, CShString::FromInt(DEFAULT_HP_DIFFICULTY_MEDIUM));
