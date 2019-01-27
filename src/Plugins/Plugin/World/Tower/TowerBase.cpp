@@ -238,3 +238,11 @@ int TowerBase::GetCurrentLevel(void)
 {
 	return m_level;
 }
+
+/**
+ * @brief GetType
+ */
+TowerBase::ETowerType TowerBase::GetType(void)
+{
+	return m_eTowerType;
+}

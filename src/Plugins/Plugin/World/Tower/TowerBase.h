@@ -53,6 +53,7 @@ public:
 	void				LevelUp				(void);
 
 	int					GetCurrentLevel		(void);
+	ETowerType			GetType				(void);
 
 	const CShVector2 &	GetPosition			(void) const
 	{

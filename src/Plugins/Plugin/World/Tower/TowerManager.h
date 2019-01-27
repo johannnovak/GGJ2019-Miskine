@@ -34,6 +34,7 @@ public:
 	void		Update				(float dt);
 
 	void		CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
+	void		DeleteTower			(TowerBase * pTower);
 	int 		SellTower			(TowerBase * pTowerToSell);
 
 	void		GetTowerList		(CShArray<TowerBase *>& aTowerList);
@@ -41,6 +42,7 @@ public:
 private:
 	void		CreateMeleeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 	void		CreateRangeTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
+	void		CreateSupportTower	(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 
 private:
 	CShIdentifier			m_levelIdentifier;

@@ -44,6 +44,8 @@ private:
 	EnemyManager		m_enemyManager;
 	TowerManager		m_towerManager;
 
+	ShSound::Handle		m_soundHandle;
+
 	CShIdentifier		m_levelIdentifier;
 
 	float				m_fGameSpeed;

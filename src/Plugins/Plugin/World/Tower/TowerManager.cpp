@@ -1,6 +1,7 @@
 #include "TowerManager.h"
 #include "TowerMelee.h"
 #include "TowerRange.h"
+#include "TowerSupport.h"
 
 #include "../Enemy/EnemyManager.h"
 
@@ -85,7 +86,7 @@ void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocu
 
 		case TowerBase::tower_fille:	
 		{	
-			CreateRangeTower(towerType, focusType, position, damages, attackSpeed);
+			CreateSupportTower(towerType, focusType, position, damages, attackSpeed);
 			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
 		} 
 		break;
@@ -105,16 +106,59 @@ void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocu
 
 	static_cast<Plugin*>(GetPlugin())->GetWorld().LooseMoney(iMoneyToLoose);
 }
+
+/**
+ * @brief DeleteTower
+ */
+void TowerManager::DeleteTower(TowerBase * pTower)
+{
+	int iFindIndex = m_aTowerList.Find(pTower);
+	if (-1 != iFindIndex)
+	{
+		m_aTowerList.Remove(iFindIndex);
+	}
+}
 	
 /**
  * @brief SellTower
  */
 int TowerManager::SellTower(TowerBase * pTowerToSell)
 {
-	int iFindIndex = m_aTowerList.Find(pTowerToSell);
-	if (-1 != iFindIndex)
+	if (shNULL != pTowerToSell)
 	{
-		m_aTowerList.Remove(iFindIndex);
+		int iMoneyToGain = 0;
+		int iCost = 0;
+		switch (pTowerToSell->GetType())
+		{
+			case TowerBase::tower_pere:		
+			{	
+				iCost = TOWER_PERE_COST_DIFFICULTY_MEDIUM;
+			} 
+			break;
+
+			case TowerBase::tower_mere:		
+			{	
+				iCost = TOWER_MERE_COST_DIFFICULTY_MEDIUM;
+			} 
+			break;
+
+			case TowerBase::tower_fille:	
+			{	
+				iCost = TOWER_FILLE_COST_DIFFICULTY_MEDIUM;
+			} 
+			break;
+
+			case TowerBase::tower_fils:		
+			{	
+				iCost = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+			} 
+			break;
+		}
+
+		iMoneyToGain = static_cast<int>(iCost / 2.0f);
+		static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(iMoneyToGain);
+
+		DeleteTower(pTowerToSell);
 	}
 
 	return 0;
@@ -136,6 +180,16 @@ void TowerManager::CreateMeleeTower(TowerBase::ETowerType towerType, TowerBase::
 void TowerManager::CreateRangeTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
 	TowerRange * pTower = new TowerRange();
+	pTower->Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
+	m_aTowerList.Add(pTower);
+}
+
+/**
+ * @brief CreateSupportTower
+ */
+void TowerManager::CreateSupportTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
+{
+	TowerSupport * pTower = new TowerSupport();
 	pTower->Initialize(m_levelIdentifier, m_pEnemyManager, towerType, focusType, position, damages, attackSpeed);
 	m_aTowerList.Add(pTower);
 }

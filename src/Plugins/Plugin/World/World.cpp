@@ -33,6 +33,9 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
 
+	ShSoundResource * pMusicMain = ShSoundResource::Find(CShIdentifier("music_main"));
+	ShSound::PlayMusic(pMusicMain, m_soundHandle);
+
 	m_inputManager.Initialize(pUser);
 
 	m_enemyManager.Initialize(levelIdentifier);
@@ -64,6 +67,8 @@ void World::Release(void)
 	m_waveManager.Release();
 	m_enemyManager.Release();
 	m_towerManager.Release();
+
+	ShSound::Stop(m_soundHandle);
 }
 
 /**
