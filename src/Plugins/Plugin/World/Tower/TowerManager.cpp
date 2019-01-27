@@ -99,11 +99,6 @@ void TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocu
 		break;
 	}
 
-	//
-	// Modifier according to upgrade level
-	// TODO
-	//iMoneyToLoose *= ()
-
 	static_cast<Plugin*>(GetPlugin())->GetWorld().LooseMoney(iMoneyToLoose);
 }
 
@@ -155,7 +150,7 @@ int TowerManager::SellTower(TowerBase * pTowerToSell)
 			break;
 		}
 
-		iMoneyToGain = static_cast<int>(iCost / 2.0f);
+		iMoneyToGain = static_cast<int>(iCost * (1.0f + 0.5f * pTowerToSell->GetLevel())  / 2.0f);
 		static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(iMoneyToGain);
 
 		DeleteTower(pTowerToSell);
