@@ -451,6 +451,7 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 	// TODO
 	SH_UNUSED(pControl);
 	SH_UNUSED(vPosition);
+
 	return false;
 }
 
@@ -459,8 +460,8 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
  *//*static*/ bool GameStateGame::OnGUIPauseClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 {
 	SH_UNUSED(pControl);
-	SH_UNUSED(vPosition)
-		;
+	SH_UNUSED(vPosition);
+
 	// TODO
 	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(0);
 
@@ -472,8 +473,8 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
  *//*static*/ bool GameStateGame::OnGUIPlayClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 {
 	SH_UNUSED(pControl);
-	SH_UNUSED(vPosition)
-		;
+	SH_UNUSED(vPosition);
+
 	// TODO
 	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(1);
 
@@ -486,8 +487,8 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 /*static*/ bool GameStateGame::OnGUIFastForwardClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
 {
 	SH_UNUSED(pControl);
-	SH_UNUSED(vPosition)
-		;
+	SH_UNUSED(vPosition);
+
 	// TODO
 	//static_cast<Plugin*>(GetPlugin())->GetWorld().SetGameSpeed(2);
 
