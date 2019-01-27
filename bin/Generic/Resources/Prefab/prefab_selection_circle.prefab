@@ -4,9 +4,13 @@
         <animated_texture_list/>
         <sprite_texture_list>
             <sprite_texture name="game.fille_idle_01.tga"/>
+            <sprite_texture name="game.fille_unavailable.tga"/>
             <sprite_texture name="game.fils_idle_01.tga"/>
+            <sprite_texture name="game.fils_unavailable.tga"/>
             <sprite_texture name="game.mere_idle_01.tga"/>
+            <sprite_texture name="game.mere_unavailable.tga"/>
             <sprite_texture name="game.pere_idle_01.tga"/>
+            <sprite_texture name="game.pere_unavailable.tga"/>
             <sprite_texture name="ui.selection_circle.tga"/>
         </sprite_texture_list>
         <material_library_list/>
@@ -26,6 +30,10 @@
             <entity2 name="sprite_game_pere_idle_01_001" position_x="0.979843" position_y="101.249573" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="pere_idle_01" blend_function="alpha"/>
             <entity2 name="sprite_game_fils_idle_01_001" position_x="1.633066" position_y="-112.354340" position_z="0.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="fils_idle_01" blend_function="alpha"/>
             <entity2 name="sprite_game_fille_idle_01_001" position_x="-100.745499" position_y="-7.806000" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="fille_idle_01" blend_function="alpha"/>
+            <entity2 name="sprite_game_pere_unavailable_001" position_x="0.613600" position_y="101.233498" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="pere_unavailable" blend_function="alpha"/>
+            <entity2 name="sprite_game_mere_unavailable_001" position_x="101.960526" position_y="-2.857466" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="mere_unavailable" blend_function="alpha"/>
+            <entity2 name="sprite_game_fils_unavailable_001" position_x="2.170102" position_y="-112.974846" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="fils_unavailable" blend_function="alpha"/>
+            <entity2 name="sprite_game_fille_unavailable_001" position_x="-100.991493" position_y="-8.730656" position_z="1.000000" rotation_x="0.000000" rotation_y="0.000000" rotation_z="0.000000" scale_x="1.000000" scale_y="1.000000" scale_z="1.000000" layer="layer_default" show="true" color_r="1.000000" color_g="1.000000" color_b="1.000000" color_a="1.000000" pivot="center_center" pivot_custom_x="0.500000" pivot_custom_y="0.500000" sprite_library="game" sprite_name="fille_unavailable" blend_function="alpha"/>
         </entity2_list>
         <ruler_list/>
         <text_zone_list/>
@@ -68,5 +76,9 @@
         <entity2 name="sprite_game_pere_idle_01_001"/>
         <entity2 name="sprite_game_fils_idle_01_001"/>
         <entity2 name="sprite_game_fille_idle_01_001"/>
+        <entity2 name="sprite_game_pere_unavailable_001"/>
+        <entity2 name="sprite_game_mere_unavailable_001"/>
+        <entity2 name="sprite_game_fils_unavailable_001"/>
+        <entity2 name="sprite_game_fille_unavailable_001"/>
     </scene_graph>
 </prefab>
