@@ -26,8 +26,9 @@ Enemy::Enemy(void)
 , m_aNodes()
 , m_iDestinationNode(0)
 , m_fAnimationDt(0.0f)
-, m_fAnimationSpeed(0.0f)
+, m_fAnimationSpeed(0.4f)
 , m_currentSprite(0)
+, m_eCurrentAnimationType(animation_bottom)
 , m_aMoveAnimation()
 {
 	// ...
@@ -44,10 +45,14 @@ Enemy::~Enemy(void)
 /**
  * @brief Initialize
  */
-void Enemy::Initialize(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLifebar, int iBaseHealth)
+void Enemy::Initialize(const CShArray<ShEntity2*> aEntity[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth)
 {
 	m_eState = e_state_off;
-	m_aMoveAnimation = aEntity;
+	for (int i = 0; i < animation_max; ++i)
+	{
+		m_aMoveAnimation[i] = aEntity[i];
+	}
+
 	m_baseHealth = iBaseHealth;
 
 	m_pEntityLifeBar = pEntityLifebar;
@@ -58,12 +63,15 @@ void Enemy::Initialize(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLif
  */
 void Enemy::Release(void)
 {
-	int nMoveAnimCount = m_aMoveAnimation.GetCount();
-	for (int i = 0; i < nMoveAnimCount; ++i)
+	for (int i = 0; i < animation_max; ++i)
 	{
-		ShEntity2::Destroy(m_aMoveAnimation[i]);
+		int nAnimCount = m_aMoveAnimation[i].GetCount();
+		for (int j = 0; j < nAnimCount; ++j)
+		{
+			ShEntity2::Destroy(m_aMoveAnimation[i][j]);
+		}
+		m_aMoveAnimation[i].Empty();
 	}
-	m_aMoveAnimation.Empty();
 }
 
 /**
@@ -75,8 +83,8 @@ void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination)
 	m_vPosition = position;
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
 
-	ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], position);
-	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[m_currentSprite]) + 0.01f);
+	ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], position);
+	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite]) + 0.01f);
 
 	CShArray<Node*> aNodes;
 	g_graph.FindPath(g_graph.FindNearestWayPoint(position), g_graph.FindNearestWayPoint(vDestination), aNodes);
@@ -134,7 +142,7 @@ void Enemy::SetState(EState state)
 	{
 		case e_state_appear: 
 		{
-			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true);
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 			ShEntity2::SetScale(m_pEntityLifeBar, 0.4f, 0.4f, 1.0f);
 		}
 		break;
@@ -148,7 +156,7 @@ void Enemy::SetState(EState state)
 		case e_state_on: break;
 		case e_state_off: 
 		{
-			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], false); break;
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false); break;
 		}
 
 		default: SH_ASSERT_ALWAYS();
@@ -183,11 +191,11 @@ void Enemy::Update(float dt)
 	{
 		if (m_fStateTime < 1.0f)
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], m_fStateTime);
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_fStateTime);
 		}
 		else
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 1.0f);
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 1.0f);
 			SetState(e_state_on);
 		}
 	}
@@ -195,11 +203,11 @@ void Enemy::Update(float dt)
 	{
 		if (m_fStateTime < 1.0f)
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 1.0f - m_fStateTime);
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 1.0f - m_fStateTime);
 		}
 		else
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_currentSprite], 0.0f);
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], 0.0f);
 			SetState(e_state_off);
 		}
 	}
@@ -214,13 +222,13 @@ void Enemy::Update(float dt)
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_fCompletion * m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_fCompletion * m_v.m_y;
-				ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], m_vPosition);
+				ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
 			}
 			else
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_v.m_y;
-				ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], m_vPosition);
+				ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
 
 				if (m_iDestinationNode < m_aNodes.GetCount() - 1)
 				{
@@ -245,7 +253,16 @@ void Enemy::Update(float dt)
 		m_fAnimationDt += dt;
 		if (m_fAnimationDt >= m_fAnimationSpeed)
 		{
-			// m_currentSprite++ % nb sprites
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+
+			int nSprite = m_aMoveAnimation[m_eCurrentAnimationType].GetCount();
+			m_currentSprite++;
+			m_currentSprite %= nSprite;
+
+			ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+
+			m_fAnimationDt = 0.0f;
 		}
 	}
 }
