@@ -123,11 +123,11 @@ void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
 				}
 				else if (normalizedDir.m_x < 0.0f && angle > SHC_3PI_ON_4)
 				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_mere);
+					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fille);
 				}
 				else if (normalizedDir.m_x > 0.0f && angle < SHC_PI_ON_4)
 				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fille);
+					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_mere);
 				}
 			}
 			ShPrefab::SetShow(m_pSelectionCircle, false);
