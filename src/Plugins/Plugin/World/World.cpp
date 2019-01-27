@@ -72,6 +72,16 @@ void World::Release(void)
 }
 
 /**
+ * @brief World::Reset
+ */
+void World::Reset(void)
+{
+	m_fGameSpeed = 1.0f;
+	m_iHP = DEFAULT_HP_DIFFICULTY_MEDIUM;
+	m_iMoney = DEFAULT_MONEY_DIFFICULTY_MEDIUM;
+}
+
+/**
  * @brief Update
  */
 void World::Update(float dt)
