@@ -154,6 +154,7 @@ void GameStateGame::entered(void)
 	// Register listeners
 	Player2EventManager::GetInstance().RegisterEditBoxHidden(m_pEditBoxHidden);
 	Player2EventManager::GetInstance().RegisterListener(this);
+	static_cast<Plugin*>(GetPlugin())->GetWorld().Reset();
 	static_cast<Plugin*>(GetPlugin())->GetWorld().RegisterWorldListener(this);
 
 	ShGUIControlPanel::Show(m_pMainPanel);
@@ -174,7 +175,6 @@ void GameStateGame::exiting(void)
 {
 	ShGUIControlPanel::Hide(m_pMainPanel);
 	ShGUIControlText::Hide(m_pTextPopup);
-	ShLevel::Release();
 	ShGUIControlRadioButton::Select(m_pPause);
 }
 
@@ -534,6 +534,13 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 /*virtual*/ void GameStateGame::OnHPUpdated(int iHPAmount)
 {
 	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(iHPAmount));
+
+	if (iHPAmount <= 0)
+	{
+		ShGUIControlRadioButton::Select(m_pPause);
+		Game::GetInstance().pop();
+		Game::GetInstance().push(Game::GAME_OVER);
+	}
 }
 
 /*virtual*/ void GameStateGame::OnWaveUpdated(int iWave)

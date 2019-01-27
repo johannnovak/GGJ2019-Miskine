@@ -15,6 +15,7 @@ Game::Game(void)
 , m_stateSettings()
 , m_stateCredits()
 , m_stateGame()
+, m_stateGameOver()
 , m_fRatio()
 {
 	for (int i = 0; i < MAX_GAME_STATES; ++i)

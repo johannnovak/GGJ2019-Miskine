@@ -1,0 +1,15 @@
+<gui version="1.0">
+    <sss>
+        <style pseudo_state="default" id="game_over" offset_x="-242.000000" offset_x_unit="auto" offset_y="3.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_title" offset_x="-138.000000" offset_x_unit="auto" offset_y="-109.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="text_content" offset_x="-324.000000" offset_x_unit="auto" offset_y="398.000000" offset_y_unit="auto"/>
+        <style pseudo_state="default" id="button_ok" offset_x="-163.000000" offset_x_unit="auto" offset_y="491.000000" offset_y_unit="auto"/>
+    </sss>
+    <root>
+        <panel id="game_over" pseudo_state="default" layout_type="layout_vertical_box" layout_is_filled="1" layout_default_weight="1.000000" scrollbar_h_thickness="0.000000" scrollbar_h_thickness_unit="dip" scrollbar_v_thickness="0.000000" scrollbar_v_thickness_unit="dip" scrollbar_h_background_color="#00000000" scrollbar_v_background_color="#00000000" scrollbar_h_cursor_color="#000000FF" scrollbar_v_cursor_color="#000000FF" scrollbar_h_embedding="padding" scrollbar_v_embedding="padding" scrollbar_h_position="bottom" scrollbar_v_position="right">
+            <text id="text_title" pseudo_state="default" text="Game Over" text_type="rich"/>
+            <text id="text_content" pseudo_state="default" text="Thanks for playing !" text_type="rich"/>
+            <button id="button_ok" pseudo_state="default" text="{ok}" text_type="rich"/>
+        </panel>
+    </root>
+</gui>
