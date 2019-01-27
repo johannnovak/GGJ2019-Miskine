@@ -156,3 +156,12 @@ float Plugin::GetDistanceSquared(const CShVector2 & start, const CShVector2 & de
 
 	return delta.DotProduct(delta);
 }
+
+
+/**
+ * @brief GetWorld
+ */
+World & Plugin::GetWorld()
+{
+	return m_world;
+}

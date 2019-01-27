@@ -10,6 +10,7 @@ static const float half_tower_radius = tower_radius * 0.5f;
  * @brief Constructor
  */
 World::World(void)
+: m_fGameSpeed(1.0f)
 {
 	// ...
 }
@@ -69,9 +70,9 @@ void World::Release(void)
 void World::Update(float dt)
 {
 	m_inputManager.Update();
-	m_waveManager.Update(dt);
-	m_enemyManager.Update(dt);
-	m_towerManager.Update(dt);
+	m_waveManager.Update(dt * m_fGameSpeed);
+	m_enemyManager.Update(dt * m_fGameSpeed);
+	m_towerManager.Update(dt * m_fGameSpeed);
 }
 
 /**
@@ -146,4 +147,12 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
 	}
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::SetGameSpeed(float fGameSpeed)
+{
+	m_fGameSpeed = fGameSpeed;
 }

@@ -31,7 +31,8 @@ public:
 	enum ETowerAttackType
 	{
 		tower_melee,
-		tower_range
+		tower_range,
+		tower_support
 	};
 
 	enum EFocusType

@@ -20,6 +20,8 @@ public:
 	bool		CanCreateTowerAtPos		(const CShVector2 & position);
 	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
 
+	void		SetGameSpeed	(float fGameSpeed);
+
 private:
 
 	PluginInputManager	m_inputManager;
@@ -28,6 +30,8 @@ private:
 	EnemyManager		m_enemyManager;
 	TowerManager		m_towerManager;
 
-	CShIdentifier m_levelIdentifier;
+	float				m_fGameSpeed;
+
+	CShIdentifier		m_levelIdentifier;
 };
 
