@@ -25,7 +25,8 @@ public:
 
 	void		Update			(float dt);
 
-	void		CreateTower		(const CShVector2 & position);
+	bool		CanCreateTowerAtPos		(const CShVector2 & position);
+	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
 
 	void		SetGameSpeed	(float fGameSpeed);
 

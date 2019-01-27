@@ -32,5 +32,8 @@ public:
 	World &							GetWorld					(void);
 private:
 
-	World							m_world;
+	World				m_world;
+
+	ShPrefab *			m_pSelectionCircle;
+	CShVector2			m_vSelectionPosition;
 };
