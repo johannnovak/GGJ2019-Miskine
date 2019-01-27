@@ -98,7 +98,7 @@ void TowerManager::CreateRangeTower(TowerBase::ETowerType towerType, TowerBase::
  */
 void TowerManager::GetTowerList(CShArray<TowerBase*>& aTowerList)
 {
-	int nTowerCount = aTowerList.GetCount();
+	int nTowerCount = m_aTowerList.GetCount();
 	for (int i = 0; i < nTowerCount; ++i)
 	{
 		aTowerList.Add(m_aTowerList[i]);
