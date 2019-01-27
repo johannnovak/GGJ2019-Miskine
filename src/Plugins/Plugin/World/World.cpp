@@ -3,6 +3,9 @@
 #include "PathFinding/Graph.h"
 #include "World.h"
 
+static const float tower_radius = 30.0f;
+static const float half_tower_radius = tower_radius * 0.5f;
+
 /**
  * @brief Constructor
  */
@@ -72,13 +75,12 @@ void World::Update(float dt)
 }
 
 /**
- * @brief CreateTower
+ * @brief World::CanCreateTowerAtPos
+ * @param position
+ * @return
  */
-void World::CreateTower(const CShVector2 & position)
+bool World::CanCreateTowerAtPos(const CShVector2 & position)
 {
-	const float tower_radius = 30.0f;
-	const float half_tower_radius = tower_radius * 0.5f;
-
 	ShDummyAABB2 * pDummy = ShDummyAABB2::Find(m_levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
 
 	CShArray<ShObject*> aChildren;
@@ -130,9 +132,17 @@ void World::CreateTower(const CShVector2 & position)
 		}
 	}
 
-	if (!bObstacle)
+	return !bObstacle;
+}
+
+/**
+ * @brief CreateTower
+ */
+void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType towerType)
+{
+	if (CanCreateTowerAtPos(position))
 	{
-		m_towerManager.CreateTower(TowerBase::tower_pere, TowerBase::focus_nearest, position, 20, 3.0f);
+		m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
 	}

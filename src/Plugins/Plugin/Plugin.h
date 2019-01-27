@@ -32,4 +32,7 @@ public:
 private:
 
 	World				m_world;
+
+	ShPrefab *			m_pSelectionCircle;
+	CShVector2			m_vSelectionPosition;
 };
