@@ -36,14 +36,14 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			{
 				case e_enemy_01 : 
 				{
-					sprintf(szSpriteIdentifier, "walk"); //TODO
+					sprintf(szSpriteIdentifier, "araignee");
 					iHealth = 100;
 				}
 				break;
 
 				default:
 				{
-					sprintf(szSpriteIdentifier, "walk");
+					sprintf(szSpriteIdentifier, "araignee");
 					iHealth = 100;
 				}
 				break;
@@ -55,10 +55,10 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			{
 				char szFinalSpriteIdentifier[1024];
 				sprintf(szFinalSpriteIdentifier, "%s_%02d", szSpriteIdentifier, id++);
-				ShSprite * pSprite = ShSprite::Find(CShIdentifier("player"), CShIdentifier(szFinalSpriteIdentifier));
+				ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
 				if (shNULL == pSprite)
 					break;
-				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
+				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.3f, 0.3f, 1.0f), false);
 				aEntityList.Add(pEntity);
 			}
 			

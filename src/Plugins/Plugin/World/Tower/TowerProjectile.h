@@ -8,15 +8,16 @@ class TowerProjectile
 {
 public:
 
-	explicit	TowerProjectile			(void);
-	virtual		~TowerProjectile		(void);
+	explicit			TowerProjectile			(void);
+	virtual				~TowerProjectile		(void);
+	
+	void				Initialize				(const CShVector2 & pos, float speed, Enemy * pTarget, ShEntity2 * pEntity);
+	void				Release					(void);
 
-	void		Initialize				(const CShVector2 & pos, float speed, Enemy * pTarget, ShEntity2 * pEntity);
-	void		Release					(void);
+	bool				Update					(float dt);
 
-	bool		Update					(float dt);
-
-	Enemy *		GetTarget				(void);
+	Enemy *				GetTarget				(void);
+	const CShVector2 &	GetPosition				(void) const;
 
 private:
 
