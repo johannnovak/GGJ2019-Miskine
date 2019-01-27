@@ -10,6 +10,7 @@ Plugin::Plugin(void)
 , m_world()
 , m_pSelectionCircle(shNULL)
 , m_vSelectionPosition(0.0f, 0.0f)
+, m_pHoveredTower(shNULL)
 {
 	// ...
 }
@@ -142,7 +143,29 @@ void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
  */
 void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
-	// ...
+	TowerBase * pTower = shNULL;
+	if(m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
+	{
+		if (shNULL == m_pHoveredTower)
+		{
+			m_pHoveredTower = pTower;
+			m_pHoveredTower->SetShowDebugInfo(true);
+		}
+		else if (pTower != m_pHoveredTower)
+		{
+			m_pHoveredTower->SetShowDebugInfo(false);
+			m_pHoveredTower = pTower;
+			m_pHoveredTower->SetShowDebugInfo(true);
+		}
+	}
+	else
+	{
+		if (shNULL != m_pHoveredTower)
+		{
+			m_pHoveredTower->SetShowDebugInfo(false);
+			m_pHoveredTower = shNULL;
+		}
+	}
 }
 
 /**

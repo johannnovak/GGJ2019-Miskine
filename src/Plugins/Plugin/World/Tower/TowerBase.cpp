@@ -63,9 +63,12 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), CShVector3(m_vPosition,0.0f), m_fRadiusMin, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMin);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMin, true);
+	ShPrimitiveCircle::SetShow(m_pDebugRadiusMin, false);
+
 	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), CShVector3(m_vPosition, 0.0f), m_fRadiusMax, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMax);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMax, true);
+	ShPrimitiveCircle::SetShow(m_pDebugRadiusMax, false);
 }
 
 /**
@@ -218,6 +221,15 @@ void TowerBase::Update(float dt)
 			}
 		}
 	}
+}
+
+/**
+ * @brief LevelUp
+ */
+void TowerBase::SetShowDebugInfo(bool bShow)
+{
+	ShPrimitiveCircle::SetShow(m_pDebugRadiusMax, bShow);
+	ShPrimitiveCircle::SetShow(m_pDebugRadiusMax, bShow);
 }
 
 /**

@@ -117,7 +117,7 @@ bool World::UnregisterWorldListener(IWorldListener * pListener)
  * @param position
  * @return
  */
-bool World::IsTowerAtPos(const CShVector2 & position)
+bool World::IsTowerAtPos(const CShVector2 & position, TowerBase * & pTowerOut)
 {
 	CShArray<TowerBase*> aTowers;
 	m_towerManager.GetTowerList(aTowers);
@@ -125,7 +125,8 @@ bool World::IsTowerAtPos(const CShVector2 & position)
 	int iTowerCount = aTowers.GetCount();
 	for (int iTowerIndex = 0; iTowerIndex < iTowerCount; ++iTowerIndex)
 	{
-		ShEntity2 * pEntity2 = aTowers[iTowerIndex]->GetCurrentEntity2();
+		TowerBase * pTower = aTowers[iTowerIndex];
+		ShEntity2 * pEntity2 = pTower->GetCurrentEntity2();
 		CShRectangle2 rect;
 		rect.SetPosition(aTowers[iTowerIndex]->GetPosition());
 		rect.SetHeight(ShEntity2::GetHeight(pEntity2));
@@ -133,9 +134,13 @@ bool World::IsTowerAtPos(const CShVector2 & position)
 
 		if (rect.Contains(position))
 		{
+			pTowerOut = pTower;
+
 			return true;
 		}
 	}
+
+	pTowerOut = shNULL;
 
 	return false;
 }

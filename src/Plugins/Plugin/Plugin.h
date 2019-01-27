@@ -36,4 +36,6 @@ private:
 
 	ShPrefab *			m_pSelectionCircle;
 	CShVector2			m_vSelectionPosition;
+
+	TowerBase *			m_pHoveredTower;
 };

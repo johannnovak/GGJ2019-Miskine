@@ -52,6 +52,8 @@ public:
 
 	void				LevelUp						(void);
 
+	void				SetShowDebugInfo			(bool bShow);
+
 	int					GetCurrentLevel				(void);
 	ETowerType			GetType						(void);
 	int					GetLevel					(void);
