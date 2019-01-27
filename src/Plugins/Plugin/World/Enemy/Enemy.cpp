@@ -1,6 +1,11 @@
 #include "Enemy.h"
 #include "../PathFinding/Graph.h"
 
+#include "../World.h"
+#include "../../../../Game/Game.h"
+#include "../../Plugin.h"
+#include "../../PluginFactory.h"
+
 /**
  * @brief Constructor
  */
@@ -13,8 +18,8 @@ Enemy::Enemy(void)
 , m_vStartPosition(CShVector2::ZERO)
 , m_v(CShVector2::ZERO)
 , m_fCompletion(0.0f)
-, m_baseHealth(0)
-, m_currentHealth(0)
+, m_baseHealth(DEFAULT_ENEMY_HP_DIFFICULTY_MEDIUM)
+, m_currentHealth(DEFAULT_ENEMY_HP_DIFFICULTY_MEDIUM)
 , m_aNodes()
 , m_iDestinationNode(0)
 , m_fAnimationDt(0.0f)
@@ -84,6 +89,10 @@ void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination)
 void Enemy::Stop(void)
 {
 	SetState(e_state_disappear);
+	
+	//
+	// Notify Plugin
+	static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_MEDIUM);
 }
 
 /**
