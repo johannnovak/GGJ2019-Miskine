@@ -222,7 +222,47 @@ void Enemy::Update(float dt)
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_fCompletion * m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_fCompletion * m_v.m_y;
-				ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+
+				EAnimationType newAnimType = m_eCurrentAnimationType;
+				if (m_v.m_x >= 0 )
+				{ // E
+					if (m_v.m_y > 0)
+					{ // N 
+						newAnimType = animation_top;
+					}
+					else if (m_v.m_y < 0)
+					{ // S
+						newAnimType = animation_bottom;
+					}
+					else
+						newAnimType = animation_right;
+				}
+				else
+				{ // O
+					if (m_v.m_y > 0)
+					{ // N 
+						newAnimType = animation_top;
+					}
+					else if (m_v.m_y < 0)
+					{ // S
+						newAnimType = animation_bottom;
+					}
+					else
+						newAnimType = animation_left;
+				}
+
+				if (newAnimType != m_eCurrentAnimationType)
+				{
+					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+					m_eCurrentAnimationType = newAnimType;
+					m_currentSprite = 0;
+					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+				}
+				else
+				{
+					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+				}
 			}
 			else
 			{
