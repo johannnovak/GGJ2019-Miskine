@@ -126,17 +126,17 @@ void TowerRange::Update(float dt)
 	}
 
 	// Update projectiles
-	int nProjectileCount = m_aProjectile.GetCount();
-	for (int i = 0; i < nProjectileCount; ++i)
+	for (int i = 0; i < m_aProjectile.GetCount(); ++i)
 	{
 		if (m_aProjectile[i].Update(dt))
 		{ // Target hited
 
-			m_pCurrentTarget->TakeDamages(m_damages);
+			Enemy * pTarget = m_aProjectile[i].GetTarget();
+			pTarget->TakeDamages(m_damages);
 
 			if (-1 != m_fAOERange)
-			{ // Hit enemies in currentTarget range
-				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
+			{ 
+				const CShVector2 & targetPos = m_aProjectile[i].GetPosition();
 
 				CShArray<Enemy*> aEnemyList;
 				m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -149,9 +149,13 @@ void TowerRange::Update(float dt)
 				}
 			}
 
-			if (m_pCurrentTarget->IsDead())
+			if (pTarget->IsDead())
 			{
-				m_pCurrentTarget = shNULL;
+				if (pTarget == m_pCurrentTarget)
+				{
+					m_pCurrentTarget = shNULL;
+				}
+				m_aProjectile.Remove(i--);
 			}
 		}
 	}

@@ -62,3 +62,8 @@ Enemy * TowerProjectile::GetTarget(void)
 {
 	return m_pTarget;
 }
+
+const CShVector2 & TowerProjectile::GetPosition(void) const
+{
+	return m_vPosition;
+}
