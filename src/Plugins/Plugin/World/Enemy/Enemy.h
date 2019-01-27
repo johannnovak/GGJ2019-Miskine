@@ -16,6 +16,17 @@ class Enemy
 {
 
 public:
+
+	enum EAnimationType
+	{
+		animation_top,
+		animation_bottom,
+		animation_left,
+		animation_right,
+
+		animation_max
+	};
+
 	enum EState
 	{
 		e_state_on,
@@ -27,7 +38,7 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLifebar, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
 	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
@@ -76,6 +87,7 @@ private:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	int						m_currentSprite;
-	CShArray<ShEntity2 *>	m_aMoveAnimation;
+	EAnimationType			m_eCurrentAnimationType;
+	CShArray<ShEntity2 *>	m_aMoveAnimation[animation_max];
 };
 

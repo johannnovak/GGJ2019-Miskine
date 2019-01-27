@@ -67,34 +67,31 @@ void TowerManager::Update(float dt)
  */
 TowerBase * TowerManager::CreateTower(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed)
 {
-	int iMoneyToLoose = 0;
+	int iMoneyToLoose = GetCostByType(towerType);
+
 	switch (towerType)
 	{
 		case TowerBase::tower_pere:		
 		{	
 			CreateMeleeTower(towerType, focusType, position, damages, attackSpeed);
-			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
 		} 
 		break;
 
 		case TowerBase::tower_mere:		
 		{	
 			CreateMeleeTower(towerType, focusType, position, damages, attackSpeed);
-			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
 		} 
 		break;
 
 		case TowerBase::tower_fille:	
 		{	
 			CreateSupportTower(towerType, focusType, position, damages, attackSpeed);
-			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
 		} 
 		break;
 
 		case TowerBase::tower_fils:		
 		{	
 			CreateRangeTower(towerType, focusType, position, damages, attackSpeed);
-			iMoneyToLoose = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
 		} 
 		break;
 	}
@@ -201,4 +198,41 @@ void TowerManager::GetTowerList(CShArray<TowerBase*>& aTowerList)
 	{
 		aTowerList.Add(m_aTowerList[i]);
 	}
+}
+
+/**
+ * @brief TowerManager::GetCostByType
+ * @param towerType
+ * @return
+ */
+int TowerManager::GetCostByType(TowerBase::ETowerType towerType)
+{
+	switch (towerType)
+	{
+		case TowerBase::tower_pere:
+		{
+			return TOWER_PERE_COST_DIFFICULTY_MEDIUM;
+		}
+		break;
+
+		case TowerBase::tower_mere:
+		{
+			return TOWER_MERE_COST_DIFFICULTY_MEDIUM;
+		}
+		break;
+
+		case TowerBase::tower_fille:
+		{
+			return TOWER_FILLE_COST_DIFFICULTY_MEDIUM;
+		}
+		break;
+
+		case TowerBase::tower_fils:
+		{
+			return TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		}
+		break;
+	}
+
+	return 0;
 }

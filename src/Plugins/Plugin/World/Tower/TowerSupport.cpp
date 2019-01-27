@@ -101,6 +101,7 @@ void TowerSupport::Update(float dt)
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;
 				m_eCurrentAnimationType = animation_idle;
+				m_pCurrentTarget = shNULL;
 			}
 		}
 

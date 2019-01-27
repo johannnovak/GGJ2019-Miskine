@@ -36,37 +36,50 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 			{
 				case e_enemy_01 : 
 				{
-					sprintf(szSpriteIdentifier, "araignee");
+					sprintf(szSpriteIdentifier, "spider");
 					iHealth = 100;
 				}
 				break;
 
 				default:
 				{
-					sprintf(szSpriteIdentifier, "araignee");
+					sprintf(szSpriteIdentifier, "spider");
 					iHealth = 100;
 				}
 				break;
 			}
 
-			int id = 1;
-			CShArray<ShEntity2 *> aEntityList;
-			while (1)
+			CShArray<ShEntity2 *> aEntityList[Enemy::animation_max];
+			char szDirection[32];
+			for (int i = 0; i < Enemy::animation_max; ++i)
 			{
-				char szFinalSpriteIdentifier[1024];
-				sprintf(szFinalSpriteIdentifier, "%s_%02d", szSpriteIdentifier, id++);
-				ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
-				if (shNULL == pSprite)
-					break;
-				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.3f, 0.3f, 1.0f), false);
-				aEntityList.Add(pEntity);
+				switch ((Enemy::EAnimationType)i)
+				{
+				case Enemy::animation_top:sprintf(szDirection, "top"); break;
+				case Enemy::animation_bottom:sprintf(szDirection, "bottom"); break;
+				case Enemy::animation_left:sprintf(szDirection, "left"); break;
+				case Enemy::animation_right:sprintf(szDirection, "right"); break;
+				default: SH_ASSERT_ALWAYS();
+				}
+
+				int id = 1;
+				while (1)
+				{
+					char szFinalSpriteIdentifier[1024];
+					sprintf(szFinalSpriteIdentifier, "%s_%s_%02d", szSpriteIdentifier, szDirection, id++);
+					ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
+					if (shNULL == pSprite)
+						break;
+					ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.3f, 0.3f, 1.0f), false);
+					aEntityList[i].Add(pEntity);
+				}
 			}
 			
-			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
+			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3::ZERO, CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 			ShEntity2::SetPivotCenterLeft(pEntityLifebar);
-			ShEntity2::Link(aEntityList[0], pEntityLifebar);
-			float fEntityHeight = ShEntity2::GetHeight(aEntityList[0]) * ShEntity2::GetScale(aEntityList[0]).m_y;
-			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar) * ShEntity2::GetScale(aEntityList[0]).m_x;
+			ShEntity2::Link(aEntityList[0][0], pEntityLifebar);
+			float fEntityHeight = ShEntity2::GetHeight(aEntityList[0][0]) * ShEntity2::GetScale(aEntityList[0][0]).m_y;
+			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar) * ShEntity2::GetScale(aEntityList[0][0]).m_x;
 			ShEntity2::SetRelativePosition2(pEntityLifebar, CShVector2(-fEntityLifebarWidth * 0.5f, fEntityHeight + 10.0f));	
 
 			m_aEnemy[i][j].Initialize(aEntityList, pEntityLifebar, iHealth);
