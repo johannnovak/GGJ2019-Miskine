@@ -77,6 +77,42 @@ void World::Update(float dt)
 }
 
 /**
+ * @brief RegisterWorldListener
+ */
+bool World::RegisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+
+	m_pWorldListener = pListener;
+
+	return true;
+}
+
+/**
+ * @brief UnregisterWorldListener
+ */
+bool World::UnregisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+	else if (m_pWorldListener != pListener)
+	{
+		return false;
+	}
+	else
+	{
+		m_pWorldListener = shNULL;
+
+		return true;
+	}
+}
+
+/**
  * @brief World::CanCreateTowerAtPos
  * @param position
  * @return
@@ -144,7 +180,7 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 {
 	if (CanCreateTowerAtPos(position))
 	{
-		m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
+		TowerBase * pTower = m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
 
@@ -156,6 +192,13 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 			CShArray<Node*> aNodes;
 			g_graph.FindPath(g_graph.FindNearestWayPoint(aEnemyList[i]->GetPosition()), g_graph.FindNearestWayPoint(CShVector2(196.0f, -305.0f)), aNodes);
 			aEnemyList[i]->SetPath(aNodes);
+		}
+		
+		//
+		// Notify listener
+		if (shNULL != m_pWorldListener)
+		{
+			m_pWorldListener->OnTowerCreated(pTower);
 		}
 	}
 }
@@ -174,6 +217,13 @@ void World::SetGameSpeed(float fGameSpeed)
 void World::LooseHP(void)
 {
 	m_iHP = shMax(0, m_iHP - 1);
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnHPUpdated(m_iHP);
+	}
 }
 
 /**
@@ -182,6 +232,13 @@ void World::LooseHP(void)
 void World::GainHP(void)
 {
 	++m_iHP;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnHPUpdated(m_iHP);
+	}
 }
 
 /**
@@ -190,6 +247,13 @@ void World::GainHP(void)
 void World::LooseMoney(int iAmountToLoose)
 {
 	m_iMoney = shMax(0, m_iMoney - iAmountToLoose);
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnMoneyUpdated(m_iMoney);
+	}
 }
 
 /**
@@ -198,4 +262,21 @@ void World::LooseMoney(int iAmountToLoose)
 void World::GainMoney(int iAmountToGain)
 {
 	m_iMoney += iAmountToGain;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnMoneyUpdated(m_iMoney);
+	}
 }
+
+/**
+ * @brief World::GetEnemyManager
+ * @return
+ */
+EnemyManager & World::GetEnemyManager(void)
+{
+	return m_enemyManager;
+}
+

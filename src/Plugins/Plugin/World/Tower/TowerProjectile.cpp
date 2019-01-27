@@ -7,9 +7,6 @@
  */
 TowerProjectile::TowerProjectile(void)
 : m_fSpeed(0.0f)
-, m_fCompletion(0.0f)
-, m_v(CShVector2::ZERO)
-, m_vStartPosition(CShVector2::ZERO)
 , m_vPosition(CShVector2::ZERO)
 , m_pTarget(shNULL)
 , m_pEntity(shNULL)
@@ -32,10 +29,7 @@ void TowerProjectile::Initialize(const CShVector2 & pos, float speed, Enemy * pT
 	m_pEntity = pEntity;
 	m_fSpeed = speed;
 	m_vPosition = pos;
-	m_fCompletion = 0.0f;
 	m_pTarget = pTarget;
-	m_vStartPosition = m_vPosition;
-	m_v = m_pTarget->GetPosition() - m_vPosition;
 }
 
 /**
@@ -52,30 +46,27 @@ void TowerProjectile::Release(void)
 bool TowerProjectile::Update(float dt)
 {
 	// Move
-	m_fCompletion += dt * (200.0f / (1.0f + m_v.GetLength()));
+	const CShVector2 & targetPos = m_pTarget->GetPosition();
 
-	if (m_fCompletion < 1.0f)
-	{
-		m_vPosition.m_x = m_vStartPosition.m_x + m_fCompletion * m_v.m_x;
-		m_vPosition.m_y = m_vStartPosition.m_y + m_fCompletion * m_v.m_y;
-		ShEntity2::SetPosition2(m_pEntity, m_vPosition);
-	}
-	else
-	{
-		m_vPosition.m_x = m_vStartPosition.m_x + m_v.m_x;
-		m_vPosition.m_y = m_vStartPosition.m_y + m_v.m_y;
-		ShEntity2::SetPosition2(m_pEntity, m_vPosition);
+	float u_x = targetPos.m_x - m_vPosition.m_x, u_y = targetPos.m_y - m_vPosition.m_y;
+	float u = sqrt((u_x*u_x) + (u_y*u_y));
+	float v_x = (1 / u) * u_x;
+	float v_y = (1 / u) * u_y;
 
+	m_vPosition.m_x += v_x * m_fSpeed;
+	m_vPosition.m_y += v_y * m_fSpeed;
+
+	ShEntity2::SetPosition2(m_pEntity, m_vPosition);
+
+	float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
+	if (distSquared < 100.0f)
+	{
 		return true;
 	}
 
-	// Check if projectile hited its target
-	//const CShVector2 & targetPos = m_pTarget->GetPosition();
-	//float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
-	//if (distSquared < 100.0f)
-	//{
-	//	return true;
-	//}
+	CShEulerAngles angle = ShEntity2::GetRotation(m_pEntity);
+	angle.m_z -= 0.01f * 60.0f * dt;
+	ShEntity2::Rotate(m_pEntity, angle);
 
 	return false;
 }

@@ -110,7 +110,7 @@ void TowerRange::Update(float dt)
 				SH_ASSERT(shNULL != pEntity);
 
 				TowerProjectile projectile;
-				projectile.Initialize(m_vPosition, 20.0f, m_pCurrentTarget, pEntity);
+				projectile.Initialize(m_vPosition, 5.0f, m_pCurrentTarget, pEntity);
 				m_aProjectile.Add(projectile);
 
 				m_bIsAttacking = false;
@@ -157,8 +157,10 @@ void TowerRange::Update(float dt)
 					m_currentSprite = 0;
 					ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 				}
-				m_aProjectile.Remove(i--);
 			}
+
+			m_aProjectile[i].Release();
+			m_aProjectile.Remove(i--);
 		}
 	}
 

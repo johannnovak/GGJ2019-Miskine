@@ -61,7 +61,7 @@ public:
 	virtual void		OnEventTypeMalusTowerRadius			(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnEventTypeMalusTowerAttackAOE		(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 
-	virtual void		OnTowerCreated						(void) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerCreated						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnMoneyUpdated						(int iMoneyAmount) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnHPUpdated							(int iHPAmount) SH_ATTRIBUTE_OVERRIDE;
 protected:
