@@ -92,10 +92,6 @@ void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination)
 void Enemy::Stop(void)
 {
 	SetState(e_state_disappear);
-	
-	//
-	// Notify Plugin
-	static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_MEDIUM);
 }
 
 /**
@@ -234,7 +230,13 @@ void Enemy::Update(float dt)
 				}
 				else
 				{
+					//
+					// Destionation complete !
 					SetState(e_state_disappear);
+
+					//
+					// Notify Plugin
+					static_cast<Plugin*>(GetPlugin())->GetWorld().LooseHP();
 				}
 			}
 		}
@@ -257,8 +259,14 @@ void Enemy::TakeDamages(int damages)
 		ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(0.4f * (m_currentHealth / (float)m_baseHealth), 0.4f, 1.0f));
 
 		if (0 >= m_currentHealth)
-		{ // Dead
+		{ 
+			//
+			// Dead
 			Stop();
+	
+			//
+			// Notify Plugin
+			static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(DEFAULT_ENEMY_MONEY_GAIN_DIFFICULTY_MEDIUM);
 		}
 	}
 }
