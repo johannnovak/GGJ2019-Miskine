@@ -38,7 +38,7 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], const CShArray<ShEntity2*> aEntityCG[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
 	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
