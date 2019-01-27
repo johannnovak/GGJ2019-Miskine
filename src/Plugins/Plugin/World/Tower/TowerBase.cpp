@@ -238,3 +238,57 @@ int TowerBase::GetCurrentLevel(void)
 {
 	return m_level;
 }
+
+/**
+ * @brief GetType
+ */
+TowerBase::ETowerType TowerBase::GetType(void)
+{
+	return m_eTowerType;
+}
+
+/**
+ * @brief GetLevel
+ */
+int TowerBase::GetLevel(void)
+{
+	return m_level;
+}
+
+/**
+ * @brief GetNeededMoneyToUpgrade
+ */
+/*virtual*/ int TowerBase::GetNeededMoneyToUpgrade(void)
+{
+	int iCost = 0;
+	switch (m_eTowerType)
+	{
+		case TowerBase::tower_pere:		
+		{	
+			iCost = TOWER_PERE_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+
+		case TowerBase::tower_mere:		
+		{	
+			iCost = TOWER_MERE_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+
+		case TowerBase::tower_fille:	
+		{	
+			iCost = TOWER_FILLE_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+
+		case TowerBase::tower_fils:		
+		{	
+			iCost = TOWER_FILS_COST_DIFFICULTY_MEDIUM;
+		} 
+		break;
+	}
+
+	iCost = iCost * (1.0f + 0.5f * m_level);
+
+	return iCost;
+}

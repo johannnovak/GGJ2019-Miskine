@@ -42,19 +42,22 @@ public:
 		focus_biggest_lifebase,
 	};
 
-	explicit			TowerBase			(void);
-	virtual				~TowerBase			(void);
+	explicit			TowerBase					(void);
+	virtual				~TowerBase					(void);
 
-	virtual void		Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
-	virtual void		Release				(void);
+	virtual void		Initialize					(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	virtual void		Release						(void);
 
-	virtual void		Update				(float dt);
+	virtual void		Update						(float dt);
 
-	void				LevelUp				(void);
+	void				LevelUp						(void);
 
-	int					GetCurrentLevel		(void);
+	int					GetCurrentLevel				(void);
+	ETowerType			GetType						(void);
+	int					GetLevel					(void);
+	int					GetNeededMoneyToUpgrade		(void);
 
-	const CShVector2 &	GetPosition			(void) const
+	const CShVector2 &	GetPosition					(void) const
 	{
 		return m_vPosition;
 	}

@@ -69,13 +69,9 @@ bool TowerProjectile::Update(float dt)
 		return true;
 	}
 
-	// Check if projectile hited its target
-	//const CShVector2 & targetPos = m_pTarget->GetPosition();
-	//float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
-	//if (distSquared < 100.0f)
-	//{
-	//	return true;
-	//}
+	CShEulerAngles angle = ShEntity2::GetRotation(m_pEntity);
+	angle.m_z -= 0.01f * 60.0f * dt;
+	ShEntity2::Rotate(m_pEntity, angle);
 
 	return false;
 }

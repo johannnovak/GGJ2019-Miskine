@@ -151,9 +151,16 @@ void TowerRange::Update(float dt)
 				if (pTarget == m_pCurrentTarget)
 				{
 					m_pCurrentTarget = shNULL;
+					m_bIsAttacking = false;
+					ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+					m_eCurrentAnimationType = animation_idle;
+					m_currentSprite = 0;
+					ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 				}
-				m_aProjectile.Remove(i--);
 			}
+
+			m_aProjectile[i].Release();
+			m_aProjectile.Remove(i--);
 		}
 	}
 

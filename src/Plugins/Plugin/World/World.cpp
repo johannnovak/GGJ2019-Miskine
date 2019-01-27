@@ -33,6 +33,9 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	ShUser * pUser = ShUser::GetUser(0);
 	SH_ASSERT(shNULL != pUser);
 
+	ShSoundResource * pMusicMain = ShSoundResource::Find(CShIdentifier("music_main"));
+	ShSound::PlayMusic(pMusicMain, m_soundHandle);
+
 	m_inputManager.Initialize(pUser);
 
 	m_enemyManager.Initialize(levelIdentifier);
@@ -43,12 +46,6 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 	SH_ASSERT(shNULL != pDummy);
 
 	g_graph.Initialize(pDummy);
-
-	Node * pWPStart = g_graph.FindNearestWayPoint(CShVector2(-200.0f, 200.0f));
-	Node * pWPEnd = g_graph.FindNearestWayPoint(CShVector2(200.0f, -200.0f));
-
-	CShArray<Node*> aPoints;
-	g_graph.FindPath(pWPStart, pWPEnd, aPoints);
 
 	m_waveManager.Start();
 
@@ -64,6 +61,8 @@ void World::Release(void)
 	m_waveManager.Release();
 	m_enemyManager.Release();
 	m_towerManager.Release();
+
+	ShSound::Stop(m_soundHandle);
 }
 
 /**
@@ -75,6 +74,42 @@ void World::Update(float dt)
 	m_waveManager.Update(dt * m_fGameSpeed);
 	m_enemyManager.Update(dt * m_fGameSpeed);
 	m_towerManager.Update(dt * m_fGameSpeed);
+}
+
+/**
+ * @brief RegisterWorldListener
+ */
+bool World::RegisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+
+	m_pWorldListener = pListener;
+
+	return true;
+}
+
+/**
+ * @brief UnregisterWorldListener
+ */
+bool World::UnregisterWorldListener(IWorldListener * pListener)
+{
+	if (shNULL == pListener)
+	{
+		return false;
+	}
+	else if (m_pWorldListener != pListener)
+	{
+		return false;
+	}
+	else
+	{
+		m_pWorldListener = shNULL;
+
+		return true;
+	}
 }
 
 /**
@@ -148,6 +183,16 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 		m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
+
+		CShArray<Enemy*> aEnemyList;
+		m_enemyManager.GetEnemyList(aEnemyList);
+
+		for (int i = 0; i < aEnemyList.GetCount(); ++i)
+		{
+			CShArray<Node*> aNodes;
+			g_graph.FindPath(g_graph.FindNearestWayPoint(aEnemyList[i]->GetPosition()), g_graph.FindNearestWayPoint(CShVector2(196.0f, -305.0f)), aNodes);
+			aEnemyList[i]->SetPath(aNodes);
+		}
 	}
 }
 
@@ -165,6 +210,13 @@ void World::SetGameSpeed(float fGameSpeed)
 void World::LooseHP(void)
 {
 	m_iHP = shMax(0, m_iHP - 1);
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnHPUpdated(m_iHP);
+	}
 }
 
 /**
@@ -173,6 +225,13 @@ void World::LooseHP(void)
 void World::GainHP(void)
 {
 	++m_iHP;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnHPUpdated(m_iHP);
+	}
 }
 
 /**
@@ -181,6 +240,13 @@ void World::GainHP(void)
 void World::LooseMoney(int iAmountToLoose)
 {
 	m_iMoney = shMax(0, m_iMoney - iAmountToLoose);
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnMoneyUpdated(m_iMoney);
+	}
 }
 
 /**
@@ -189,4 +255,21 @@ void World::LooseMoney(int iAmountToLoose)
 void World::GainMoney(int iAmountToGain)
 {
 	m_iMoney += iAmountToGain;
+
+	//
+	// Notify listener
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnMoneyUpdated(m_iMoney);
+	}
 }
+
+/**
+ * @brief World::GetEnemyManager
+ * @return
+ */
+EnemyManager & World::GetEnemyManager(void)
+{
+	return m_enemyManager;
+}
+
