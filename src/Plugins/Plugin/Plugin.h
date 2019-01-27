@@ -36,4 +36,6 @@ private:
 
 	ShPrefab *			m_pSelectionCircle;
 	CShVector2			m_vSelectionPosition;
+	ShEntity2 *			m_apEntitesAvailable [4];
+	ShEntity2 *			m_apEntitesUnavailable[4];
 };
