@@ -40,18 +40,18 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	CShVector2 vEndPosition(196.0f, -305.0f);
 
 	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 0.0f);
-	InitWave(aStartPosition, vEndPosition, 2, 1.0f, 7.0f);
+	InitWave(aStartPosition, vEndPosition, 2, 1.0f, 3.0f);
 
-	InitWave(aStartPosition, vEndPosition, 5, 1.5f, 20.0f);
-	InitWave(aStartPosition, vEndPosition, 2, 0.7f, 35.0f);
+	InitWave(aStartPosition, vEndPosition, 5, 1.5f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 2, 0.7f, 3.0f);
 	
 	aStartPosition.Add(CShVector2(175.0f, 288.0f));
 
-	InitWave(aStartPosition, vEndPosition, 1, 0.5f, 35.0f);
-	InitWave(aStartPosition, vEndPosition, 5, 1.0f, 45.0f);
-	InitWave(aStartPosition, vEndPosition, 10, 1.0f, 50.0f);
-	InitWave(aStartPosition, vEndPosition, 4, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
+	InitWave(aStartPosition, vEndPosition, 4, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 10, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 5, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 4, 1.0f, 3.0f);
+	InitWave(aStartPosition, vEndPosition, 15, 0.5f, 10.0f);
 
 	aStartPosition.Add(CShVector2(-32.0f, -90.0f));
 
@@ -71,7 +71,7 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
 	InitWave(aStartPosition, vEndPosition, 1, 1.0f, 500.0f);
 	
-	m_iCurrentWave = 0;
+	m_iCurrentWave = -1;
 }
 
 /**
@@ -103,15 +103,18 @@ void WaveManager::Update(float dt)
 {
 	if (e_state_on == m_eState)
 	{
-		m_fTime += dt;
-
 		if (m_iCurrentWave < m_aWave.GetCount() - 1)
 		{
-			float fNextWaveStartTime = m_aWave[m_iCurrentWave].GetStartTime();
-			if (m_fTime > fNextWaveStartTime)
+			if (m_aWave[m_iCurrentWave].GetState() == Wave::e_state_off)
 			{
-				AddNextWave();
-				//m_fTime = m_fTime - fNextWaveStartTime;
+				m_fTime += dt;
+
+				float fNextWaveStartTime = m_aWave[m_iCurrentWave+1].GetStartTime();
+				if (m_fTime > fNextWaveStartTime)
+				{
+					AddNextWave();
+					m_fTime = 0.0f;
+				}
 			}
 		}
 
@@ -159,10 +162,10 @@ void WaveManager::Stop(void)
  */
 void WaveManager::AddNextWave(void)
 {
-	SH_TRACE("WAVE %d \n", m_iCurrentWave + 1);
-
+	m_iCurrentWave++;
+	SH_TRACE("WAVE %d \n", m_iCurrentWave);
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
 	wave.Start();
-	m_iCurrentWave++;
+	
 }

@@ -99,6 +99,7 @@ void Wave::Update(float dt)
 		{
 			if (m_fTime > m_fApparitionTime)
 			{
+				m_vStartPosition = m_aStartPosition[rand() % m_aStartPosition.GetCount()];
 				m_apRemainingActiveEnemy.Add(m_pEnemyManager->SpawnEnemy(EnemyManager::e_enemy_01, m_vStartPosition, m_vDestination));
 				m_iRemainingEnemy--;
 				m_fTime = m_fTime - m_fApparitionTime;
