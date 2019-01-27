@@ -231,7 +231,6 @@ void Enemy::TakeDamages(int damages)
 {
 	if (m_eState == e_state_on)
 	{
-		SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
 		m_currentHealth = shMax(0, m_currentHealth - damages);
 
 		ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(0.4f * (m_currentHealth / (float)m_baseHealth), 0.4f, 1.0f));

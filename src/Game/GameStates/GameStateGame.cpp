@@ -22,6 +22,7 @@ GameStateGame::GameStateGame(void)
 , m_pMenu(shNULL)
 , m_amepModeImages()
 , m_pEditBoxHidden(shNULL)
+, m_pTextPopup(shNULL)
 {
 	// ...
 }
@@ -83,6 +84,9 @@ void GameStateGame::init(void)
 
 	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pEditBoxHidden);
+
+	m_pTextPopup = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_popup").Append(strSuffix.Get()), ShGUI::GetRootControl()));
+	SH_ASSERT(shNULL != m_pTextPopup);
 }
 
 /**
@@ -103,12 +107,13 @@ void GameStateGame::entered(void)
 	{
 		SH_ASSERT_ALWAYS();
 	}
-	ShGUIControlPanel::Show(m_pMainPanel);
 
 	//
 	// Register variables for Player2EventManager
-	static_cast<Plugin*>(GetPlugin())->GetPlayer2EventManager().RegisterEditBoxHidden(m_pEditBoxHidden);
-	static_cast<Plugin*>(GetPlugin())->GetPlayer2EventManager().RegisterListener(this);
+	Player2EventManager::GetInstance().RegisterEditBoxHidden(m_pEditBoxHidden);
+	Player2EventManager::GetInstance().RegisterListener(this);
+
+	ShGUIControlPanel::Show(m_pMainPanel);
 }
 
 /**
@@ -198,6 +203,19 @@ void GameStateGame::OnEventTypeBegin(Player2Event *pEvent)
 {
 	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
 	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_WHITE);
+	switch (pEvent->GetType())
+	{
+		case e_player2_event_type_type_words:
+		{
+			Player2EventTypeWords * pCastedEvent = static_cast<Player2EventTypeWords*>(pEvent);
+			ShGUIControlText::SetText(m_pTextPopup, pCastedEvent->GetWordToType());
+			break;
+		}
+		default:
+		{
+			break;
+		}
+	}
 }
 
 /**

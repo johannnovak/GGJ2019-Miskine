@@ -9,7 +9,7 @@ class Player2EventTypeWords : public Player2Event
 public:
 	explicit					Player2EventTypeWords	(void);
 	explicit					Player2EventTypeWords	(const CShWString & strWordToType);
-	virtual						~Player2EventTypeWords	(void);
+	virtual						~Player2EventTypeWords	(void) SH_ATTRIBUTE_OVERRIDE;
 	
 	virtual void				Initialize				(void) SH_ATTRIBUTE_OVERRIDE;
 	virtual void				Release					(void) SH_ATTRIBUTE_OVERRIDE;
@@ -19,14 +19,17 @@ public:
 	virtual EPlayer2EventType	GetType					(void) SH_ATTRIBUTE_OVERRIDE;
 	
 	void						SetWordToType			(const CShWString & wstrWordToType);
+	const CShWString &			GetWordToType			(void);
+
 protected:
 	virtual void				ResetInternal			(void) SH_ATTRIBUTE_OVERRIDE;
 private:
 	static void					SerializeDictionnary	(void);
 
 public:
+protected:
+private:
 	ShUser *					m_pUser;
-
 	CShWString					m_wstrWordToType;
 	int							m_iCurrentIndex;
 

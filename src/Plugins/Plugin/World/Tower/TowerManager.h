@@ -30,6 +30,6 @@ private:
 
 	EnemyManager *			m_pEnemyManager;
 
-	CShArray<TowerBase>		m_aTowerList;
+	CShArray<TowerBase *>		m_aTowerList;
 };
 

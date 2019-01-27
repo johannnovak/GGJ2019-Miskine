@@ -94,49 +94,7 @@ void TowerBase::Release(void)
  */
 void TowerBase::Update(float dt)
 {
-	m_fAnimationDt += dt;
-	if (m_fAnimationDt >= m_fAnimationSpeed)
-	{
-		m_fAnimationDt = 0.0f;
-		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite++], false);
-
-		if (m_currentSprite >= m_aAttackAnimation[m_eCurrentAnimationType].GetCount())
-		{ // Animation ended
-			m_currentSprite = 0;
-
-			if (m_bIsAttacking)
-			{
-				m_pCurrentTarget->TakeDamages(m_damages);
-
-				if (-1 != m_fAOERange)
-				{ // Hit enemies in currentTarget range
-					const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
-
-					CShArray<Enemy*> aEnemyList;
-					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
-
-					int nEnemyCount = aEnemyList.GetCount();
-					for (int i = 0; i < nEnemyCount; ++i)
-					{
-						// Damages / 2
-						aEnemyList[i]->TakeDamages(m_damages * 0.5f);
-					}
-				}
-
-				if (m_pCurrentTarget->IsDead())
-				{
-					m_pCurrentTarget = shNULL;
-				}
-
-				m_bIsAttacking = false;
-				m_fAttackCooldown = m_fAttackSpeed;
-				m_eCurrentAnimationType = animation_idle;
-			}
-		}
-
-		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
-	}
-
+	// Search for target
 	if (!m_bIsAttacking)
 	{
 		m_fAttackCooldown += dt;
@@ -213,7 +171,6 @@ void TowerBase::Update(float dt)
 
 				if (-1 != currentId)
 				{
-					SH_TRACE("FOCUS ENEMY\n");
 					m_pCurrentTarget = aEnemyList[currentId];
 				}
 			}
@@ -226,25 +183,28 @@ void TowerBase::Update(float dt)
 
 			const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
-			float angle = SHC_RAD2DEG * shAtan2f(targetPos.m_x - m_vPosition.m_x, targetPos.m_y - m_vPosition.m_y);
-			if (angle < 0)
+			float theta = shAtan2f(targetPos.m_y - m_vPosition.m_y, targetPos.m_x - m_vPosition.m_x);
+			theta += SHC_PI / 2.0f;
+			float angle = theta * SHC_RAD2DEG;
+
+			if (angle < 0) 
 			{
 				angle += 360;
 			}
 
 			EAnimationType eCurrentAnim = m_eCurrentAnimationType;
 
-			if (angle > -45.0f && angle <= 45.0f)
-			{ // Top
-				eCurrentAnim = animation_top;
+			if (angle > 315.0f || angle <= 45.0f)
+			{ // Bottom
+				eCurrentAnim = animation_bottom;
 			}
 			else if (angle > 45.0f && angle <= 135)
 			{ // Right
 				eCurrentAnim = animation_right;
 			}
 			else if (angle > 135 && angle <= 225)
-			{ // Bottom
-				eCurrentAnim = animation_bottom;
+			{ // Top
+				eCurrentAnim = animation_top;
 			}
 			else
 			{ // Left

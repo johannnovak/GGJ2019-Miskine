@@ -105,6 +105,15 @@ void Player2EventTypeWords::SetWordToType(const CShWString & wstrWordToType)
 }
 
 /**
+ * @brief Player2EventTypeWords::GetWordToType
+ * @return
+ */
+const CShWString &Player2EventTypeWords::GetWordToType(void)
+{
+	return m_wstrWordToType;
+}
+
+/**
  * @brief ResetInternal
  */
 /*virtual*/ void Player2EventTypeWords::ResetInternal(void)
@@ -112,16 +121,9 @@ void Player2EventTypeWords::SetWordToType(const CShWString & wstrWordToType)
 	const CShArray<CShWString> * aDifficulty = s_aawstrDictionnary.Find(m_eDifficulty);
 	int iWordsCount = aDifficulty->GetCount();
 	int iIndex	= -1;
-	int iLength	= -1;
-	do
-	{
-		iIndex	= static_cast<int>(std::rand() * (iWordsCount - 1));	// [0;count[
-		iLength	= static_cast<int>(std::rand() * (iWordsCount*0.5f));	// [0;count/2[
-	}
-	while (iIndex + iLength > iWordsCount);
 
-	const int iFinalIndex = static_cast<int>(std::rand() * (iLength - 1));	// [0;iLength[
-	SetWordToType(aDifficulty->At(iFinalIndex));
+	iIndex	= static_cast<int>(std::rand() % (iWordsCount - 1));	// [0;count[
+	SetWordToType(aDifficulty->At(iIndex));
 }
 
 /**
@@ -161,48 +163,45 @@ void Player2EventTypeWords::SetWordToType(const CShWString & wstrWordToType)
 		aDifficultyLow->Add(CShWString(L"ultracentenarianism"));
 		aDifficultyLow->Add(CShWString(L"unbend"));
 		aDifficultyLow->Add(CShWString(L"uncontemptuousness"));
-		aDifficultyLow->Add(CShWString(L"underplanting"));
-		aDifficultyLow->Add(CShWString(L"unsuppositional"));
-		aDifficultyLow->Add(CShWString(L"unwillingly"));
-		aDifficultyLow->Add(CShWString(L"uptown"));
-		aDifficultyLow->Add(CShWString(L"vacation"));
-		aDifficultyLow->Add(CShWString(L"vandalize"));
-		aDifficultyLow->Add(CShWString(L"violent"));
-		aDifficultyLow->Add(CShWString(L"wine"));
-		aDifficultyLow->Add(CShWString(L"woeful"));
-		aDifficultyLow->Add(CShWString(L"woman"));
-		aDifficultyLow->Add(CShWString(L"wraps"));
-		aDifficultyLow->Add(CShWString(L"wrinkles"));
-		aDifficultyLow->Add(CShWString(L"wrongfully"));
-		aDifficultyLow->Add(CShWString(L"xenophile"));
-		aDifficultyLow->Add(CShWString(L"xerxes"));
-		aDifficultyLow->Add(CShWString(L"zeal"));
-		aDifficultyLow->Add(CShWString(L"zenocentric"));
-		aDifficultyLow->Add(CShWString(L"zestfulnesses"));
-		aDifficultyLow->Add(CShWString(L"zesty"));
-		aDifficultyLow->Add(CShWString(L"ZIP"));
-		aDifficultyLow->Add(CShWString(L"zodiac"));
-		aDifficultyLow->Add(CShWString(L"zombie"));
-		aDifficultyLow->Add(CShWString(L"Zonurus"));
-		aDifficultyLow->Add(CShWString(L"zoo"));
-		aDifficultyLow->Add(CShWString(L"zoo"));
-		aDifficultyLow->Add(CShWString(L"zoonomia"));
-		aDifficultyLow->Add(CShWString(L"zoonomic"));
-		aDifficultyLow->Add(CShWString(L"zoophysicist"));
 
 		//
 		// Add string to medium entry
 		CShArray<CShWString> * aDifficultyMedium = s_aawstrDictionnary.Find(e_player2_event_difficulty_medium);
-		aDifficultyMedium = aDifficultyLow;
+		aDifficultyMedium->Add(CShWString(L"underplanting"));
+		aDifficultyMedium->Add(CShWString(L"unsuppositional"));
+		aDifficultyMedium->Add(CShWString(L"unwillingly"));
+		aDifficultyMedium->Add(CShWString(L"uptown"));
+		aDifficultyMedium->Add(CShWString(L"vacation"));
+		aDifficultyMedium->Add(CShWString(L"vandalize"));
+		aDifficultyMedium->Add(CShWString(L"violent"));
 
 		//
 		// Add string to high entry
 		CShArray<CShWString> * aDifficultyHigh = s_aawstrDictionnary.Find(e_player2_event_difficulty_high);
-		aDifficultyHigh = aDifficultyLow;
+		aDifficultyHigh->Add(CShWString(L"wine"));
+		aDifficultyHigh->Add(CShWString(L"woeful"));
+		aDifficultyHigh->Add(CShWString(L"woman"));
+		aDifficultyHigh->Add(CShWString(L"wraps"));
+		aDifficultyHigh->Add(CShWString(L"wrinkles"));
+		aDifficultyHigh->Add(CShWString(L"wrongfully"));
+		aDifficultyHigh->Add(CShWString(L"xenophile"));
+		aDifficultyHigh->Add(CShWString(L"xerxes"));
+		aDifficultyHigh->Add(CShWString(L"zeal"));
+		aDifficultyHigh->Add(CShWString(L"zenocentric"));
+		aDifficultyHigh->Add(CShWString(L"zestfulnesses"));
 
 		//
 		// Add string to hardcore entry
 		CShArray<CShWString> * aDifficultyHardcore = s_aawstrDictionnary.Find(e_player2_event_difficulty_hardcore);
-		aDifficultyHardcore = aDifficultyLow;
+		aDifficultyHardcore->Add(CShWString(L"zesty"));
+		aDifficultyHardcore->Add(CShWString(L"ZIP"));
+		aDifficultyHardcore->Add(CShWString(L"zodiac"));
+		aDifficultyHardcore->Add(CShWString(L"zombie"));
+		aDifficultyHardcore->Add(CShWString(L"Zonurus"));
+		aDifficultyHardcore->Add(CShWString(L"zoo"));
+		aDifficultyHardcore->Add(CShWString(L"zoo"));
+		aDifficultyHardcore->Add(CShWString(L"zoonomia"));
+		aDifficultyHardcore->Add(CShWString(L"zoonomic"));
+		aDifficultyHardcore->Add(CShWString(L"zoophysicist"));
 	}
 }
