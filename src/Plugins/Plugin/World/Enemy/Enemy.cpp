@@ -26,7 +26,7 @@ Enemy::Enemy(void)
 , m_aNodes()
 , m_iDestinationNode(0)
 , m_fAnimationDt(0.0f)
-, m_fAnimationSpeed(0.4f)
+, m_fAnimationSpeed(0.2f)
 , m_currentSprite(0)
 , m_eCurrentAnimationType(animation_bottom)
 , m_aMoveAnimation()
@@ -263,24 +263,47 @@ void Enemy::Update(float dt)
 				if (newAnimType != m_eCurrentAnimationType)
 				{
 					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false, false);
+					ShEntity2::SetShow(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], false, false);
 					m_eCurrentAnimationType = newAnimType;
 					m_currentSprite = 0;
-					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
 					ShEntity2::SetPosition2(m_aMoveAnimation[0][0], m_vPosition);
-					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+					if (1.0f != m_fSlowEffect)
+					{
+						ShEntity2::SetShow(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], true);
+						ShEntity2::SetPosition2(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+					}
+					else
+					{
+						ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+						ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+					}
 				}
 				else
 				{
-					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition); 
 					ShEntity2::SetPosition2(m_aMoveAnimation[0][0], m_vPosition);
+					if (1.0f != m_fSlowEffect)
+					{
+						ShEntity2::SetPosition2(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+					}
+					else
+					{
+						ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+					}
 				}
 			}
 			else
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_v.m_y;
-				ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
 				ShEntity2::SetPosition2(m_aMoveAnimation[0][0], m_vPosition);
+				if (1.0f != m_fSlowEffect)
+				{
+					ShEntity2::SetPosition2(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+				}
+				else
+				{
+					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+				}
 
 				if (m_iDestinationNode < m_aNodes.GetCount() - 1)
 				{
@@ -306,14 +329,23 @@ void Enemy::Update(float dt)
 		if (m_fAnimationDt >= m_fAnimationSpeed)
 		{
 			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false, false);
+			ShEntity2::SetShow(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], false, false);
 
 			int nSprite = m_aMoveAnimation[m_eCurrentAnimationType].GetCount();
 			m_currentSprite++;
 			m_currentSprite %= nSprite;
 
-			ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
 			ShEntity2::SetPosition2(m_aMoveAnimation[0][0], m_vPosition);
-			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+			if (1.0f != m_fSlowEffect)
+			{
+				ShEntity2::SetShow(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], true);
+				ShEntity2::SetPosition2(m_aMoveAnimationCG[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+			}
+			else
+			{
+				ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], true);
+				ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
+			}
 
 			m_fAnimationDt = 0.0f;
 		}
