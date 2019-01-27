@@ -12,7 +12,7 @@
 Enemy::Enemy(void)
 : m_eState(e_state_off)
 , m_fStateTime(0.0f)
-, m_fSpeed(1.0f)
+, m_fSpeed(50.0f)
 , m_fSlowEffect(1.0f)
 , m_fSlowTime(5.0f)
 , m_fSlowDt(0.0f)
