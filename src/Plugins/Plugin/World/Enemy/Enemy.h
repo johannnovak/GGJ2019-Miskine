@@ -89,5 +89,6 @@ private:
 	int						m_currentSprite;
 	EAnimationType			m_eCurrentAnimationType;
 	CShArray<ShEntity2 *>	m_aMoveAnimation[animation_max];
+	CShArray<ShEntity2 *>	m_aMoveAnimationCG[animation_max];
 };
 
