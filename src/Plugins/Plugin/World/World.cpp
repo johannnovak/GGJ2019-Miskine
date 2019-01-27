@@ -8,6 +8,8 @@
  */
 World::World(void)
 : m_fGameSpeed(1.0f)
+, m_iHP(DEFAULT_HP_DIFFICULTY_MEDIUM)
+, m_iMoney(DEFAULT_MONEY_DIFFICULTY_MEDIUM)
 {
 	// ...
 }
@@ -145,4 +147,36 @@ void World::CreateTower(const CShVector2 & position)
 void World::SetGameSpeed(float fGameSpeed)
 {
 	m_fGameSpeed = fGameSpeed;
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::LooseHP(void)
+{
+	--m_iHP;
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::GainHP(void)
+{
+	++m_iHP;
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::LooseMoney(int iAmountToLoose)
+{
+	m_iMoney = shMax(0, m_iMoney - iAmountToLoose);
+}
+
+/**
+ * @brief SetGameSpeed
+ */
+void World::GainMoney(int iAmountToGain)
+{
+	m_iMoney += iAmountToGain;
 }
