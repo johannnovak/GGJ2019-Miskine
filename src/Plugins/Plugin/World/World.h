@@ -43,6 +43,11 @@ public:
 	void					LooseMoney		(int iAmountToLoose);
 	void					GainMoney		(int iAmountToGain);
 
+	int	GetMoney() const
+	{
+		return m_iMoney;
+	}
+
 private:
 
 	PluginInputManager		m_inputManager;
