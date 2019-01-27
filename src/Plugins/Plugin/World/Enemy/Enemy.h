@@ -48,7 +48,9 @@ private:
 	EState					m_eState;
 	float					m_fStateTime;
 	float					m_fSpeed;
-	float					m_slowEffect;
+	float					m_fSlowEffect;
+	float					m_fSlowTime;
+	float					m_fSlowDt;
 
 	ShEntity2 *				m_pEntityLifeBar;
 

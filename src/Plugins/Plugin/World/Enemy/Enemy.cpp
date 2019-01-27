@@ -8,7 +8,9 @@ Enemy::Enemy(void)
 : m_eState(e_state_off)
 , m_fStateTime(0.0f)
 , m_fSpeed(1.0f)
-, m_slowEffect(1)
+, m_fSlowEffect(1.0f)
+, m_fSlowTime(5.0f)
+, m_fSlowDt(0.0f)
 , m_pEntityLifeBar(shNULL)
 , m_vPosition(CShVector2::ZERO)
 , m_vStartPosition(CShVector2::ZERO)
@@ -163,6 +165,15 @@ void Enemy::Update(float dt)
 {
 	m_fStateTime += dt;
 
+	if (m_fSlowEffect != 1.0f)
+	{
+		m_fSlowDt += dt;
+		if (m_fSlowDt >= m_fSlowTime)
+		{
+			m_fSlowEffect = 1.0f;
+		}
+	}
+
 	if (e_state_appear == m_eState)
 	{
 		if (m_fStateTime < 1.0f)
@@ -192,7 +203,7 @@ void Enemy::Update(float dt)
 	{	
 		if (m_iDestinationNode < m_aNodes.GetCount())
 		{
-			m_fCompletion += dt * ((m_fSpeed * m_slowEffect) / (1.0f + m_v.GetLength()));
+			m_fCompletion += dt * ((m_fSpeed * m_fSlowEffect) / (1.0f + m_v.GetLength()));
 
 			if (m_fCompletion < 1.0f)
 			{
@@ -245,7 +256,8 @@ void Enemy::TakeDamages(int damages)
 
 void Enemy::TakeSlowEffect(float ratio)
 {
-	m_slowEffect = ratio;
+	m_fSlowEffect = ratio;
+	m_fSlowDt = 0.0f;
 }
 
 const CShVector2 & Enemy::GetPosition(void) const

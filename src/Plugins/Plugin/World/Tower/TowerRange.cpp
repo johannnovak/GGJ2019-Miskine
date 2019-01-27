@@ -2,8 +2,6 @@
 #include "TowerBase.h"
 #include "TowerProjectile.h"
 
-#include "ShSDK/ShSDK.h"
-
 #include "../Enemy/EnemyManager.h"
 
 /**

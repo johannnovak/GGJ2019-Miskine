@@ -98,26 +98,6 @@ void TowerSupport::Update(float dt)
 			{
 				m_pCurrentTarget->TakeSlowEffect(0.5f);
 
-				if (-1 != m_fAOERange)
-				{ // Hit enemies in currentTarget range
-					const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
-
-					CShArray<Enemy*> aEnemyList;
-					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
-
-					int nEnemyCount = aEnemyList.GetCount();
-					for (int i = 0; i < nEnemyCount; ++i)
-					{
-						// Damages / 2
-						aEnemyList[i]->TakeDamages(m_damages * 0.5f);
-					}
-				}
-
-				if (m_pCurrentTarget->IsDead())
-				{
-					m_pCurrentTarget = shNULL;
-				}
-
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;
 				m_eCurrentAnimationType = animation_idle;
