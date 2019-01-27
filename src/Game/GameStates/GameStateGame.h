@@ -79,7 +79,7 @@ private:
 	ShGUIControlText *									m_pUserName;
 	ShGUIControlText *									m_pMoneyValue;
 	ShGUIControlText *									m_pHPValue;
-	ShGUIControlText *									m_pMHPTotal;
+	ShGUIControlText *									m_pHPTotal;
 	ShGUIControlRadioButton *							m_pPause;
 	ShGUIControlRadioButton *							m_pPlay;
 	ShGUIControlRadioButton *							m_pFastForward;
