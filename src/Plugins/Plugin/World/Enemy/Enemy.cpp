@@ -12,7 +12,7 @@
 Enemy::Enemy(void)
 : m_eState(e_state_off)
 , m_fStateTime(0.0f)
-, m_fSpeed(50.0f)
+, m_fSpeed(10.0f)
 , m_fSlowEffect(1.0f)
 , m_fSlowTime(5.0f)
 , m_fSlowDt(0.0f)
@@ -49,7 +49,6 @@ void Enemy::Initialize(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLif
 	m_eState = e_state_off;
 	m_aMoveAnimation = aEntity;
 	m_baseHealth = iBaseHealth;
-
 	m_pEntityLifeBar = pEntityLifebar;
 }
 
@@ -69,11 +68,12 @@ void Enemy::Release(void)
 /**
  * @brief Start
  */
-void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination)
+void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination, float fSpeed)
 {
 	m_currentHealth = m_baseHealth;
 	m_vPosition = position;
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
+	m_fSpeed = fSpeed;
 
 	ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], position);
 	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[m_currentSprite]) + 0.01f);

@@ -30,7 +30,7 @@ public:
 	void				Initialize			(const CShArray<ShEntity2*> aEntity, ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
-	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination);
+	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
 	void				Stop				(void);
 
 	void				SetPath				(const CShArray<Node*> & aNodes);

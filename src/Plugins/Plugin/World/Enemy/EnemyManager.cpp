@@ -118,7 +118,7 @@ void EnemyManager::Update(float dt)
 /**
  * @brief CreateEnemies
  */
-Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination)
+Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed)
 {
 	Enemy * pEnemy = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
 
@@ -126,7 +126,7 @@ Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, co
 	m_aiCurrentEnemy[eEnemy] %= POOL_SIZE;
 		
 	m_apActiveEnemy.Add(pEnemy);
-	pEnemy->Start(vPosition, vDestination);
+	pEnemy->Start(vPosition, vDestination, fSpeed);
 
 	return pEnemy;
 }
