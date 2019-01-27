@@ -213,7 +213,6 @@ void TowerBase::Update(float dt)
 
 				if (-1 != currentId)
 				{
-					SH_TRACE("FOCUS ENEMY\n");
 					m_pCurrentTarget = aEnemyList[currentId];
 				}
 			}
@@ -226,25 +225,28 @@ void TowerBase::Update(float dt)
 
 			const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
-			float angle = SHC_RAD2DEG * shAtan2f(targetPos.m_x - m_vPosition.m_x, targetPos.m_y - m_vPosition.m_y);
-			if (angle < 0)
+			float theta = shAtan2f(targetPos.m_y - m_vPosition.m_y, targetPos.m_x - m_vPosition.m_x);
+			theta += SHC_PI / 2.0f;
+			float angle = theta * SHC_RAD2DEG;
+
+			if (angle < 0) 
 			{
 				angle += 360;
 			}
 
 			EAnimationType eCurrentAnim = m_eCurrentAnimationType;
 
-			if (angle > -45.0f && angle <= 45.0f)
-			{ // Top
-				eCurrentAnim = animation_top;
+			if (angle > 315.0f || angle <= 45.0f)
+			{ // Bottom
+				eCurrentAnim = animation_bottom;
 			}
 			else if (angle > 45.0f && angle <= 135)
 			{ // Right
 				eCurrentAnim = animation_right;
 			}
 			else if (angle > 135 && angle <= 225)
-			{ // Bottom
-				eCurrentAnim = animation_bottom;
+			{ // Top
+				eCurrentAnim = animation_top;
 			}
 			else
 			{ // Left
