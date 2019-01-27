@@ -443,6 +443,31 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 	SH_UNUSED(fDurationTime);
 }
 
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
+ */
+/*virtual*/ void GameStateGame::OnTowerCreated(void)
+{
+	// ...
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
+ */
+/*virtual*/ void GameStateGame::OnMoneyUpdated(int iMoneyAmount)
+{
+	ShGUIControlText::SetText(m_pMoneyValue, CShString::FromInt(iMoneyAmount));
+}
+
+/**
+ * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
+ */
+/*virtual*/ void GameStateGame::OnHPUpdated(int iHPAmount)
+{
+	ShGUIControlText::SetText(m_pHPValue, CShString::FromInt(iHPAmount));
+}
+
 /**
  * @brief GameStateGame::OnGUIMenuClicked
  */

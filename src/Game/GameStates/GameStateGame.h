@@ -3,9 +3,10 @@
 #include "GameState.h"
 
 #include <ShSDK/ShSDK.h>
-#include "Players/IPlayer2EventListener.h"
+#include "../../Plugins/Plugin/Players/IPlayer2EventListener.h"
+#include "World/IWorldListener.h"
 
-class GameStateGame : public GameState, public IPlayer2EventListener
+class GameStateGame : public GameState, public IPlayer2EventListener, public IWorldListener
 {
 
 public:
@@ -59,6 +60,10 @@ public:
 	virtual void		OnEventTypeMalusTowerAttackSpeed	(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnEventTypeMalusTowerRadius			(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnEventTypeMalusTowerAttackAOE		(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
+
+	virtual void		OnTowerCreated						(void) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnMoneyUpdated						(int iMoneyAmount) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnHPUpdated							(int iHPAmount) SH_ATTRIBUTE_OVERRIDE;
 protected:
 private:
 	static bool			OnGUIMenuClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
