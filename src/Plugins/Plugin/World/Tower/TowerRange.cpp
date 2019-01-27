@@ -1,7 +1,6 @@
 #include "TowerRange.h"
 #include "TowerBase.h"
-
-#include "ShSDK/ShSDK.h"
+#include "TowerProjectile.h"
 
 #include "../Enemy/EnemyManager.h"
 
@@ -38,8 +37,7 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 			
 	switch (towerType)
 	{
-		case tower_pere : sprintf(szSpriteIdentifier, "fille"); break;
-		case tower_mere: sprintf(szSpriteIdentifier, "fils"); break;
+		case tower_fils: sprintf(szSpriteIdentifier, "fils"); break;
 		default: sprintf(szSpriteIdentifier, "fils"); break;
 	}
 
@@ -80,7 +78,12 @@ void TowerRange::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
  */
 void TowerRange::Release(void)
 {
-	ShEntity2::Destroy(m_pProjectile);
+	int nProjectileCount = m_aProjectile.GetCount();
+	for (int i = 0; i < nProjectileCount; ++i)
+	{
+		m_aProjectile[i].Release();
+	}
+	m_aProjectile.Empty();
 
 	TowerBase::Release();
 }
@@ -103,8 +106,12 @@ void TowerRange::Update(float dt)
 			if (m_bIsAttacking)
 			{
 				// Create + launch projectile
-				m_pProjectile = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
-				SH_ASSERT(shNULL != m_pProjectile);
+				ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("fils_projectile"), CShVector3(m_vPosition, 11.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f));
+				SH_ASSERT(shNULL != pEntity);
+
+				TowerProjectile projectile;
+				projectile.Initialize(m_vPosition, 20.0f, m_pCurrentTarget, pEntity);
+				m_aProjectile.Add(projectile);
 
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;
@@ -116,17 +123,17 @@ void TowerRange::Update(float dt)
 	}
 
 	// Update projectiles
+	for (int i = 0; i < m_aProjectile.GetCount(); ++i)
 	{
-		// Move
+		if (m_aProjectile[i].Update(dt))
+		{ // Target hited
 
-		// Check if projectile hited its the target
-		if (false)
-		{
-			m_pCurrentTarget->TakeDamages(m_damages);
+			Enemy * pTarget = m_aProjectile[i].GetTarget();
+			pTarget->TakeDamages(m_damages);
 
 			if (-1 != m_fAOERange)
-			{ // Hit enemies in currentTarget range
-				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
+			{ 
+				const CShVector2 & targetPos = m_aProjectile[i].GetPosition();
 
 				CShArray<Enemy*> aEnemyList;
 				m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -139,9 +146,13 @@ void TowerRange::Update(float dt)
 				}
 			}
 
-			if (m_pCurrentTarget->IsDead())
+			if (pTarget->IsDead())
 			{
-				m_pCurrentTarget = shNULL;
+				if (pTarget == m_pCurrentTarget)
+				{
+					m_pCurrentTarget = shNULL;
+				}
+				m_aProjectile.Remove(i--);
 			}
 		}
 	}

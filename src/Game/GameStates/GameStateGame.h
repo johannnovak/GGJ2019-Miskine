@@ -61,7 +61,10 @@ public:
 	virtual void		OnEventTypeMalusTowerAttackAOE		(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 protected:
 private:
-
+	static bool			OnGUIMenuClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
+	static bool			OnGUIPauseSelected					(ShGUIControl * pControl);
+	static bool			OnGUIPlaySelected					(ShGUIControl * pControl);
+	static bool			OnGUIFastForwardSelected			(ShGUIControl * pControl);
 public:
 protected:
 private:

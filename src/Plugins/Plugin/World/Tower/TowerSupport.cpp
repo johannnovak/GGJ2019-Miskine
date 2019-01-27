@@ -1,16 +1,12 @@
-#include "TowerMelee.h"
+#include "TowerSupport.h"
 #include "TowerBase.h"
 
 #include "../Enemy/EnemyManager.h"
-#include "../Enemy/Enemy.h"
-
-#include "../../Plugin.h"
 
 /**
  * @brief Constructor
  */
-TowerMelee::TowerMelee(void)
-: TowerBase()
+TowerSupport::TowerSupport()
 {
 
 }
@@ -18,7 +14,7 @@ TowerMelee::TowerMelee(void)
 /**
  * @brief Destructor
  */
-TowerMelee::~TowerMelee(void)
+TowerSupport::~TowerSupport(void)
 {
 	// ...
 }
@@ -26,22 +22,21 @@ TowerMelee::~TowerMelee(void)
 /**
  * @brief Initialize
  */
-void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerSupport::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
-	m_eTowerAttackType = tower_melee;
+	m_eTowerAttackType = tower_support;
 
 	m_fRadiusMin = 10.0f;
 	m_fRadiusMax = 200.0f;
 
-	TowerBase::Initialize(levelIdentifier, pEnemyManager, towerType, focusType, position, damages, attackSpeed, rangeAOE);
+	TowerBase::Initialize(levelIdentifier, pEnemyManager, towerType, focusType, position, damages, attackSpeed, rangeAOE);	
 
 	char szSpriteIdentifier[1024];
 			
 	switch (towerType)
 	{
-		case tower_pere : sprintf(szSpriteIdentifier, "pere"); break;
-		case tower_mere: sprintf(szSpriteIdentifier, "mere"); break;
-		default: sprintf(szSpriteIdentifier, "pere"); break;
+		case tower_fille : sprintf(szSpriteIdentifier, "fille"); break;
+		default: sprintf(szSpriteIdentifier, "fille"); break;
 	}
 
 	char szDirection[32];
@@ -50,7 +45,7 @@ void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 	{
 		switch ((EAnimationType)i)
 		{
-			case animation_top:sprintf(szDirection, "attack_back");break;
+			case animation_top:sprintf(szDirection, "attack_back"); break;
 			case animation_bottom:sprintf(szDirection, "attack_front"); break;
 			case animation_left:sprintf(szDirection, "attack_left"); break;
 			case animation_right:sprintf(szDirection, "attack_right"); break;
@@ -79,15 +74,15 @@ void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 /**
  * @brief Release
  */
-void TowerMelee::Release(void)
+void TowerSupport::Release(void)
 {
-
+	TowerBase::Release();
 }
 
 /**
  * @brief Update
  */
-void TowerMelee::Update(float dt)
+void TowerSupport::Update(float dt)
 {
 	m_fAnimationDt += dt;
 	if (m_fAnimationDt >= m_fAnimationSpeed)
@@ -101,27 +96,7 @@ void TowerMelee::Update(float dt)
 
 			if (m_bIsAttacking)
 			{
-				m_pCurrentTarget->TakeDamages(m_damages);
-
-				if (-1 != m_fAOERange)
-				{ // Hit enemies in currentTarget range
-					const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
-
-					CShArray<Enemy*> aEnemyList;
-					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
-
-					int nEnemyCount = aEnemyList.GetCount();
-					for (int i = 0; i < nEnemyCount; ++i)
-					{
-						// Damages / 2
-						aEnemyList[i]->TakeDamages(m_damages * 0.5f);
-					}
-				}
-
-				if (m_pCurrentTarget->IsDead())
-				{
-					m_pCurrentTarget = shNULL;
-				}
+				m_pCurrentTarget->TakeSlowEffect(0.5f);
 
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;

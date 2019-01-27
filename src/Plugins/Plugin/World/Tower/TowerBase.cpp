@@ -1,7 +1,5 @@
 #include "TowerBase.h"
 
-#include "ShSDK/ShSDK.h"
-
 #include "../Enemy/EnemyManager.h"
 #include "../Enemy/Enemy.h"
 

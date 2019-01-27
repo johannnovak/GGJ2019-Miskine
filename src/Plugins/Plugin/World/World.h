@@ -5,6 +5,14 @@
 #include "Enemy/EnemyManager.h"
 #include "Tower/TowerManager.h"
 
+#define DEFAULT_HP_DIFFICULTY_LOW 20
+#define DEFAULT_HP_DIFFICULTY_MEDIUM 15
+#define DEFAULT_HP_DIFFICULTY_HIGH 10
+
+#define DEFAULT_MONEY_DIFFICULTY_LOW 200
+#define DEFAULT_MONEY_DIFFICULTY_MEDIUM 150
+#define DEFAULT_MONEY_DIFFICULTY_HIGH 100
+
 class World
 {
 public:
@@ -17,7 +25,16 @@ public:
 
 	void		Update			(float dt);
 
-	void		CreateTower		(const CShVector2 & position);
+	bool		CanCreateTowerAtPos		(const CShVector2 & position);
+	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
+
+	void		SetGameSpeed	(float fGameSpeed);
+
+	void		LooseHP			(void);
+	void		GainHP			(void);
+
+	void		LooseMoney		(int iAmountToLoose);
+	void		GainMoney		(int iAmountToGain);
 
 private:
 
@@ -26,5 +43,11 @@ private:
 	WaveManager			m_waveManager;
 	EnemyManager		m_enemyManager;
 	TowerManager		m_towerManager;
+
+	CShIdentifier		m_levelIdentifier;
+
+	float				m_fGameSpeed;
+	int					m_iHP;
+	int					m_iMoney;
 };
 
