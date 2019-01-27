@@ -61,16 +61,6 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	InitWave(aStartPosition, vEndPosition, 20, 50.0f, 1.0f, 1.0f);
 	InitWave(aStartPosition, vEndPosition, 10, 120.0f, 1.0f, 1.0f);
 	InitWave(aStartPosition, vEndPosition, 15, 50.0f, 0.2f, 10.0f);
-	InitWave(aStartPosition, vEndPosition, 4, 200.0f, 0.3f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 20, 90.0f, 1.0f, 500.0f);
-
-	aStartPosition.Add(CShVector2(-292.0f, -14.0f));
-
-	InitWave(aStartPosition, vEndPosition, 25, 50.0f, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
-	InitWave(aStartPosition, vEndPosition, 1, 50.0f, 1.0f, 500.0f);
 	
 	m_iCurrentWave = 0;
 }
