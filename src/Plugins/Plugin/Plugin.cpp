@@ -8,7 +8,6 @@ const CShIdentifier plugin_identifier("PluginGGJ2019");
 Plugin::Plugin(void)
 : CShPlugin(plugin_identifier)
 , m_world()
-, m_player2EventManager()
 {
 	// ...
 }
@@ -28,7 +27,7 @@ Plugin::Plugin(void)
 {
 	m_world.Initialize(levelIdentifier);
 
-	m_player2EventManager.Initialize();
+	Player2EventManager::GetInstance().Initialize();
 }
 
 /**
@@ -36,9 +35,10 @@ Plugin::Plugin(void)
  */
 /*virtual*/ void Plugin::OnPlayStop(const CShIdentifier & levelIdentifier)
 {
+	SH_UNUSED(levelIdentifier);
 	m_world.Release();
 
-	m_player2EventManager.Release();
+	Player2EventManager::GetInstance().Release();
 }
 
 /**
@@ -71,7 +71,7 @@ Plugin::Plugin(void)
 /*virtual*/ void Plugin::OnPostUpdate(float dt)
 {
 	m_world.Update(dt);
-	m_player2EventManager.Update(dt);
+	Player2EventManager::GetInstance().Update(dt);
 }
 
 /**
@@ -96,14 +96,6 @@ void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
 void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 {
 	// ...
-}
-
-/**
- * @brief GetPlayer2EventManager
- */
-Player2EventManager & Plugin::GetPlayer2EventManager(void)
-{
-	return m_player2EventManager;
 }
 
 /**

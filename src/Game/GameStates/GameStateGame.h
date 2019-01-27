@@ -80,4 +80,5 @@ private:
 
 	ShGUIControlEditBox *								m_pEditBoxHidden;
 
+	ShGUIControlText *									m_pTextPopup;
 };
