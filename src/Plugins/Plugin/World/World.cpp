@@ -149,6 +149,20 @@ bool World::CanCreateTowerAtPos(const CShVector2 & position)
 {
 	ShDummyAABB2 * pDummy = ShDummyAABB2::Find(m_levelIdentifier, CShIdentifier("dummy_aabb2_auto_001"));
 
+	{
+		CShVector2 vParentPosition = ShObject::GetWorldPosition2(pDummy);
+
+		const CShAABB2 & AABB = ShDummyAABB2::GetAABB(pDummy);
+
+		const CShVector2 Min = vParentPosition + AABB.GetMin();
+		const CShVector2 Max = vParentPosition + AABB.GetMax();
+
+		if (!((position.m_x+half_tower_radius) > shMin(Min.m_x, Max.m_x) && (position.m_y+half_tower_radius) > shMin(Min.m_y, Max.m_y) && (position.m_x-half_tower_radius) < shMax(Min.m_x, Max.m_x) && (position.m_y-half_tower_radius) < shMax(Min.m_y, Max.m_y)))
+		{
+			return false;
+		}
+	}
+
 	CShArray<ShObject*> aChildren;
 	ShDummyAABB2::GetChildArray(pDummy, aChildren);
 
@@ -206,7 +220,7 @@ bool World::CanCreateTowerAtPos(const CShVector2 & position)
  */
 void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType towerType)
 {
-	if (CanCreateTowerAtPos(position))
+	if (CanCreateTowerAtPos(position) && m_iMoney >= TowerManager::GetCostByType(towerType))
 	{
 		TowerBase * pTower = m_towerManager.CreateTower(towerType, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
