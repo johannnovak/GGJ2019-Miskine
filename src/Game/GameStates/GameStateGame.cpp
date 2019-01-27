@@ -76,35 +76,36 @@ void GameStateGame::init(void)
 	SH_ASSERT(shNULL != m_pPause);
 	m_pPlay = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_play").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pPlay);
+	ShGUIControlRadioButton::Select(m_pPlay);
 	m_pFastForward = static_cast<ShGUIControlRadioButton*>(ShGUIControl::GetElementById(CShIdentifier("radiobutton_fast_forward").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pFastForward);
 	m_pMenu = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pMenu);
-
 
 	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("editbox_hidden").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pEditBoxHidden);
 
 	m_pTextPopup = static_cast<ShGUIControlText*>(ShGUIControl::GetElementById(CShIdentifier("text_popup").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pTextPopup);
+	ShGUIControlText::Hide(m_pTextPopup);
 
 	//
 	// Set Slots
-	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu,				(pSignalSDKClick)GameStateGame::OnGUIMenuClicked);
-	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPause,		(pSlotSDKButtonSelected)GameStateGame::OnGUIPauseSelected);
-	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPlay,			(pSlotSDKButtonSelected)GameStateGame::OnGUIPlaySelected);
-	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pFastForward,	(pSlotSDKButtonSelected)GameStateGame::OnGUIFastForwardSelected);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu,				static_cast<pSignalSDKClick>(GameStateGame::OnGUIMenuClicked));
+	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPause,		reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIPauseSelected));
+	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPlay,			reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIPlaySelected));
+	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pFastForward,	reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIFastForwardSelected));
 
 	//
 	// Mouse catching
 	ShGUIControlPanel * pPanelHeader	= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_header").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF1		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F1").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF2		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F2").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF3		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F3").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF4		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F4").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF5		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F5").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelF6		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_F6").Append(strSuffix.Get()), m_pMainPanel));
-	ShGUIControlPanel * pPanelRight		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_Right").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF1		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f1").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF2		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f2").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF3		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f3").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF4		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f4").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF5		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f5").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelF6		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_f6").Append(strSuffix.Get()), m_pMainPanel));
+	ShGUIControlPanel * pPanelRight		= static_cast<ShGUIControlPanel*>(ShGUIControl::GetElementById(CShIdentifier("panel_right").Append(strSuffix.Get()), m_pMainPanel));
 
 	ShGUIControl::SetIgnoreEvents(pPanelHeader, false);
 	ShGUIControl::SetIgnoreEvents(pPanelF1, false);
@@ -114,6 +115,7 @@ void GameStateGame::init(void)
 	ShGUIControl::SetIgnoreEvents(pPanelF5, false);
 	ShGUIControl::SetIgnoreEvents(pPanelF6, false);
 	ShGUIControl::SetIgnoreEvents(pPanelRight, false);
+
 }
 
 /**
@@ -121,8 +123,12 @@ void GameStateGame::init(void)
 */
 void GameStateGame::release(void)
 {
+	ShGUIControl::RemoveFromParent(m_pTextPopup);
+	m_pTextPopup = shNULL;
 	ShGUIControl::RemoveFromParent(m_pEditBoxHidden);
+	m_pEditBoxHidden = shNULL;
 	ShGUIControl::RemoveFromParent(m_pMainPanel);
+	m_pMainPanel = shNULL;
 }
 
 /**
@@ -150,6 +156,7 @@ void GameStateGame::entered(void)
 void GameStateGame::exiting(void)
 {
 	ShGUIControlPanel::Hide(m_pMainPanel);
+	ShGUIControlText::Hide(m_pTextPopup);
 }
 
 /**
@@ -158,6 +165,7 @@ void GameStateGame::exiting(void)
 void GameStateGame::obscuring(void)
 {
 	ShGUIControlPanel::Hide(m_pMainPanel);
+	ShGUIControlText::Hide(m_pTextPopup);
 }
 
 /**
@@ -166,6 +174,7 @@ void GameStateGame::obscuring(void)
 void GameStateGame::revealed(void)
 {
 	ShGUIControlPanel::Show(m_pMainPanel);
+	ShGUIControlText::Show(m_pTextPopup);
 }
 
 /**
@@ -174,6 +183,17 @@ void GameStateGame::revealed(void)
 void GameStateGame::update(float dt)
 {
 	SH_UNUSED(dt);
+	CShArray<Enemy *> aEnemies;
+	GetPlugin()->GetWorld().GetEnemyManager().GetEnemyList(aEnemies);
+	if (!aEnemies.IsEmpty())
+	{
+		CShVector2 vPos = aEnemies[0]->GetPosition();
+		vPos.m_y *= -1.f;
+		vPos += CShVector2(ShDisplay::GetWidth(), ShDisplay::GetHeight())/2.f;
+		vPos.m_y += 10.f;
+		vPos.m_x -= ShGUIControlText::ComputeWidth(m_pTextPopup)/2.f + 5.f;
+		ShGUIControlText::SetOffset(m_pTextPopup, vPos, EGUIUnitSDK::e_gui_unit_pixel);
+	}
 }
 
 /**
@@ -237,6 +257,13 @@ void GameStateGame::OnEventTypeBegin(Player2Event *pEvent)
 		{
 			Player2EventTypeWords * pCastedEvent = static_cast<Player2EventTypeWords*>(pEvent);
 			ShGUIControlText::SetText(m_pTextPopup, pCastedEvent->GetWordToType());
+			CShArray<Enemy *> aEnemies;
+			GetPlugin()->GetWorld().GetEnemyManager().GetEnemyList(aEnemies);
+			if (!aEnemies.IsEmpty())
+			{
+				ShGUIControlText::Show(m_pTextPopup);
+				ShGUIControlText::SetOffset(m_pTextPopup, aEnemies[0]->GetPosition(),EGUIUnitSDK::e_gui_unit_pixel);
+			}
 			break;
 		}
 		default:
@@ -254,6 +281,7 @@ void GameStateGame::OnEventTypeEnd(Player2Event *pEvent)
 {
 	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
 	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_RED);
+	ShGUIControlText::Hide(m_pTextPopup);
 }
 
 /**
@@ -264,6 +292,7 @@ void GameStateGame::OnEventTypeFinished(Player2Event *pEvent)
 {
 	ShGUIControlImage * pControlPanel = *m_amepModeImages.Find(pEvent->GetType());
 	ShGUIControlImage::SetSpriteColorFilter(pControlPanel, CShRGBAf_RED);
+	ShGUIControlText::Hide(m_pTextPopup);
 }
 
 /**
