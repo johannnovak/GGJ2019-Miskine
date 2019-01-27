@@ -253,7 +253,7 @@ void Enemy::Update(float dt)
 
 				if (newAnimType != m_eCurrentAnimationType)
 				{
-					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+					ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false, false);
 					m_eCurrentAnimationType = newAnimType;
 					m_currentSprite = 0;
 					ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], m_vPosition);
@@ -293,7 +293,7 @@ void Enemy::Update(float dt)
 		m_fAnimationDt += dt;
 		if (m_fAnimationDt >= m_fAnimationSpeed)
 		{
-			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationType][m_currentSprite], false, false);
 
 			int nSprite = m_aMoveAnimation[m_eCurrentAnimationType].GetCount();
 			m_currentSprite++;
