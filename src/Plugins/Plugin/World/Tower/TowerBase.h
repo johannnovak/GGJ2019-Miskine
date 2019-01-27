@@ -62,6 +62,8 @@ public:
 		return m_vPosition;
 	}
 
+	ShEntity2 *			GetCurrentEntity2			(void);
+
 protected:
 
 	CShIdentifier			m_levelIdentifier;

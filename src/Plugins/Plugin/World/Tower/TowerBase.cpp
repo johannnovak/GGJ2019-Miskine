@@ -292,3 +292,12 @@ int TowerBase::GetLevel(void)
 
 	return iCost;
 }
+
+
+/**
+ * @brief GetNeededMoneyToUpgrade
+ */
+ShEntity2 * TowerBase::GetCurrentEntity2(void)
+{
+	return m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite];
+}

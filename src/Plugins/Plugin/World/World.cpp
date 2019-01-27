@@ -113,6 +113,34 @@ bool World::UnregisterWorldListener(IWorldListener * pListener)
 }
 
 /**
+ * @brief World::IsTowerAtPos
+ * @param position
+ * @return
+ */
+bool World::IsTowerAtPos(const CShVector2 & position)
+{
+	CShArray<TowerBase*> aTowers;
+	m_towerManager.GetTowerList(aTowers);
+
+	int iTowerCount = aTowers.GetCount();
+	for (int iTowerIndex = 0; iTowerIndex < iTowerCount; ++iTowerIndex)
+	{
+		ShEntity2 * pEntity2 = aTowers[iTowerIndex]->GetCurrentEntity2();
+		CShRectangle2 rect;
+		rect.SetPosition(aTowers[iTowerIndex]->GetPosition());
+		rect.SetHeight(ShEntity2::GetHeight(pEntity2));
+		rect.SetWidth(ShEntity2::GetWidth(pEntity2));
+
+		if (rect.Contains(position))
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * @brief World::CanCreateTowerAtPos
  * @param position
  * @return
