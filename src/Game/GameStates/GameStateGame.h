@@ -61,7 +61,7 @@ public:
 	virtual void		OnEventTypeMalusTowerRadius			(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnEventTypeMalusTowerAttackAOE		(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 
-	virtual void		OnTowerCreated						(void) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerCreated						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnMoneyUpdated						(int iMoneyAmount) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnHPUpdated							(int iHPAmount) SH_ATTRIBUTE_OVERRIDE;
 protected:
@@ -79,7 +79,7 @@ private:
 	ShGUIControlText *									m_pUserName;
 	ShGUIControlText *									m_pMoneyValue;
 	ShGUIControlText *									m_pHPValue;
-	ShGUIControlText *									m_pMHPTotal;
+	ShGUIControlText *									m_pHPTotal;
 	ShGUIControlRadioButton *							m_pPause;
 	ShGUIControlRadioButton *							m_pPlay;
 	ShGUIControlRadioButton *							m_pFastForward;

@@ -5,6 +5,8 @@
 #include "Enemy/EnemyManager.h"
 #include "Tower/TowerManager.h"
 
+#include "IWorldListener.h"
+
 #define DEFAULT_HP_DIFFICULTY_LOW 20
 #define DEFAULT_HP_DIFFICULTY_MEDIUM 15
 #define DEFAULT_HP_DIFFICULTY_HIGH 10
@@ -17,39 +19,45 @@ class World
 {
 public:
 
-	explicit	 World			(void);
-	virtual		~World			(void);
+	explicit				 World				(void);
+	virtual					~World				(void);
 
-	void		Initialize		(const CShIdentifier & levelIdentifier);
-	void		Release			(void);
+	void					Initialize			(const CShIdentifier & levelIdentifier);
+	void					Release				(void);
 
-	void		Update			(float dt);
+	void					Update				(float dt);
 
-	bool		CanCreateTowerAtPos		(const CShVector2 & position);
-	void		CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
+	bool					RegisterWorldListener	(IWorldListener * pListener);
+	bool					UnregisterWorldListener	(IWorldListener * pListener);
 
-	void		SetGameSpeed	(float fGameSpeed);
+	bool					CanCreateTowerAtPos		(const CShVector2 & position);
+	void					CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
 
-	void		LooseHP			(void);
-	void		GainHP			(void);
+	EnemyManager &			GetEnemyManager		(void);
 
-	void		LooseMoney		(int iAmountToLoose);
-	void		GainMoney		(int iAmountToGain);
+	void					SetGameSpeed	(float fGameSpeed);
+
+	void					LooseHP			(void);
+	void					GainHP			(void);
+
+	void					LooseMoney		(int iAmountToLoose);
+	void					GainMoney		(int iAmountToGain);
 
 private:
 
-	PluginInputManager	m_inputManager;
+	PluginInputManager		m_inputManager;
 
-	WaveManager			m_waveManager;
-	EnemyManager		m_enemyManager;
-	TowerManager		m_towerManager;
+	WaveManager				m_waveManager;
+	EnemyManager			m_enemyManager;
+	TowerManager			m_towerManager;
 
-	ShSound::Handle		m_soundHandle;
+	ShSound::Handle			m_soundHandle;
+	CShIdentifier			m_levelIdentifier;
 
-	CShIdentifier		m_levelIdentifier;
+	float					m_fGameSpeed;
+	int						m_iHP;
+	int						m_iMoney;
 
-	float				m_fGameSpeed;
-	int					m_iHP;
-	int					m_iMoney;
+	IWorldListener *	m_pWorldListener;
 };
 

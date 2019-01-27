@@ -110,7 +110,7 @@ void TowerRange::Update(float dt)
 				SH_ASSERT(shNULL != pEntity);
 
 				TowerProjectile projectile;
-				projectile.Initialize(m_vPosition, 20.0f, m_pCurrentTarget, pEntity);
+				projectile.Initialize(m_vPosition, 5.0f, m_pCurrentTarget, pEntity);
 				m_aProjectile.Add(projectile);
 
 				m_bIsAttacking = false;

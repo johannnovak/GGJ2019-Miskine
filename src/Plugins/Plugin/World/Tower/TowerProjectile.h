@@ -22,10 +22,7 @@ public:
 private:
 
 	float		m_fSpeed;
-	float		m_fCompletion;
-	CShVector2	m_v;
 
-	CShVector2	m_vStartPosition;
 	CShVector2	m_vPosition;
 	Enemy *		m_pTarget;
 

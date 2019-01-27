@@ -1,9 +1,11 @@
 #pragma once
 
+class TowerBase;
+
 class IWorldListener
 {
 public:
-	virtual void OnTowerCreated		(void) = 0;
+	virtual void OnTowerCreated		(TowerBase * pTower) = 0;
 
 	virtual void OnMoneyUpdated		(int iMoneyAmount) = 0;
 	
