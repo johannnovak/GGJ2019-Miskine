@@ -31,6 +31,8 @@ private:
 
 	float				m_fGameSpeed;
 
+	ShSound::Handle		m_soundHandle;
+
 	CShIdentifier		m_levelIdentifier;
 };
 
