@@ -132,7 +132,7 @@ void World::CreateTower(const CShVector2 & position)
 
 	if (!bObstacle)
 	{
-		m_towerManager.CreateTower(TowerBase::tower_pere, TowerBase::focus_nearest, position, 20, 3.0f);
+		m_towerManager.CreateTower(TowerBase::tower_fils, TowerBase::focus_nearest, position, 20, 3.0f);
 		g_graph.AddBlocker(position, tower_radius);
 		g_graph.UpdateGraph();
 	}
