@@ -44,12 +44,6 @@ void World::Initialize(const CShIdentifier & levelIdentifier)
 
 	g_graph.Initialize(pDummy);
 
-	Node * pWPStart = g_graph.FindNearestWayPoint(CShVector2(-200.0f, 200.0f));
-	Node * pWPEnd = g_graph.FindNearestWayPoint(CShVector2(200.0f, -200.0f));
-
-	CShArray<Node*> aPoints;
-	g_graph.FindPath(pWPStart, pWPEnd, aPoints);
-
 	m_waveManager.Start();
 
 	m_levelIdentifier = levelIdentifier;
