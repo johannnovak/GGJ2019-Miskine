@@ -7,6 +7,8 @@ const CShIdentifier plugin_identifier("PluginGGJ2019");
  */
 Plugin::Plugin(void)
 : CShPlugin(plugin_identifier)
+, m_world()
+, m_player2EventManager()
 {
 	// ...
 }
@@ -97,14 +99,22 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 }
 
 /**
+ * @brief GetPlayer2EventManager
+ */
+Player2EventManager & Plugin::GetPlayer2EventManager(void)
+{
+	return m_player2EventManager;
+}
+
+/**
  * @brief GetDistanceSquared
  */
-float Plugin::GetDistanceSquared(const CShVector3 & start, const CShVector3 & dest)
+float Plugin::GetDistanceSquared(const CShVector2 & start, const CShVector2 & dest)
 {
 	//TODO Test me
 
-	CShVector2 A(dest.m_x, dest.m_y);
-	CShVector2 B(start.m_x, start.m_y);
+	CShVector2 A(dest);
+	CShVector2 B(start);
 	CShVector2 delta = A - B;
 
 	return delta.DotProduct(delta);

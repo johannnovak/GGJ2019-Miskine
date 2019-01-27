@@ -28,18 +28,58 @@ TowerMelee::~TowerMelee(void)
 /**
  * @brief Initialize
  */
-void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
-	m_eTowerType = tower_melee;
+	m_eTowerAttackType = tower_melee;
 
 	m_fRadiusMin = 10.0f;
 	m_fRadiusMax = 200.0f;
 
-	TowerBase::Initialize(levelIdentifier, pEnemyManager, focusType, position, damages, attackSpeed, rangeAOE);
+	TowerBase::Initialize(levelIdentifier, pEnemyManager, towerType, focusType, position, damages, attackSpeed, rangeAOE);
 
-	ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
-	SH_ASSERT(shNULL != pEntity);
-	m_aAttackAnimation.Add(pEntity);
+	//ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("player"), CShIdentifier("walk_01"), m_vPosition, CShEulerAngles::ZERO, CShVector3::AXIS_ALL);
+	//SH_ASSERT(shNULL != pEntity);
+	//m_aAttackAnimation.Add(pEntity);
+
+	char szSpriteIdentifier[1024];
+			
+	switch (towerType)
+	{
+		case tower_pere : sprintf(szSpriteIdentifier, "pere"); break;
+		case tower_mere: sprintf(szSpriteIdentifier, "mere"); break;
+		default: sprintf(szSpriteIdentifier, "pere"); break;
+	}
+
+	char szDirection[32];
+
+	for (int i = 0; i < animation_max; ++i)
+	{
+		switch ((EAnimationType)i)
+		{
+			case animation_top:sprintf(szDirection, "attack_back");break;
+			case animation_bottom:sprintf(szDirection, "attack_front"); break;
+			case animation_left:sprintf(szDirection, "attack_left"); break;
+			case animation_right:sprintf(szDirection, "attack_right"); break;
+			case animation_idle:sprintf(szDirection, "idle"); break;
+			default: SH_ASSERT_ALWAYS();
+		}
+
+		int id = 1;
+		CShArray<ShEntity2 *> aEntityList;
+		while (1)
+		{
+			char szFinalSpriteIdentifier[1024];
+			sprintf(szFinalSpriteIdentifier, "%s_%s_%02d", szSpriteIdentifier, szDirection, id++);
+			ShSprite * pSprite = ShSprite::Find(CShIdentifier("game"), CShIdentifier(szFinalSpriteIdentifier));
+			if (shNULL == pSprite)
+				break;
+			ShEntity2 * pEntity = ShEntity2::Create(m_levelIdentifier, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(position, 10.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
+			aEntityList.Add(pEntity);
+		}
+		m_aAttackAnimation[i] = aEntityList;
+	}
+
+	ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 }
 
 /**
@@ -79,7 +119,7 @@ void TowerMelee::Update(float dt)
 
 					if (-1 != m_fAOERange)
 					{ // Hit enemies in currentTarget range
-						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+						const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 						CShArray<Enemy*> aEnemyList;
 						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
@@ -106,7 +146,7 @@ void TowerMelee::Update(float dt)
 		{
 			if (m_pCurrentTarget)
 			{
-				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
@@ -135,7 +175,7 @@ void TowerMelee::Update(float dt)
 					{
 					case focus_nearest:
 					{
-						const CShVector3 & enemyPos = pEnemy->GetPosition();
+						const CShVector2 & enemyPos = pEnemy->GetPosition();
 						float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
 
 						if (dist < distSquared)

@@ -11,9 +11,10 @@
  * @brief Constructor
  */
 TowerBase::TowerBase(void)
-: m_eTowerType(tower_melee)
+: m_eTowerType(tower_pere)
+, m_eTowerAttackType(tower_melee)
 , m_eFocusType(focus_nearest)
-, m_vPosition(CShVector3::ZERO)
+, m_vPosition(CShVector2::ZERO)
 , m_fRadiusMin(0.0f)
 , m_fRadiusMax(100.0f)
 , m_pDebugRadiusMin(shNULL)
@@ -27,8 +28,9 @@ TowerBase::TowerBase(void)
 , m_pCurrentTarget(shNULL)
 , m_fAOERange(-1.0f)
 , m_fAnimationDt(0.0f)
-, m_fAnimationSpeed(0.0f)
+, m_fAnimationSpeed(0.4f)
 , m_currentSprite(0)
+, m_eCurrentAnimationType(animation_idle)
 , m_aAttackAnimation()
 {
 
@@ -45,10 +47,11 @@ TowerBase::~TowerBase(void)
 /**
  * @brief Initialize
  */
-void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
+void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE /*= -1.0f*/)
 {
 	m_levelIdentifier = levelIdentifier;
 
+	m_eTowerType = towerType;
 	m_eFocusType = focusType;
 	m_vPosition = position;
 	m_damages = damages;
@@ -58,12 +61,11 @@ void TowerBase::Initialize(const CShIdentifier & levelIdentifier, EnemyManager *
 	SH_ASSERT(shNULL != m_pEnemyManager);
 	
 	m_fAOERange = rangeAOE;
-	m_fAnimationSpeed = 0.5f;
 
-	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), m_vPosition, m_fRadiusMin, 8, CShRGBAf_RED);
+	m_pDebugRadiusMin = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMin"), CShVector3(m_vPosition,0.0f), m_fRadiusMin, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMin);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMin, true);
-	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), m_vPosition, m_fRadiusMax, 8, CShRGBAf_RED);
+	m_pDebugRadiusMax = ShPrimitiveCircle::Create(m_levelIdentifier, CShIdentifier("rangeMax"), CShVector3(m_vPosition, 0.0f), m_fRadiusMax, 8, CShRGBAf_RED);
 	SH_ASSERT(shNULL != m_pDebugRadiusMax);
 	ShPrimitiveCircle::Set2d(m_pDebugRadiusMax, true);
 }
@@ -76,12 +78,15 @@ void TowerBase::Release(void)
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMin);
 	ShPrimitiveCircle::Destroy(m_pDebugRadiusMax);
 
-	int nAttackAnimCount = m_aAttackAnimation.GetCount();
-	for (int i = 0; i < nAttackAnimCount; ++i)
+	for (int i = 0; i < animation_max; ++i)
 	{
-		ShEntity2::Destroy(m_aAttackAnimation[i]);
+		int nAttackAnimCount = m_aAttackAnimation[i].GetCount();
+		for (int j = 0; j < nAttackAnimCount; ++j)
+		{
+			ShEntity2::Destroy(m_aAttackAnimation[i][j]);
+		}
+		m_aAttackAnimation[i].Empty();
 	}
-	m_aAttackAnimation.Empty();
 }
 
 /**
@@ -89,51 +94,50 @@ void TowerBase::Release(void)
  */
 void TowerBase::Update(float dt)
 {
-	if (m_bIsAttacking)
+	m_fAnimationDt += dt;
+	if (m_fAnimationDt >= m_fAnimationSpeed)
 	{
-		m_fAnimationDt += dt;
-		if (m_fAnimationDt >= m_fAnimationSpeed)
-		{
-			m_fAnimationDt = 0.0f;
-			// TODO Animate
+		m_fAnimationDt = 0.0f;
+		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite++], false);
 
-			// TODO if animation ended
-			{ // Attack ended
+		if (m_currentSprite >= m_aAttackAnimation[m_eCurrentAnimationType].GetCount())
+		{ // Animation ended
+			m_currentSprite = 0;
+
+			if (m_bIsAttacking)
+			{
+				m_pCurrentTarget->TakeDamages(m_damages);
+
+				if (-1 != m_fAOERange)
+				{ // Hit enemies in currentTarget range
+					const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
+
+					CShArray<Enemy*> aEnemyList;
+					m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
+
+					int nEnemyCount = aEnemyList.GetCount();
+					for (int i = 0; i < nEnemyCount; ++i)
+					{
+						// Damages / 2
+						aEnemyList[i]->TakeDamages(m_damages * 0.5f);
+					}
+				}
+
 				if (m_pCurrentTarget->IsDead())
 				{
 					m_pCurrentTarget = shNULL;
 				}
-				else
-				{
-					if (-1 != m_fAOERange)
-					{ // Hit enemies in currentTarget range
-						const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
-
-						CShArray<Enemy*> aEnemyList;
-						m_pEnemyManager->GetEnemyListInRange(aEnemyList, targetPos, 0.0f, m_fAOERange);
-
-						int nEnemyCount = aEnemyList.GetCount();
-						for (int i = 0; i < nEnemyCount; ++i)
-						{
-							// Damages / 2
-							aEnemyList[i]->TakeDamages(m_damages * 0.5f);
-						}
-					}
-
-					m_pCurrentTarget->TakeDamages(m_damages);
-					if (m_pCurrentTarget->IsDead())
-					{
-						m_pCurrentTarget = shNULL;
-					}
-
-				}
 
 				m_bIsAttacking = false;
-				m_fAttackCooldown = 0.0f;
+				m_fAttackCooldown = m_fAttackSpeed;
+				m_eCurrentAnimationType = animation_idle;
 			}
 		}
+
+		ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 	}
-	else
+
+	if (!m_bIsAttacking)
 	{
 		m_fAttackCooldown += dt;
 
@@ -141,14 +145,16 @@ void TowerBase::Update(float dt)
 		{
 			if (m_pCurrentTarget)
 			{
-				const CShVector3 & targetPos = m_pCurrentTarget->GetPosition();
+				const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
 
 				float distSquared = Plugin::GetDistanceSquared(m_vPosition, targetPos);
 				if (distSquared > m_fRadiusMax * m_fRadiusMax
 					|| distSquared < m_fRadiusMin * m_fRadiusMin)
 				{// Lost focus
-					SH_TRACE("FOCUS LOST\n");
-					m_pCurrentTarget = shNULL;
+					if (!m_bIsAttacking)
+					{
+						m_pCurrentTarget = shNULL;
+					}
 				}
 			}
 
@@ -170,7 +176,7 @@ void TowerBase::Update(float dt)
 					{
 					case focus_nearest:
 					{
-						const CShVector3 & enemyPos = pEnemy->GetPosition();
+						const CShVector2 & enemyPos = pEnemy->GetPosition();
 						float dist = Plugin::GetDistanceSquared(m_vPosition, enemyPos);
 
 						if (dist < distSquared)
@@ -207,16 +213,50 @@ void TowerBase::Update(float dt)
 
 				if (-1 != currentId)
 				{
+					SH_TRACE("FOCUS ENEMY\n");
 					m_pCurrentTarget = aEnemyList[currentId];
-					SH_TRACE("FOCUS TARGET\n");
 				}
 			}
+		}
 
-			if (m_pCurrentTarget)
+		if (m_pCurrentTarget)
+		{
+			// Attack target
+			m_bIsAttacking = true;
+
+			const CShVector2 & targetPos = m_pCurrentTarget->GetPosition();
+
+			float angle = SHC_RAD2DEG * shAtan2f(targetPos.m_x - m_vPosition.m_x, targetPos.m_y - m_vPosition.m_y);
+			if (angle < 0)
 			{
-				// Shoot target
-				m_bIsAttacking = true;
-				SH_TRACE("ATTACK TARGET\n");
+				angle += 360;
+			}
+
+			EAnimationType eCurrentAnim = m_eCurrentAnimationType;
+
+			if (angle > -45.0f && angle <= 45.0f)
+			{ // Top
+				eCurrentAnim = animation_top;
+			}
+			else if (angle > 45.0f && angle <= 135)
+			{ // Right
+				eCurrentAnim = animation_right;
+			}
+			else if (angle > 135 && angle <= 225)
+			{ // Bottom
+				eCurrentAnim = animation_bottom;
+			}
+			else
+			{ // Left
+				eCurrentAnim = animation_left;
+			}
+
+			if (eCurrentAnim != m_eCurrentAnimationType)
+			{				
+				ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], false);
+				m_eCurrentAnimationType = eCurrentAnim;
+				m_currentSprite = 0;
+				ShEntity2::SetShow(m_aAttackAnimation[m_eCurrentAnimationType][m_currentSprite], true);
 			}
 		}
 	}
@@ -228,9 +268,9 @@ void TowerBase::Update(float dt)
 void TowerBase::LevelUp(void)
 {
 	m_level++;
-	// Add damages ?
+	m_damages += 10;
+	m_fAttackSpeed -= 1.0f;
 	// Ranges ?
-	// AS ?
 }
 
 /**

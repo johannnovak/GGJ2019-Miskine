@@ -2,15 +2,15 @@
 
 enum EPlayer2EventType
 {
-	e_player2_event_type_type_words				= 0,	// type words
-	e_player2_event_type_boost_tower			= 1,	// random keys
-	e_player2_event_type_grant_special_attack	= 2,	// dual key combinations streak
-	e_player2_event_type_control_enemy			= 3,	// mental calculation
-	e_player2_event_type_immediate_qte			= 4,	// key appearing randomly on the screen
-	e_player2_event_type_super_mega_combo		= 5,	// mix with word-typing/qte/special-attack
+	e_player2_event_type_type_words						= 0,	// deplete enemies life
+	e_player2_event_type_random_keys					= 1,	// random keys appearing everywhere on screen one after another -> boost tower
+	e_player2_event_type_dual_key_combination_streak	= 2,	// DDR-like key combination streak -> grant special attack on tower
+	e_player2_event_type_mental_calculation				= 3,	// control over enemy, zelda-like
+	e_player2_event_type_immediate_qte					= 4,	// boost game
+	e_player2_event_type_super_mega_combo				= 5,	// mix with word-typing/qte/special-attack -> unknown
 
-	e_player2_event_type_count					= e_player2_event_type_type_words + 1,
-	//e_player2_event_type_count				= e_player2_event_type_super_mega_combo + 1,
+	e_player2_event_type_count							= e_player2_event_type_type_words + 1,
+	//e_player2_event_type_count						= e_player2_event_type_super_mega_combo + 1,
 };
 
 enum EPlayer2EventDifficulty
@@ -29,23 +29,27 @@ public:
 	virtual void					Initialize		(void) = 0;
 	virtual void					Release			(void) = 0;
 
-	virtual void					Update			(float dt) = 0;
-	virtual void					Reset			(void) = 0;
+	virtual void					Update			(float dt, ShGUIControlEditBox * pEditBoxHidden) = 0;
+	void							Reset			(int iStreak);
 
 	virtual EPlayer2EventType		GetType			(void) = 0;
 	virtual EPlayer2EventDifficulty	GetDifficulty	(void);
+	virtual int						GetErrorNb		(void);
+
 	bool							IsFinished		(void);
 
 protected:
-	explicit						Player2Event	(EPlayer2EventType eType);
-	explicit						Player2Event	(EPlayer2EventType eType, EPlayer2EventDifficulty eDifficulty);
+	explicit						Player2Event	(void);
+	explicit						Player2Event	(EPlayer2EventDifficulty eDifficulty);
 	virtual							~Player2Event	(void);
 
+	virtual void					ResetInternal	(void) = 0;
 private:
 public:
 protected:
 	EPlayer2EventDifficulty			m_eDifficulty;
 	bool							m_bFinished;
+	int								m_iErrorNb;
 };
 
 

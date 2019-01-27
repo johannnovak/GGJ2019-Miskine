@@ -38,8 +38,14 @@ public:
 
 	bool								RegisterListener			(IPlayer2EventListener * pListener);
 	bool								UnregisterListener			(IPlayer2EventListener * pListener);
+
+	bool								RegisterEditBoxHidden		(ShGUIControlEditBox * pEditBox);
+	bool								UnregisterEditBoxHidden		(ShGUIControlEditBox * pEditBox);
 protected:
 private:
+	void								SetEventTypeAvailable		(EPlayer2EventType eType);
+	void								SetEventTypeUnavailable		(EPlayer2EventType eType);
+
 	void								PollNewEvents				(float dt);
 	void								OnCurrentEventFinished		(void);
 
@@ -68,11 +74,14 @@ private:
 	Player2Event *						m_pCurrentEvent;
 	Player2Event *						m_pPreviousEvent;
 
+	int									m_iCurrentEventStreak;
+
 	float								m_fTypoGaugeValue;
 	float								m_fTypoGaugeMax;
 
 	//
 	// Listener
 	IPlayer2EventListener *				m_pPlayer2EventListener;
+	ShGUIControlEditBox *				m_pEditBoxHidden;
 };
 

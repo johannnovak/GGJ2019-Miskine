@@ -9,7 +9,7 @@ Enemy::Enemy(void)
 , m_fStateTime(0.0f)
 , m_fSpeed(1.0f)
 , m_pEntityLifeBar(shNULL)
-, m_vPosition(CShVector3::ZERO)
+, m_vPosition(CShVector2::ZERO)
 , m_vStartPosition(CShVector2::ZERO)
 , m_v(CShVector2::ZERO)
 , m_fCompletion(0.0f)
@@ -61,16 +61,17 @@ void Enemy::Release(void)
 /**
  * @brief Start
  */
-void Enemy::Start(const CShVector3 & position, const CShVector2 & vDestination)
+void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination)
 {
 	m_currentHealth = m_baseHealth;
 	m_vPosition = position;
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
 
-	ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], position);
+	ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], position);
+	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[m_currentSprite]) + 0.01f);
 
 	CShArray<Node*> aNodes;
-	g_graph.FindPath(g_graph.FindNearestWayPoint(CShVector2(position.m_x, position.m_y)), g_graph.FindNearestWayPoint(vDestination), aNodes);
+	g_graph.FindPath(g_graph.FindNearestWayPoint(position), g_graph.FindNearestWayPoint(vDestination), aNodes);
 
 	SetPath(aNodes);
 
@@ -107,7 +108,7 @@ void Enemy::SetPath(const CShArray<Node*> & aNodes)
  */
 void Enemy::SetTargetNode(Node * pNode)
 {
-	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
+	m_vStartPosition = m_vPosition;
 	const CShVector2 & vNodePosition = pNode->GetPosition();
 
 	m_v = vNodePosition - m_vStartPosition;
@@ -126,7 +127,7 @@ void Enemy::SetState(EState state)
 		case e_state_appear: 
 		{
 			ShEntity2::SetShow(m_aMoveAnimation[m_currentSprite], true);
-			ShEntity2::SetScale(m_pEntityLifeBar, 1.0f, 1.0f, 1.0f);
+			ShEntity2::SetScale(m_pEntityLifeBar, 0.4f, 0.4f, 1.0f);
 		}
 		break;
 
@@ -196,13 +197,13 @@ void Enemy::Update(float dt)
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_fCompletion * m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_fCompletion * m_v.m_y;
-				ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], m_vPosition);
+				ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], m_vPosition);
 			}
 			else
 			{
 				m_vPosition.m_x = m_vStartPosition.m_x + m_v.m_x;
 				m_vPosition.m_y = m_vStartPosition.m_y + m_v.m_y;
-				ShEntity2::SetPosition(m_aMoveAnimation[m_currentSprite], m_vPosition);
+				ShEntity2::SetPosition2(m_aMoveAnimation[m_currentSprite], m_vPosition);
 
 				if (m_iDestinationNode < m_aNodes.GetCount() - 1)
 				{
@@ -228,18 +229,21 @@ void Enemy::Update(float dt)
 
 void Enemy::TakeDamages(int damages)
 {
-	SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
-	m_currentHealth -= damages;
+	if (m_eState == e_state_on)
+	{
+		SH_TRACE("take damage %d, %d\n", m_currentHealth, damages);
+		m_currentHealth = shMax(0, m_currentHealth - damages);
 
-	ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(m_currentHealth / (float)m_baseHealth, 1.0f, 1.0f));
+		ShEntity2::SetScale(m_pEntityLifeBar, CShVector3(0.4f * (m_currentHealth / (float)m_baseHealth), 0.4f, 1.0f));
 
-	if (0 >= m_currentHealth)
-	{ // Dead
-		Stop();
+		if (0 >= m_currentHealth)
+		{ // Dead
+			Stop();
+		}
 	}
 }
 
-const CShVector3 & Enemy::GetPosition(void) const
+const CShVector2 & Enemy::GetPosition(void) const
 {
 	return m_vPosition;
 }

@@ -58,16 +58,16 @@ void EnemyManager::Initialize(const CShIdentifier & levelIdentifer)
 				ShSprite * pSprite = ShSprite::Find(CShIdentifier("player"), CShIdentifier(szFinalSpriteIdentifier));
 				if (shNULL == pSprite)
 					break;
-				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 1.0f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+				ShEntity2 * pEntity = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), pSprite, CShVector3(0.0f, 0.0f, 2.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 				aEntityList.Add(pEntity);
 			}
 			
-			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3(0.0f, 0.0f, 1.1f), CShEulerAngles::ZERO, CShVector3(1.0f, 1.0f, 1.0f), false);
+			ShEntity2 * pEntityLifebar = ShEntity2::Create(levelIdentifer, GID(NULL), CShIdentifier("layer_default"), CShIdentifier("game"), CShIdentifier("lifebar"), CShVector3(0.0f, 0.0f, 0.0f), CShEulerAngles::ZERO, CShVector3(0.4f, 0.4f, 1.0f), false);
 			ShEntity2::SetPivotCenterLeft(pEntityLifebar);
 			ShEntity2::Link(aEntityList[0], pEntityLifebar);
-			float fEntityHeight = ShEntity2::GetHeight(aEntityList[0]);
-			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar);
-			ShEntity2::SetRelativePosition2(pEntityLifebar, CShVector2(-fEntityLifebarWidth * 0.5f, fEntityHeight * 0.5f));	
+			float fEntityHeight = ShEntity2::GetHeight(aEntityList[0]) * ShEntity2::GetScale(aEntityList[0]).m_y;
+			float fEntityLifebarWidth = ShEntity2::GetWidth(pEntityLifebar) * ShEntity2::GetScale(aEntityList[0]).m_x;
+			ShEntity2::SetRelativePosition2(pEntityLifebar, CShVector2(-fEntityLifebarWidth * 0.5f, fEntityHeight + 10.0f));	
 
 			m_aEnemy[i][j].Initialize(aEntityList, pEntityLifebar, iHealth);
 			m_aiCurrentEnemy[i] = 0;
@@ -96,17 +96,29 @@ void EnemyManager::Release(void)
  */
 void EnemyManager::Update(float dt)
 {
+	CShArray<Enemy *> apEnemyToRemove;
+
 	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
 		m_apActiveEnemy[i]->Update(dt);
+
+		if (m_apActiveEnemy[i]->GetState() == Enemy::e_state_off)
+		{
+			apEnemyToRemove.Add(m_apActiveEnemy[i]);
+		}
+	}
+
+	for (int i = 0; i < apEnemyToRemove.GetCount(); i++)
+	{
+		m_apActiveEnemy.RemoveAll(apEnemyToRemove[i]);
 	}
 }
 
 /**
  * @brief CreateEnemies
  */
-Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector3 & vPosition, const CShVector2 & vDestination)
+Enemy * EnemyManager::SpawnEnemy(EEnemy eEnemy, const CShVector2 & vPosition, const CShVector2 & vDestination)
 {
 	Enemy * pEnemy = &m_aEnemy[eEnemy][m_aiCurrentEnemy[eEnemy]];
 
@@ -134,7 +146,7 @@ void EnemyManager::GetEnemyList(CShArray<Enemy*>& aEnemyList)
 /**
  * @brief GetEnemyListInRange
  */
-void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVector3 & pos, float rangeMin, float rangeMax)
+void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVector2 & pos, float rangeMin, float rangeMax)
 {
 	float rangeMinSquared = rangeMin * rangeMin;
 	float rangeMaxSquared = rangeMax * rangeMax;
@@ -142,7 +154,7 @@ void EnemyManager::GetEnemyListInRange(CShArray<Enemy*>& aEnemyList, const CShVe
 	int nEnemyCount = m_apActiveEnemy.GetCount();
 	for (int i = 0; i < nEnemyCount; ++i)
 	{
-		const CShVector3 & enemyPos = m_apActiveEnemy[i]->GetPosition();
+		const CShVector2 & enemyPos = m_apActiveEnemy[i]->GetPosition();
 
 		if (m_apActiveEnemy[i]->IsDead())
 			continue;

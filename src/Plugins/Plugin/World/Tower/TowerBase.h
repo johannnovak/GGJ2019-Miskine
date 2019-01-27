@@ -9,7 +9,26 @@ class TowerBase
 {
 public:
 
+	enum EAnimationType
+	{
+		animation_top,
+		animation_bottom,
+		animation_left,
+		animation_right,
+		animation_idle,
+
+		animation_max
+	};
+
 	enum ETowerType
+	{
+		tower_pere,
+		tower_mere,
+		tower_fille,
+		tower_fils
+	};
+
+	enum ETowerAttackType
 	{
 		tower_melee,
 		tower_range
@@ -25,7 +44,7 @@ public:
 	explicit		TowerBase			(void);
 	virtual			~TowerBase			(void);
 
-	virtual void	Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, EFocusType focusType, const CShVector3 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
+	virtual void	Initialize			(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
 	virtual void	Release				(void);
 
 	virtual void	Update				(float dt);
@@ -39,9 +58,10 @@ protected:
 	CShIdentifier			m_levelIdentifier;
 
 	ETowerType				m_eTowerType;
+	ETowerAttackType		m_eTowerAttackType;
 	EFocusType				m_eFocusType;
 
-	CShVector3				m_vPosition;
+	CShVector2				m_vPosition;
 
 	float					m_fRadiusMin;
 	float					m_fRadiusMax;
@@ -65,8 +85,7 @@ protected:
 	float					m_fAnimationDt;
 	float					m_fAnimationSpeed;
 	int						m_currentSprite;
-	CShArray<ShEntity2 *>	m_aAttackAnimation;
-
-	//Évolutions possibles	
+	EAnimationType			m_eCurrentAnimationType;
+	CShArray<ShEntity2 *>	m_aAttackAnimation[animation_max];
 };
 
