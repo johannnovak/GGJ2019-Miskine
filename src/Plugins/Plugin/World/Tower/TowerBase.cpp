@@ -228,7 +228,7 @@ void TowerBase::Update(float dt)
  */
 void TowerBase::SetShowDebugInfo(bool bShow)
 {
-	ShPrimitiveCircle::SetShow(m_pDebugRadiusMax, bShow);
+	ShPrimitiveCircle::SetShow(m_pDebugRadiusMin, bShow);
 	ShPrimitiveCircle::SetShow(m_pDebugRadiusMax, bShow);
 }
 
