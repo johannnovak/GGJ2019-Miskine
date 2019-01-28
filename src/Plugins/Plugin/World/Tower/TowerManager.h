@@ -35,6 +35,7 @@ public:
 
 	TowerBase *	CreateTower			(TowerBase::ETowerType towerType, TowerBase::EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed);
 	void		DeleteTower			(TowerBase * pTower);
+	int 		UpgradeTower		(TowerBase * pTowerToUpgrade);
 	int 		SellTower			(TowerBase * pTowerToSell);
 
 	void		GetTowerList		(CShArray<TowerBase *>& aTowerList);

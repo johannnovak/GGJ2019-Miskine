@@ -3,6 +3,9 @@
 #include "PathFinding/Graph.h"
 #include "World.h"
 
+#include "../Plugin.h"
+#include "../PluginFactory.h"
+
 static const float tower_radius = 30.0f;
 static const float half_tower_radius = tower_radius * 0.5f;
 
@@ -306,6 +309,36 @@ void World::CreateTower(const CShVector2 & position, TowerBase::ETowerType tower
 }
 
 /**
+ * @brief UpgradeTower
+ */
+void World::UpgradeTower(TowerBase * pTower)
+{
+	int iCost = m_towerManager.UpgradeTower(pTower);
+	LooseMoney(iCost);
+
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnTowerUpgraded(pTower);
+	}
+}
+
+/**
+ * @brief SellTower
+ */
+void World::SellTower(TowerBase * pTower)
+{
+	static_cast<Plugin*>(GetPlugin())->SetUnselectedTower();
+
+	int iGain = m_towerManager.SellTower(pTower);
+	GainMoney(iGain);
+
+	if (shNULL != m_pWorldListener)
+	{
+		m_pWorldListener->OnTowerSold(pTower);
+	}
+}
+
+/**
  * @brief SetGameSpeed
  */
 void World::SetGameSpeed(float fGameSpeed)
@@ -395,5 +428,14 @@ void World::GainMoney(int iAmountToGain)
 EnemyManager & World::GetEnemyManager(void)
 {
 	return m_enemyManager;
+}
+
+/**
+ * @brief World::GetTowerManager
+ * @return
+ */
+TowerManager & World::GetTowerManager(void)
+{
+	return m_towerManager;
 }
 

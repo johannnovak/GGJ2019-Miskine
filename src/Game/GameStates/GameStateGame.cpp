@@ -29,6 +29,8 @@ GameStateGame::GameStateGame(void)
 , m_pPlay(shNULL)
 , m_pFastForward(shNULL)
 , m_pMenu(shNULL)
+, m_pUpgrade(shNULL)
+, m_pSell(shNULL)
 , m_amepModeImages()
 , m_pEditBoxHidden(shNULL)
 , m_pTextPopup(shNULL)
@@ -90,6 +92,12 @@ void GameStateGame::init(void)
 	m_pMenu = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_menu").Append(strSuffix.Get()), m_pMainPanel));
 	SH_ASSERT(shNULL != m_pMenu);
 	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu, ButtonMainMenuClicked);
+	m_pUpgrade = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_upgrade").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pUpgrade);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pUpgrade, OnGUIUpgradeClicked);
+	m_pSell = static_cast<ShGUIControlButton*>(ShGUIControl::GetElementById(CShIdentifier("button_sell").Append(strSuffix.Get()), m_pMainPanel));
+	SH_ASSERT(shNULL != m_pSell);
+	ShGUIControlButton::AddSignalFctPtrClick(m_pSell, OnGUISellClicked);
 
 	m_pEditBoxHidden = static_cast<ShGUIControlEditBox*>(ShGUIControl::GetElementById(CShIdentifier("editbox_hidden").Append(strSuffix.Get()), ShGUI::GetRootControl()));
 	SH_ASSERT(shNULL != m_pEditBoxHidden);
@@ -100,7 +108,6 @@ void GameStateGame::init(void)
 
 	//
 	// Set Slots
-	ShGUIControlButton::AddSignalFctPtrClick(m_pMenu,				static_cast<pSignalSDKClick>(GameStateGame::OnGUIMenuClicked));
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPause,		reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIPauseSelected));
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pPlay,			reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIPlaySelected));
 	ShGUIControlRadioButton::AddSlotFctPtrSelected(m_pFastForward,	reinterpret_cast<pSlotSDKButtonSelected>(GameStateGame::OnGUIFastForwardSelected));
@@ -125,6 +132,8 @@ void GameStateGame::init(void)
 	ShGUIControl::SetIgnoreEvents(pPanelF6, false);
 	ShGUIControl::SetIgnoreEvents(pPanelRight, false);
 
+	ShGUIControl::Hide(m_pUpgrade);
+	ShGUIControl::Hide(m_pSell);
 }
 
 /**
@@ -513,9 +522,51 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 }
 
 /**
- * @brief GameStateGame::OnEventTypeMalusTowerAttackAOE
+ * @brief GameStateGame::OnTowerCreated
  */
 /*virtual*/ void GameStateGame::OnTowerCreated(TowerBase * pTower)
+{
+	// ...
+}
+
+/**
+ * @brief GameStateGame::OnTowerSelected
+ */
+/*virtual*/ void GameStateGame::OnTowerSelected(TowerBase * pTower)
+{
+	int iMoney = static_cast<Plugin*>(GetPlugin())->GetWorld().GetMoney();
+	if (iMoney >= pTower->GetNeededMoneyToUpgrade())
+	{
+		ShGUIControl::Show(m_pUpgrade);
+	}
+	ShGUIControl::Show(m_pSell);
+}
+
+/**
+ * @brief GameStateGame::OnTowerUnselected
+ */
+/*virtual*/ void GameStateGame::OnTowerUnselected(TowerBase * pTower)
+{
+	ShGUIControl::Hide(m_pUpgrade);
+	ShGUIControl::Hide(m_pSell);
+}
+
+/**
+ * @brief GameStateGame::OnTowerUpgraded
+ */
+/*virtual*/ void GameStateGame::OnTowerUpgraded(TowerBase * pTower)
+{
+	int iMoney = static_cast<Plugin*>(GetPlugin())->GetWorld().GetMoney();
+	if (iMoney < pTower->GetNeededMoneyToUpgrade())
+	{
+		ShGUIControl::Hide(m_pUpgrade);
+	}
+}
+
+/**
+ * @brief GameStateGame::OnTowerSold
+ */
+/*virtual*/ void GameStateGame::OnTowerSold(TowerBase * pTower)
 {
 	// ...
 }
@@ -558,6 +609,35 @@ void GameStateGame::OnEventTypeMalusTowerAttackAOE(int iMalusValue, float fDurat
 	SH_UNUSED(vPosition);
 
 	return false;
+}
+
+/**
+ * @brief GameStateGame::OnGUIUpgradeClicked
+ */
+/*static*/ bool GameStateGame::OnGUIUpgradeClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+
+	TowerBase * pTower = static_cast<Plugin*>(GetPlugin())->GetSelectedTower();
+	static_cast<Plugin*>(GetPlugin())->GetWorld().UpgradeTower(pTower);
+
+	return true;
+}
+
+/**
+ * @brief GameStateGame::OnGUISellClicked
+ */
+/*static*/ bool GameStateGame::OnGUISellClicked(ShGUIControl * pControl, const CShVector2 & vPosition)
+{
+	// TODO
+	SH_UNUSED(pControl);
+	SH_UNUSED(vPosition);
+
+	TowerBase * pTower = static_cast<Plugin*>(GetPlugin())->GetSelectedTower();
+	static_cast<Plugin*>(GetPlugin())->GetWorld().SellTower(pTower);
+
+	return true;
 }
 
 /**

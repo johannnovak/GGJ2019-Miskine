@@ -62,6 +62,10 @@ public:
 	virtual void		OnEventTypeMalusTowerAttackAOE		(int iMalusValue, float fDurationTime) SH_ATTRIBUTE_OVERRIDE;
 
 	virtual void		OnTowerCreated						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerSelected						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerUnselected					(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerUpgraded						(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
+	virtual void		OnTowerSold							(TowerBase * pTower) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnMoneyUpdated						(int iMoneyAmount) SH_ATTRIBUTE_OVERRIDE;
 	virtual void		OnHPUpdated							(int iHPAmount) SH_ATTRIBUTE_OVERRIDE;
 
@@ -69,6 +73,8 @@ public:
 protected:
 private:
 	static bool			OnGUIMenuClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
+	static bool			OnGUIUpgradeClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
+	static bool			OnGUISellClicked					(ShGUIControl * pControl, const CShVector2 & vPosition);
 	static bool			OnGUIPauseSelected					(ShGUIControl * pControl);
 	static bool			OnGUIPlaySelected					(ShGUIControl * pControl);
 	static bool			OnGUIFastForwardSelected			(ShGUIControl * pControl);
@@ -86,6 +92,8 @@ private:
 	ShGUIControlRadioButton *							m_pPlay;
 	ShGUIControlRadioButton *							m_pFastForward;
 	ShGUIControlButton *								m_pMenu;
+	ShGUIControlButton *								m_pUpgrade;
+	ShGUIControlButton *								m_pSell;
 	CShArrayMap<EPlayer2EventType, ShGUIControlImage*>	m_amepModeImages;
 
 	ShGUIControlEditBox *								m_pEditBoxHidden;

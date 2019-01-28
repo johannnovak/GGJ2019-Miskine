@@ -110,7 +110,20 @@ void TowerManager::DeleteTower(TowerBase * pTower)
 	if (-1 != iFindIndex)
 	{
 		m_aTowerList.Remove(iFindIndex);
+		SH_SAFE_RELEASE_DELETE(pTower);
 	}
+}
+	
+/**
+ * @brief UpgradeTower
+ */
+int TowerManager::UpgradeTower(TowerBase * pTowerToUpgrade)
+{
+	int iCost = pTowerToUpgrade->GetNeededMoneyToUpgrade();
+
+	pTowerToUpgrade->LevelUp();
+
+	return iCost;
 }
 	
 /**
@@ -150,9 +163,10 @@ int TowerManager::SellTower(TowerBase * pTowerToSell)
 		}
 
 		iMoneyToGain = static_cast<int>(iCost * (1.0f + 0.5f * pTowerToSell->GetLevel())  / 2.0f);
-		static_cast<Plugin*>(GetPlugin())->GetWorld().GainMoney(iMoneyToGain);
 
 		DeleteTower(pTowerToSell);
+
+		return iMoneyToGain;
 	}
 
 	return 0;

@@ -11,6 +11,7 @@ Plugin::Plugin(void)
 , m_pSelectionCircle(shNULL)
 , m_vSelectionPosition(0.0f, 0.0f)
 , m_pHoveredTower(shNULL)
+, m_pSelectedTower(shNULL)
 {
 	// ...
 }
@@ -101,58 +102,61 @@ void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 	TowerBase * pTower = shNULL;
 	if (m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
 	{
+		// ...
 	}
-
-	if (m_pSelectionCircle)
+	else
 	{
-		if (m_world.CanCreateTowerAtPos(pos))
+		if (m_pSelectionCircle)
 		{
-			m_vSelectionPosition = pos;
-			ShPrefab::SetWorldPosition2(m_pSelectionCircle, m_vSelectionPosition);
-			ShPrefab::SetShow(m_pSelectionCircle, true);
+			if (m_world.CanCreateTowerAtPos(pos))
+			{
+				m_vSelectionPosition = pos;
+				ShPrefab::SetWorldPosition2(m_pSelectionCircle, m_vSelectionPosition);
+				ShPrefab::SetShow(m_pSelectionCircle, true);
 
-			if (TowerManager::GetCostByType(TowerBase::tower_pere) > m_world.GetMoney())
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[0], false);
-				ShEntity2::SetShow(m_apEntitesUnavailable[0], true);
-			}
-			else
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[0], true);
-				ShEntity2::SetShow(m_apEntitesUnavailable[0], false);
-			}
+				if (TowerManager::GetCostByType(TowerBase::tower_pere) > m_world.GetMoney())
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[0], false);
+					ShEntity2::SetShow(m_apEntitesUnavailable[0], true);
+				}
+				else
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[0], true);
+					ShEntity2::SetShow(m_apEntitesUnavailable[0], false);
+				}
 
-			if (TowerManager::GetCostByType(TowerBase::tower_mere) > m_world.GetMoney())
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[1], false);
-				ShEntity2::SetShow(m_apEntitesUnavailable[1], true);
-			}
-			else
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[1], true);
-				ShEntity2::SetShow(m_apEntitesUnavailable[1], false);
-			}
+				if (TowerManager::GetCostByType(TowerBase::tower_mere) > m_world.GetMoney())
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[1], false);
+					ShEntity2::SetShow(m_apEntitesUnavailable[1], true);
+				}
+				else
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[1], true);
+					ShEntity2::SetShow(m_apEntitesUnavailable[1], false);
+				}
 
-			if (TowerManager::GetCostByType(TowerBase::tower_fils) > m_world.GetMoney())
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[2], false);
-				ShEntity2::SetShow(m_apEntitesUnavailable[2], true);
-			}
-			else
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[2], true);
-				ShEntity2::SetShow(m_apEntitesUnavailable[2], false);
-			}
+				if (TowerManager::GetCostByType(TowerBase::tower_fils) > m_world.GetMoney())
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[2], false);
+					ShEntity2::SetShow(m_apEntitesUnavailable[2], true);
+				}
+				else
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[2], true);
+					ShEntity2::SetShow(m_apEntitesUnavailable[2], false);
+				}
 
-			if (TowerManager::GetCostByType(TowerBase::tower_fille) > m_world.GetMoney())
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[3], false);
-				ShEntity2::SetShow(m_apEntitesUnavailable[3], true);
-			}
-			else
-			{
-				ShEntity2::SetShow(m_apEntitesAvailable[3], true);
-				ShEntity2::SetShow(m_apEntitesUnavailable[3], false);
+				if (TowerManager::GetCostByType(TowerBase::tower_fille) > m_world.GetMoney())
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[3], false);
+					ShEntity2::SetShow(m_apEntitesUnavailable[3], true);
+				}
+				else
+				{
+					ShEntity2::SetShow(m_apEntitesAvailable[3], true);
+					ShEntity2::SetShow(m_apEntitesUnavailable[3], false);
+				}
 			}
 		}
 	}
@@ -164,35 +168,44 @@ void Plugin::OnTouchDown(int iTouch, float positionX, float positionY)
 void Plugin::OnTouchUp(int iTouch, float positionX, float positionY)
 {
 	const CShVector2 pos(positionX, positionY);
-
-	if (m_pSelectionCircle)
+	
+	TowerBase * pTower = shNULL;
+	if (m_world.IsTowerAtPos(CShVector2(positionX, positionY), pTower))
 	{
-		if (ShPrefab::IsShow(m_pSelectionCircle))
+		SetSelectedTower(pTower);
+	}
+	else
+	{
+		SetUnselectedTower();
+		if (m_pSelectionCircle)
 		{
-			CShVector2 dir = pos - m_vSelectionPosition;
-			if (m_vSelectionPosition.Distance(pos) > 10.0f)
+			if (ShPrefab::IsShow(m_pSelectionCircle))
 			{
-				CShVector2 normalizedDir = dir.getNormalized();
-				float fCos = normalizedDir.DotProduct(CShVector2(1.0f, 0.0f));
-				float angle = acos(fCos);
-				if (normalizedDir.m_y > 0.0f && angle > SHC_PI_ON_4 && angle < SHC_3PI_ON_4)
+				CShVector2 dir = pos - m_vSelectionPosition;
+				if (m_vSelectionPosition.Distance(pos) > 10.0f)
 				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_pere);
+					CShVector2 normalizedDir = dir.getNormalized();
+					float fCos = normalizedDir.DotProduct(CShVector2(1.0f, 0.0f));
+					float angle = acos(fCos);
+					if (normalizedDir.m_y > 0.0f && angle > SHC_PI_ON_4 && angle < SHC_3PI_ON_4)
+					{
+						m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_pere);
+					}
+					else if (normalizedDir.m_y < 0.0f && angle > SHC_PI_ON_4 && angle < SHC_3PI_ON_4)
+					{
+						m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fils);
+					}
+					else if (normalizedDir.m_x < 0.0f && angle > SHC_3PI_ON_4)
+					{
+						m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fille);
+					}
+					else if (normalizedDir.m_x > 0.0f && angle < SHC_PI_ON_4)
+					{
+						m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_mere);
+					}
 				}
-				else if (normalizedDir.m_y < 0.0f && angle > SHC_PI_ON_4 && angle < SHC_3PI_ON_4)
-				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fils);
-				}
-				else if (normalizedDir.m_x < 0.0f && angle > SHC_3PI_ON_4)
-				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_fille);
-				}
-				else if (normalizedDir.m_x > 0.0f && angle < SHC_PI_ON_4)
-				{
-					m_world.CreateTower(m_vSelectionPosition, TowerBase::tower_mere);
-				}
+				ShPrefab::SetShow(m_pSelectionCircle, false);
 			}
-			ShPrefab::SetShow(m_pSelectionCircle, false);
 		}
 	}
 }
@@ -212,7 +225,10 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 		}
 		else if (pTower != m_pHoveredTower)
 		{
-			m_pHoveredTower->SetShowDebugInfo(false);
+			if (m_pHoveredTower != m_pSelectedTower)
+			{
+				m_pHoveredTower->SetShowDebugInfo(false);
+			}
 			m_pHoveredTower = pTower;
 			m_pHoveredTower->SetShowDebugInfo(true);
 		}
@@ -221,10 +237,55 @@ void Plugin::OnTouchMove(int iTouch, float positionX, float positionY)
 	{
 		if (shNULL != m_pHoveredTower)
 		{
-			m_pHoveredTower->SetShowDebugInfo(false);
+			if (m_pHoveredTower != m_pSelectedTower)
+			{
+				m_pHoveredTower->SetShowDebugInfo(false);
+			}
 			m_pHoveredTower = shNULL;
 		}
 	}
+}
+
+/**
+ * @brief SetSelectedTower
+ */
+void Plugin::SetSelectedTower(TowerBase * pTower)
+{
+	if (shNULL != m_pSelectedTower)
+	{
+		SetUnselectedTower();
+	}
+	SH_ASSERT(shNULL == m_pSelectedTower);
+	SH_ASSERT(shNULL != pTower);
+
+	m_pSelectedTower = pTower;
+	m_pSelectedTower->SetShowDebugInfo(true);
+
+	//
+	// Notify listeners
+	if (shNULL != m_world.m_pWorldListener)
+	{
+		m_world.m_pWorldListener->OnTowerSelected(m_pSelectedTower);
+	}
+}
+
+/**
+ * @brief SetUnselectedTower
+ */
+void Plugin::SetUnselectedTower(void)
+{
+	//
+	// Notify listeners
+	if (shNULL != m_pSelectedTower)
+	{
+		if (shNULL != m_world.m_pWorldListener)
+		{
+			m_world.m_pWorldListener->OnTowerUnselected(m_pSelectedTower);
+		}
+		m_pSelectedTower->SetShowDebugInfo(false);
+	}
+	
+	m_pSelectedTower = shNULL;
 }
 
 /**
@@ -241,11 +302,18 @@ float Plugin::GetDistanceSquared(const CShVector2 & start, const CShVector2 & de
 	return delta.DotProduct(delta);
 }
 
-
 /**
  * @brief GetWorld
  */
 World & Plugin::GetWorld(void)
 {
 	return m_world;
+}
+
+/**
+ * @brief GetSelectedTower
+ */
+TowerBase *Plugin::GetSelectedTower(void)
+{
+	return m_pSelectedTower;
 }

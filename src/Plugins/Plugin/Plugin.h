@@ -27,9 +27,13 @@ public:
 	void							OnTouchUp					(int iTouch, float positionX, float positionY);
 	void							OnTouchMove					(int iTouch, float positionX, float positionY);
 
+	void							SetSelectedTower			(TowerBase * pTower);
+	void							SetUnselectedTower			(void);
+
 	static float					GetDistanceSquared			(const CShVector2 & start, const CShVector2 & dest);
 
 	World &							GetWorld					(void);
+	TowerBase *						GetSelectedTower			(void);
 private:
 
 	World				m_world;
@@ -37,6 +41,7 @@ private:
 	ShPrefab *			m_pSelectionCircle;
 	CShVector2			m_vSelectionPosition;
 	TowerBase *			m_pHoveredTower;
+	TowerBase *			m_pSelectedTower;
 
 	ShEntity2 *			m_apEntitesAvailable [4];
 	ShEntity2 *			m_apEntitesUnavailable[4];

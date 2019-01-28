@@ -12,7 +12,7 @@
 #define DEFAULT_HP_DIFFICULTY_HIGH 10
 
 #define DEFAULT_MONEY_DIFFICULTY_LOW 1500
-#define DEFAULT_MONEY_DIFFICULTY_MEDIUM 1000
+#define DEFAULT_MONEY_DIFFICULTY_MEDIUM 10000
 #define DEFAULT_MONEY_DIFFICULTY_HIGH 500
 
 class World
@@ -35,8 +35,11 @@ public:
 	bool					IsTowerAtPos			(const CShVector2 & position, TowerBase * & pTowerOut);
 	bool					CanCreateTowerAtPos		(const CShVector2 & position);
 	void					CreateTower				(const CShVector2 & position, TowerBase::ETowerType towerType);
+	void					UpgradeTower			(TowerBase * pTower);
+	void					SellTower				(TowerBase * pTower);
 
 	EnemyManager &			GetEnemyManager		(void);
+	TowerManager &			GetTowerManager		(void);
 
 	void					SetGameSpeed	(float fGameSpeed);
 	void					SetWave			(int iWave);
@@ -67,7 +70,7 @@ private:
 	int						m_iWave;
 	int						m_iHP;
 	int						m_iMoney;
-
+public:
 	IWorldListener *	m_pWorldListener;
 };
 
