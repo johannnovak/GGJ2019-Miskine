@@ -27,6 +27,14 @@ public:
 		animation_max
 	};
 
+	enum EAnimationState
+	{
+		state_normal,
+		state_cg,
+
+		state_max
+	};
+
 	enum EState
 	{
 		e_state_on,
@@ -38,7 +46,7 @@ public:
 	explicit			 Enemy				(void);
 	virtual				~Enemy				(void);
 
-	void				Initialize			(const CShArray<ShEntity2*> aEntity[animation_max], const CShArray<ShEntity2*> aEntityCG[animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
+	void				Initialize			(const CShArray<ShEntity2*> aEntity[state_max][animation_max], ShEntity2* pEntityLifebar, int iBaseHealth);
 	void				Release				(void);
 
 	void				Start				(const CShVector2 & vPosition, const CShVector2 & vDestination, float fSpeed);
@@ -61,6 +69,7 @@ public:
 
 	bool				IsDead				(void);
 
+	void				UpdateAnimationState(EAnimationState newState);
 private:
 	
 private:
@@ -88,7 +97,7 @@ private:
 	float					m_fAnimationSpeed;
 	int						m_currentSprite;
 	EAnimationType			m_eCurrentAnimationType;
-	CShArray<ShEntity2 *>	m_aMoveAnimation[animation_max];
-	CShArray<ShEntity2 *>	m_aMoveAnimationCG[animation_max];
+	EAnimationState			m_eCurrentAnimationState;
+	CShArray<ShEntity2 *>	m_aMoveAnimation[state_max][animation_max];
 };
 
