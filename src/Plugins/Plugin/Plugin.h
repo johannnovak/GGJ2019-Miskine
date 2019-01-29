@@ -39,6 +39,7 @@ private:
 	World				m_world;
 
 	ShPrefab *			m_pSelectionCircle;
+	bool				m_bSelectionCircle;
 	CShVector2			m_vSelectionPosition;
 	TowerBase *			m_pHoveredTower;
 	TowerBase *			m_pSelectedTower;
