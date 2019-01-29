@@ -77,14 +77,6 @@ void TowerMelee::Initialize(const CShIdentifier & levelIdentifier, EnemyManager 
 }
 
 /**
- * @brief Release
- */
-void TowerMelee::Release(void)
-{
-
-}
-
-/**
  * @brief Update
  */
 void TowerMelee::Update(float dt)

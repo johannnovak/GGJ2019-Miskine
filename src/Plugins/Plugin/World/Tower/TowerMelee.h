@@ -11,8 +11,7 @@ public:
 	explicit	 TowerMelee					(void);
 	virtual		~TowerMelee					(void);
 
-	void		Initialize					(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f);
-	void		Release						(void);
+	virtual void	Initialize				(const CShIdentifier & levelIdentifier, EnemyManager * pEnemyManager, TowerBase::ETowerType towerType, EFocusType focusType, const CShVector2 & position, int damages, float attackSpeed, float rangeAOE = -1.0f) SH_ATTRIBUTE_OVERRIDE;
 
-	void		Update						(float dt);
+	virtual void	Update					(float dt) SH_ATTRIBUTE_OVERRIDE;
 };
