@@ -184,7 +184,8 @@ void GameStateGame::exiting(void)
 {
 	ShGUIControlPanel::Hide(m_pMainPanel);
 	ShGUIControlText::Hide(m_pTextPopup);
-	ShGUIControlRadioButton::Select(m_pPause);
+	ShGUIControlRadioButton::Select(m_pPause); 
+	ShLevel::Release();
 }
 
 /**

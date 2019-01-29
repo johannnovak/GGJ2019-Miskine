@@ -34,6 +34,7 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 {
 	m_pEnemyManager = pEnemyManager;
 	m_levelIdentifier = levelIdentifier;
+	m_eState = e_state_off;
 
 	CShArray<CShVector2> aStartPosition;
 	aStartPosition.Add(CShVector2(-325.0f, 268.0f));
@@ -63,6 +64,7 @@ void WaveManager::Initialize(const CShIdentifier & levelIdentifier, EnemyManager
 	InitWave(aStartPosition, vEndPosition, 15, 50.0f, 0.2f, 10.0f);
 	
 	m_iCurrentWave = 0;
+	m_fTime = 0.0f;
 }
 
 /**
@@ -72,9 +74,11 @@ void WaveManager::Release(void)
 {
 	for (int i = 0; i < m_aWave.GetCount(); i++)
 	{
-		Wave & wave = m_aWave[i];
-		wave.Release();
+		m_aWave[i].Release();
 	}
+	m_aWave.Empty();
+
+	m_apActiveWave.Empty();
 }
 
 /**
@@ -163,7 +167,4 @@ void WaveManager::AddNextWave(void)
 	Wave & wave = m_aWave[m_iCurrentWave];
 	m_apActiveWave.Add(&wave);
 	wave.Start();
-
-
-	
 }

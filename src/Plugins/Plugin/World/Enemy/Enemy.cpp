@@ -90,7 +90,7 @@ void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination, 
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
 	m_fSpeed = fSpeed;
 
-	ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationType][m_eCurrentAnimationType][m_currentSprite], position);
+	ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], position);
 	ShEntity2::SetPosition2(m_aMoveAnimation[0][0][0], position);
 	ShEntity2::SetPositionZ(m_pEntityLifeBar, ShEntity2::GetWorldPositionZ(m_aMoveAnimation[0][0][0]) + 0.01f);
 
