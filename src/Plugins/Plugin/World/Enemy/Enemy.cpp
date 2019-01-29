@@ -59,6 +59,9 @@ void Enemy::Initialize(const CShArray<ShEntity2*> aEntity[state_max][animation_m
 
 	m_baseHealth = iBaseHealth;
 	m_pEntityLifeBar = pEntityLifebar;
+	m_currentSprite = 0; 
+	m_eCurrentAnimationType = animation_top;
+	m_eCurrentAnimationState = state_normal;
 }
 
 /**
@@ -89,6 +92,22 @@ void Enemy::Start(const CShVector2 & position, const CShVector2 & vDestination, 
 	m_vPosition = position;
 	m_vStartPosition = CShVector2(m_vPosition.m_x, m_vPosition.m_y);
 	m_fSpeed = fSpeed;
+
+	m_currentSprite = 0;
+	m_eCurrentAnimationType = animation_top;
+	m_eCurrentAnimationState = state_normal;
+
+	for (int k = 0; k < state_max; ++k)
+	{
+		for (int i = 0; i < animation_max; ++i)
+		{
+			int nAnimCount = m_aMoveAnimation[k][i].GetCount();
+			for (int j = 0; j < nAnimCount; ++j)
+			{
+				ShEntity2::SetAlpha(m_aMoveAnimation[k][i][j], 1.0f);
+			}
+		}
+	}
 
 	ShEntity2::SetPosition2(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], position);
 	ShEntity2::SetPosition2(m_aMoveAnimation[0][0][0], position);
@@ -160,8 +179,8 @@ void Enemy::SetState(EState state)
 
 		case e_state_off: 
 		{
-			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], false, false);
-			ShEntity2::SetShow(m_aMoveAnimation[0][0][0], false, false);
+			ShEntity2::SetShow(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], false);
+			ShEntity2::SetShow(m_aMoveAnimation[0][0][0], false);
 		}
 		break;
 
@@ -184,16 +203,6 @@ void Enemy::Update(float dt)
 {
 	m_fStateTime += dt;
 
-	if (m_eCurrentAnimationState == state_cg)
-	{
-		m_fSlowDt += dt;
-		if (m_fSlowDt >= m_fSlowTime)
-		{
-			m_fSlowEffect = 1.0f;
-			UpdateAnimationState(state_normal);
-		}
-	}
-
 	if (e_state_appear == m_eState)
 	{
 		if (m_fStateTime < 1.0f)
@@ -215,13 +224,23 @@ void Enemy::Update(float dt)
 		}
 		else
 		{
-			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], 0.0f);
+			ShEntity2::SetAlpha(m_aMoveAnimation[m_eCurrentAnimationState][m_eCurrentAnimationType][m_currentSprite], 0.0f);		
+			ShEntity2::SetAlpha(m_aMoveAnimation[0][0][0], 0.0f);
 			SetState(e_state_off);
 		}
 	}
+	else if (e_state_on == m_eState)
+	{
+		if (m_eCurrentAnimationState == state_cg)
+		{
+			m_fSlowDt += dt;
+			if (m_fSlowDt >= m_fSlowTime)
+			{
+				m_fSlowEffect = 1.0f;
+				UpdateAnimationState(state_normal);
+			}
+		}
 
-	if (e_state_on == m_eState)
-	{	
 		if (m_iDestinationNode < m_aNodes.GetCount())
 		{
 			m_fCompletion += dt * ((m_fSpeed * m_fSlowEffect) / (1.0f + m_v.GetLength()));
@@ -382,6 +401,14 @@ const int & Enemy::GetCurrentHealth(void) const
 bool Enemy::IsDead(void)
 {
 	return (m_eState == e_state_disappear || m_eState == e_state_off);
+}
+
+/**
+ * @brief IsDead
+ */
+bool Enemy::CanBeFocused(void)
+{
+	return (m_eState == e_state_on);
 }
 
 /**

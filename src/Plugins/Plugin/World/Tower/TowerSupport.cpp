@@ -96,8 +96,10 @@ void TowerSupport::Update(float dt)
 
 			if (m_bIsAttacking)
 			{
-				m_pCurrentTarget->TakeSlowEffect(0.5f);
-
+				if (m_pCurrentTarget->CanBeFocused())
+				{
+					m_pCurrentTarget->TakeSlowEffect(0.5f);
+				}
 				m_bIsAttacking = false;
 				m_fAttackCooldown = m_fAttackSpeed;
 				m_eCurrentAnimationType = animation_idle;

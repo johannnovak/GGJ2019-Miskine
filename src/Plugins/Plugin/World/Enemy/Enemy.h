@@ -67,7 +67,8 @@ public:
 	const int &			GetBaseHealth		(void) const;
 	const int &			GetCurrentHealth	(void) const;
 
-	bool				IsDead				(void);
+	bool				IsDead				(void); 
+	bool				CanBeFocused		(void);
 
 	void				UpdateAnimationState(EAnimationState newState);
 private:
