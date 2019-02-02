@@ -326,6 +326,10 @@ void Player2EventManager::Update(float dt)
 				case e_player2_event_type_random_keys:
 				{
 					m_pCurrentEvent->Reset(m_iCurrentEventStreak);
+					if (shNULL != m_pPlayer2EventListener)
+					{
+						m_pPlayer2EventListener->OnEventTypeBegin(m_pCurrentEvent);
+					}
 				}
 				break;
 

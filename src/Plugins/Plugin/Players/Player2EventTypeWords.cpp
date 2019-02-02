@@ -71,7 +71,7 @@
 			int iCorrectStrLength = m_wstrWordToType.GetLength();
 			for (int iInputCharIndex = 0; iInputCharIndex < iInputLength; ++iInputCharIndex)
 			{
-				if (m_iCurrentIndex+1 < iCorrectStrLength && m_wstrWordToType[m_iCurrentIndex+1] == wstrInputText[iInputCharIndex])
+				if (m_iCurrentIndex < iCorrectStrLength && m_wstrWordToType[m_iCurrentIndex] == wstrInputText[iInputCharIndex])
 				{
 					++m_iCurrentIndex;
 				}
